@@ -1,6 +1,7 @@
 import './App.css';
 import Navigation from './components/navigation/nav';
 import Logo1 from './components/logo/logo1';
+
 import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
 import SignIn from './components/signIn/signIn.jsx';
@@ -57,7 +58,7 @@ class App extends Component {
         <Register loadUser={this.loadUser} onroutechange={this.onroutechange}/>
         <ParticlesBg type="polygon" bg={true} className='particles' />
         </>
-        :<><Logo1 />
+        :<>
         <ParticlesBg type="cobweb" bg={true} className='particles' />
         </>)
         }
