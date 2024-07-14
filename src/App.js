@@ -45,6 +45,9 @@ class App extends Component {
     const {isSignedIn, route} = this.state
     return (
       <div className="App">
+        <Helmet>
+          <title>Care4Crisis</title>
+        </Helmet>
         <Navigation issignedin={isSignedIn} onroutechange={this.onroutechange}/>
         {route === 'signin'
         ? <>
