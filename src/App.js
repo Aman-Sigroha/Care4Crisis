@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
 import SignIn from './components/signIn/signIn.jsx';
 import Register from './components/register/register.jsx';
+import { Helmet } from 'react-helmet';
 
 const initialState = {
   route: 'signin',
