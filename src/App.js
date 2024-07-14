@@ -1,7 +1,5 @@
 import './App.css';
 import Navigation from './components/navigation/nav';
-import Logo1 from './components/logo/logo1';
-
 import React, { Component } from 'react';
 import ParticlesBg from 'particles-bg';
 import SignIn from './components/signIn/signIn.jsx';
