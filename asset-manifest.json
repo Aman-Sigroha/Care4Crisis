@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Care4Crisis/static/css/main.bf4fd34b.css",
+    "main.js": "/Care4Crisis/static/js/main.3904d273.js",
+    "static/js/453.e8800af4.chunk.js": "/Care4Crisis/static/js/453.e8800af4.chunk.js",
+    "index.html": "/Care4Crisis/index.html",
+    "main.bf4fd34b.css.map": "/Care4Crisis/static/css/main.bf4fd34b.css.map",
+    "main.3904d273.js.map": "/Care4Crisis/static/js/main.3904d273.js.map",
+    "453.e8800af4.chunk.js.map": "/Care4Crisis/static/js/453.e8800af4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf4fd34b.css",
+    "static/js/main.3904d273.js"
+  ]
+}
