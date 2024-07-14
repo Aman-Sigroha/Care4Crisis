@@ -30,7 +30,7 @@ class Register extends Component{
     }
 
     onSubmitRegister = () => {
-        fetch('https://face-detection-api-version-1.onrender.com/register', {
+        fetch('https://care4crisis-api.onrender.com/register', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({ email: this.state.email, password: this.state.password, name: this.state.name})
