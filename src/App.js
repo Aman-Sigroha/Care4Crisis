@@ -5,6 +5,7 @@ import ParticlesBg from 'particles-bg';
 import SignIn from './components/signIn/signIn.jsx';
 import Register from './components/register/register.jsx';
 import { Helmet } from 'react-helmet';
+import Home from './components/home/home.jsx';
 
 const initialState = {
   route: 'signin',
@@ -49,21 +50,36 @@ class App extends Component {
         <Helmet>
           <title>Care4Crisis</title>
         </Helmet>
-        <Navigation issignedin={isSignedIn} onroutechange={this.onroutechange}/>
-        {route === 'signin'
-        ? <>
-        <SignIn loadUser={this.loadUser} onroutechange={this.onroutechange}/>
-        <ParticlesBg type="fountain" bg={true} className='particles' />
-        </>
-        : ( route === 'register'
-        ? <>
-        <Register loadUser={this.loadUser} onroutechange={this.onroutechange}/>
-        <ParticlesBg type="polygon" bg={true} className='particles' />
-        </>
-        :<>
-        <ParticlesBg type="cobweb" bg={true} className='particles' />
-        </>)
-        }
+        {route === "signin" ? (
+          <>
+            <Navigation
+              issignedin={isSignedIn}
+              onroutechange={this.onroutechange}
+            />
+            <SignIn
+              loadUser={this.loadUser}
+              onroutechange={this.onroutechange}
+            />
+            <ParticlesBg type="fountain" bg={true} className="particles" />
+          </>
+        ) : route === "register" ? (
+          <>
+            <Navigation
+              issignedin={isSignedIn}
+              onroutechange={this.onroutechange}
+            />
+            <Register
+              loadUser={this.loadUser}
+              onroutechange={this.onroutechange}
+            />
+            <ParticlesBg type="polygon" bg={true} className="particles" />
+          </>
+        ) : (
+          <>
+            <Home />
+            
+          </>
+        )}
       </div>
     );
   }
