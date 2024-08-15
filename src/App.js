@@ -76,7 +76,7 @@ class App extends Component {
           </>
         ) : (
           <>
-            <Home />
+            <Home userName="Aman"/>
             
           </>
         )}
