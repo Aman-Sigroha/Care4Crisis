@@ -4,6 +4,7 @@
     background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner1.jpg');
     background-size: cover;
     position: relative;
+    transition: background-image 1s ease;
     animation: changeBackground 30s infinite;
 }
 @keyframes changeBackground {

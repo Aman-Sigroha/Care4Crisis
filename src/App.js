@@ -76,7 +76,7 @@ class App extends Component {
           </>
         ) : (
           <>
-            <Home userName="Aman"/>
+            <Home userName="Aman" isSignedIn={true}/>
             
           </>
         )}

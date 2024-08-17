@@ -13,7 +13,7 @@ class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: 'Care4Crisis'
+            companyName: 'Care4Crisis'
         }
     }
     render() {
@@ -22,25 +22,29 @@ class Home extends Component {
             <a id="top"></a>
             <div id='1' className='image'>
               <div className='logoContainer'>
-                <h1 className='logo'>{this.state.name}</h1>
+                <h1 className='logo'>{this.state.companyName}</h1>
                 <div className='buttonContainer'>
-                  <Button className='button' variant="primary"><h2>Donate</h2></Button>
-                  <Button className='button' variant="primary"><h2>Explore</h2></Button>
+                  <Button className='banner_button donate' variant="primary"><h2>Donate</h2></Button>
+                  <Button className='banner_button explore' variant="primary"><h2>Explore</h2></Button>
                 </div>
               </div>
             </div>
             <Navbar className='sticky-navbar' bg="dark" data-bs-theme="dark">
               <Container>
-                <Navbar.Brand href="#home">{this.state.name}</Navbar.Brand>
+                <Navbar.Brand href="#home">{this.state.companyName}</Navbar.Brand>
                 <Nav className="me-auto">
                   <Nav.Link href="#top">Home</Nav.Link>
                   <Nav.Link href="#about">About Us</Nav.Link>
                   <Nav.Link href="#pricing">Pricing</Nav.Link>
                 </Nav>
                 <Navbar.Collapse className="justify-content-end">
-                  <Navbar.Text>
-                    Signed in as: <a href="#login">{this.props.userName}</a>
-                  </Navbar.Text>
+                  {this.props.isSignedIn == false ? (
+                    <Nav.Link href="#pricing">Pricing</Nav.Link>
+                  ) : (
+                    <Navbar.Text>
+                    Signed in as: <a href="#account" className='name'>{this.props.userName}</a>
+                    </Navbar.Text>
+                  )}
                 </Navbar.Collapse>
               </Container>
             </Navbar>
