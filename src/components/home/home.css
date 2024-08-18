@@ -4,6 +4,7 @@
     background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner1.jpg');
     background-size: cover;
     position: relative;
+    transition: 9s background-image ease ;
     animation: changeBackground 30s infinite;
 }
 @keyframes changeBackground {
@@ -24,35 +25,42 @@
     }
     33.33% {
         background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner4.jpg'); 
-        background-position-y: center;
+        background-position: center;
+        background-size: cover;
+
     }
     44.44% {
         background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner5.jpg'); 
         background-position: center;
+        background-size: cover;
 
     }
     55.55% {
         background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner6.jpg'); 
         background-position: center;
-
+        background-size: cover;
     }
     66.66% {
         background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner7.jpg');
+        background-size: cover;
     }
     77.77% {
-        background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner8.jpg'); 
+        background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner8.jpg');
+        background-size: cover; 
     }
     88.88% {
         background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner9.jpg');
+        background-size: cover;
     }
     100% {
         background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.3)), url('../../../public/banner1.jpg');
+        background-size: cover;
     }
 }
 
 .logo {
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: 6em;
 }
 
@@ -67,7 +75,6 @@
     margin: 0 10%;
     padding: 10px;
     border-radius: 60px;
-    
 }
 
 .buttonContainer {
@@ -102,15 +109,21 @@
         right: -180%; 
     }
     to {
-        right: 0; 
+        right: 0;  
     }
 }
 
 /* hover for all buttons*/
 button:hover{
     transform: scale(1.2);
-    background-color: rgb(123, 204, 204) !important;
-    color: black !important;
+    background-color: rgb(0, 38, 255) !important;
+    color: rgb(255, 255, 255) !important;
+    box-shadow: 0px 8px 15px rgb(0, 238, 255);
+}
+
+button:active{
+    background-color: rgb(255, 255, 255) !important;
+    color: rgb(0, 0, 0) !important;
 }
 
 /* navbar */
@@ -134,4 +147,68 @@ button:hover{
 
 .name:hover{
     border-color: transparent !important;
+}
+
+/* about*/
+.about{
+    background-size: cover;
+    padding: 0px 150px 0px 150px;
+}
+.about1{
+    padding-top: 6rem;
+    padding-top: 6rem;
+    background-color: transparent;
+}
+.sectionTitle{
+    align-items: center;
+    justify-content: center;
+}
+.sectionTitle h2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+    font-weight: 900;
+    color: #ffffff;
+    font-size: 4rem;
+}
+.aboutName{
+    color: #000000 !important;
+    font-weight: 900;
+    margin-left: 10px;
+    font-size: 4rem;  
+}
+.about1 p{
+    color: #ffffff;
+    font-weight: 400;
+    font-size: large;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 5rem;
+}
+
+/* cards */
+.aboutCardHolder{
+    height: 30rem;
+    background-color: transparent;
+    display: flex;
+    justify-content: space-between;
+}
+.aboutCard{
+    width: 30%;
+    height: 100%;
+    background-color: #000000;
+}
+.aboutImageHolder{
+    height: 90%;
+}
+.aboutCardTitle h2, .aboutCardTitle h5{
+    color: #ffffff;
+    margin: 8% 4% 0% 4% ;
+}
+.aboutCardTitle h5{
+    color: #FCF300;
+}
+.aboutPara{
+    color: #ffffff;
+    margin-top: 9%;
 }
