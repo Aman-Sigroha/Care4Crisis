@@ -1,0 +1,25 @@
+.aboutCard{
+    border-radius: 3%;
+    width: 23rem;
+    height: 100%;
+    background-color: #000000;
+    margin-bottom: 2rem;
+}
+.aboutImageHolder{
+    height: 90%;
+}
+.aboutCardTitle h2, .aboutCardTitle h5{
+    color: #ffffff;
+    margin: 8% 4% 0% 4% ;
+}
+.aboutCardTitle h5{
+    color: #FCF300;
+    font-family: sans-serif;
+}
+.aboutPara{
+    color: #ffffff;
+    margin-top: 9%;
+    margin-bottom: 3%;
+    margin-left: 2%;
+    margin-right: 2%;
+}

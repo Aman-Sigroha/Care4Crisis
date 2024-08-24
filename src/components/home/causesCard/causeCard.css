@@ -1,0 +1,48 @@
+.causeCard{
+    border-bottom-left-radius: 6%;
+    border-bottom-right-radius: 6%;
+    width: 23rem;
+    height: 100%;
+    margin-bottom: 2rem;
+    border: 1px solid rgb(255, 255, 255);
+    border-top: none;
+    height: 35rem;
+}
+.causeImageHolder{
+    height: 90%;
+}
+.causeCardTitle h3{ 
+    color: rgb(255, 255, 255);
+    margin: 8% 4% 0% 4% ;
+    height: 4rem;
+    font-family: sans-serif;
+}
+
+.causePara{
+    color: orange;
+    margin-top: 9%;
+    margin-bottom: 3%;
+    margin-left: 2%;
+    margin-right: 2%;
+}
+.bar{
+    background-color: black;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-style: italic;
+    height: 2rem;
+    margin-top: 9%;
+    margin-bottom: 3%;
+    margin-left: 4%;
+    margin-right: 4%;
+    border: 1px solid orange;
+}
+.progressReport{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    color: orange;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
