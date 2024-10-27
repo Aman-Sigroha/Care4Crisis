@@ -1,0 +1,146 @@
+:root {
+    --primary-blue: #3B82F6;
+    --light-blue: #60A5FA;
+    --text-gray: #9CA3AF;
+  }
+  
+  .footer {
+    width: 100%;
+  }
+  
+  .top-banner {
+    background-color: var(--primary-blue);
+    padding: 2rem 0;
+    color: white;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .top-banner .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  .banner-text {
+    font-size: 1.5rem;
+    margin: 0;
+    flex: 1;
+  }
+  
+  .volunteer-btn {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .volunteer-btn:hover {
+    background: white;
+    color: var(--primary-blue);
+  }
+  
+  .main-footer {
+    background-color: #1F2937;
+    color: white;
+    padding: 4rem 0;
+  }
+  
+  .footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  
+  .footer-section h3 {
+    color: white;
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+  }
+  
+  .footer-section p {
+    color: var(--text-gray);
+    line-height: 1.6;
+  }
+  
+  .read-more {
+    background: none;
+    border: none;
+    color: var(--light-blue);
+    padding: 0;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .footer-links li {
+    margin-bottom: 0.75rem;
+  }
+  
+  .footer-links a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-links a:hover {
+    color: var(--light-blue);
+  }
+  
+  .recent-posts .post {
+    margin-bottom: 1rem;
+  }
+  
+  .recent-posts a {
+    color: var(--text-gray);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease;
+  }
+  
+  .recent-posts a:hover {
+    color: var(--light-blue);
+  }
+  
+  .date {
+    color: var(--text-gray);
+    font-size: 0.875rem;
+  }
+  
+  .contact-info p {
+    margin-bottom: 1rem;
+  }
+  
+  .contact-info strong {
+    color: white;
+  }
+  
+  @media (max-width: 768px) {
+    .top-banner .container {
+      flex-direction: column;
+      text-align: center;
+    }
+    
+    .banner-text {
+      font-size: 1.25rem;
+    }
+    
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+  }

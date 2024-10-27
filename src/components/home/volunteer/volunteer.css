@@ -1,0 +1,130 @@
+.volunteer-container {
+  min-height: 600px; /* Increased from 400px */
+  background-color: black;
+  color: white;
+  padding: 4rem 2rem; /* Increased padding */
+}
+
+.content-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem; /* Increased gap */
+  align-items: center;
+  height: 100%;
+}
+
+.cta-card {
+  background-color: white;
+  color: black;
+  padding: 3rem; /* Increased padding */
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.cta-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Increased gap */
+}
+
+.join-text {
+  color: #f97316;
+  margin: 0;
+  font-size: 1.2rem; /* Increased font size */
+}
+
+.heading {
+  font-size: 2.5rem; /* Increased font size */
+  font-weight: bold;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.description {
+  color: #4b5563;
+  margin: 0;
+  line-height: 1.7; /* Increased line height */
+  font-size: 1.1rem; /* Increased font size */
+}
+
+.join-button {
+  background-color: #f97316;
+  color: white;
+  padding: 1rem 2rem; /* Increased padding */
+  border-radius: 0.375rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: fit-content;
+  font-weight: 500;
+  font-size: 1.1rem; /* Increased font size */
+}
+
+.join-button:hover {
+  background-color: #ea580c;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem; /* Increased gap */
+  padding: 2rem; /* Added padding */
+}
+
+.stat-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem; /* Increased gap */
+}
+
+.stat-icon {
+  width: 3.5rem; /* Increased size */
+  height: 3.5rem; /* Increased size */
+  color: #f97316;
+}
+
+.stat-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.stat-number {
+  font-size: 3.5rem; /* Increased font size */
+  font-weight: bold;
+}
+
+.stat-label {
+  color: #d1d5db;
+  font-size: 1.2rem; /* Increased font size */
+}
+
+/* Media query for desktop */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    min-height: 500px; /* Added minimum height for desktop */
+  }
+  
+  .volunteer-container {
+    min-height: 700px; /* Increased height for desktop */
+  }
+}
+
+/* Media query for larger screens */
+@media (min-width: 1024px) {
+  .volunteer-container {
+    min-height: 800px; /* Further increased height for larger screens */
+  }
+  
+  .heading {
+    font-size: 3rem; /* Larger heading for bigger screens */
+  }
+}
