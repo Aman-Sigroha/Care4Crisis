@@ -81,11 +81,32 @@ const DonationPage = () => {
     navigate(`${BASE_PATH}/donation-success`);
   };
 
-  // Placeholder QR code URL - in a real app, this would be dynamically generated
+  // Get wallet address based on selected cryptocurrency
+  const getWalletAddress = (cryptoCurrency) => {
+    // Different wallet addresses for different cryptocurrencies
+    const wallets = {
+      ETH: '0xFCe725102101817eC210FcE24F0ec91E277c7d29',
+      BTC: 'bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh',
+      USDT: '0xFCe725102101817eC210FcE24F0ec91E277c7d29', // USDT on Ethereum network
+      SOL: '5YMnSXGsBDYWFDMBztEFT5bGQh6pArEU8rYB8xmT1t9L'
+    };
+    
+    return wallets[cryptoCurrency] || wallets['ETH'];
+  };
+
+  // Generate QR code URL based on selected cryptocurrency
   const getQrCodeUrl = () => {
-    // Use a real wallet address for the QR code
-    const walletAddress = '0xFCe725102101817eC210FcE24F0ec91E277c7d29';
-    return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ethereum:${walletAddress}?value=${amount}`;
+    const walletAddress = getWalletAddress(cryptoCurrency);
+    
+    // Different QR code formats based on cryptocurrency
+    if (cryptoCurrency === 'BTC') {
+      return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:${walletAddress}?amount=${amount}`;
+    } else if (cryptoCurrency === 'SOL') {
+      return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=solana:${walletAddress}?amount=${amount}`;
+    } else {
+      // ETH and USDT (on Ethereum)
+      return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ethereum:${walletAddress}?value=${amount}`;
+    }
   };
 
   if (!causeDetails) return <div className="loading">Loading...</div>;
@@ -225,15 +246,15 @@ const DonationPage = () => {
                           <div className="qr-section">
                             <h3>Scan to Pay</h3>
                             <div className="qr-container">
-                              <img src={getQrCodeUrl()} alt="Cryptocurrency payment QR code" />
+                              <img src={getQrCodeUrl()} alt={`${cryptoCurrency} payment QR code`} />
                             </div>
                             <div className="wallet-address">
                               <p>Or send manually to:</p>
                               <div className="address-box">
-                                <code>0xFCe725102101817eC210FcE24F0ec91E277c7d29</code>
+                                <code>{getWalletAddress(cryptoCurrency)}</code>
                                 <button className="copy-btn" onClick={() => {
-                                  navigator.clipboard.writeText('0xFCe725102101817eC210FcE24F0ec91E277c7d29');
-                                  alert('Address copied to clipboard!');
+                                  navigator.clipboard.writeText(getWalletAddress(cryptoCurrency));
+                                  alert(`${cryptoCurrency} address copied to clipboard!`);
                                 }}>
                                   <i className="fas fa-copy"></i>
                                 </button>
