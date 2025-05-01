@@ -1,0 +1,274 @@
+/* Profile Container */
+.profile-container {
+  margin-top: 2rem;
+  padding-bottom: 3rem;
+  padding: 2rem 3rem 3rem;
+}
+
+/* Cyber Card Styling */
+.cyber-card {
+  background-color: #181c34;
+  border: 1px solid #05c3dd;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.3);
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  margin-bottom: 1.5rem;
+}
+
+.cyber-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #05c3dd, transparent);
+  z-index: 1;
+}
+
+.cyber-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(5, 195, 221, 0.5), transparent);
+}
+
+.cyber-card .card-header {
+  background-color: rgba(5, 195, 221, 0.1);
+  border-bottom: 1px solid rgba(5, 195, 221, 0.3);
+  padding: 1.5rem 2rem;
+}
+
+.cyber-card .card-body {
+  padding: 2rem;
+  color: #e0e0e0;
+}
+
+/* Profile Sidebar */
+.profile-sidebar {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.profile-sidebar .text-center {
+  width: 100%;
+  margin-bottom: 2rem !important;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #05c3dd, #6a33f8);
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 0 20px rgba(5, 195, 221, 0.6);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(5, 195, 221, 0.3);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  width: 50%;
+  text-align: center;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #05c3dd;
+  text-shadow: 0 0 5px rgba(5, 195, 221, 0.7);
+}
+
+.stat-label {
+  font-size: 0.9rem;
+  color: #a0a0a0;
+  margin-top: 0.25rem;
+}
+
+/* Profile Info */
+.profile-info {
+  padding: 1rem 0.5rem;
+}
+
+.profile-info .info-item {
+  margin-bottom: 2rem;
+  padding: 0.5rem 0;
+}
+
+.info-label {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #05c3dd;
+  margin-bottom: 0.75rem;
+}
+
+.info-value {
+  font-size: 1.1rem;
+  color: #e0e0e0;
+  word-break: break-word;
+  padding-left: 0.5rem;
+}
+
+/* Form Styling */
+.cyber-input {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(5, 195, 221, 0.5);
+  color: #e0e0e0;
+  border-radius: 4px;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+  background-color: rgba(5, 195, 221, 0.1);
+  border-color: #05c3dd;
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.3);
+  color: white;
+}
+
+.cyber-label {
+  color: #05c3dd;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+/* Button Styling */
+.cyber-button {
+  background: linear-gradient(135deg, #05c3dd, #6a33f8);
+  border: none;
+  position: relative;
+  color: white;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: auto;
+}
+
+.profile-sidebar .cyber-button {
+  margin-top: 2rem;
+  align-self: stretch;
+}
+
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.cyber-button:hover::before {
+  left: 100%;
+}
+
+.cyber-button:hover {
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-cancel {
+  background-color: transparent;
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #e0e0e0;
+}
+
+.btn-cancel:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: white;
+}
+
+/* Neon Text */
+.neon-text {
+  color: #05c3dd;
+  text-shadow: 0 0 5px rgba(5, 195, 221, 0.7);
+}
+
+/* Alert Styling */
+.cyber-alert {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-left: 4px solid;
+  color: white;
+  border-radius: 0;
+  padding: 1rem;
+}
+
+.cyber-alert.alert-success {
+  border-color: #05c3dd;
+}
+
+.cyber-alert.alert-danger {
+  border-color: #ff3e5f;
+}
+
+/* Recent Activity Section */
+.recent-activity {
+  min-height: 150px;
+  padding: 1.5rem;
+}
+
+/* Card Spacing */
+.profile-container .row > [class*="col"] {
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .profile-container .row > [class*="col"] {
+    margin-bottom: 0;
+  }
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 1.5rem 1rem;
+  }
+  
+  .profile-sidebar {
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .cyber-card .card-body {
+    padding: 1.5rem;
+  }
+} 
