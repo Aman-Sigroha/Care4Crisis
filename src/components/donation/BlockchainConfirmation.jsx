@@ -2,6 +2,9 @@ import { Container, Row, Col, Card, Alert, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './BlockchainConfirmation.css';
 
+// Import BASE_PATH constant from App.jsx or define it here
+const BASE_PATH = '/Care4Crisis';
+
 const BlockchainConfirmation = ({ donation }) => {
   // In a real app, this would receive actual transaction data
   // For now, we'll use mock data
@@ -121,18 +124,18 @@ const BlockchainConfirmation = ({ donation }) => {
                   wallet through our secure distribution system.
                 </p>
                 <p>
-                  You can track this process on our <Link to="/Care4Crisis/transparency">transparency page</Link>.
+                  You can track this process on our <Link to={`${BASE_PATH}/transparency`}>transparency page</Link>.
                 </p>
               </div>
             </Card.Body>
             
             <Card.Footer className="text-center">
-              <Link to="/Care4Crisis/transparency">
+              <Link to={`${BASE_PATH}/transparency`}>
                 <Button variant="primary" className="mx-2">
                   <i className="fas fa-chart-bar"></i> View All Transactions
                 </Button>
               </Link>
-              <Link to="/Care4Crisis/events">
+              <Link to={`${BASE_PATH}/events`}>
                 <Button variant="outline-primary" className="mx-2">
                   <i className="fas fa-hand-holding-heart"></i> Explore More Causes
                 </Button>

@@ -5,6 +5,9 @@ import DonationNav from './DonationNav';
 import BlockchainConfirmation from './BlockchainConfirmation';
 import './DonationSuccess.css';
 
+// Import BASE_PATH constant from App.jsx or define it here
+const BASE_PATH = '/Care4Crisis';
+
 const DonationSuccess = () => {
   const location = useLocation();
   const [showBlockchainDetails, setShowBlockchainDetails] = useState(false);

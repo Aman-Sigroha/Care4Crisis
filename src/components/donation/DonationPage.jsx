@@ -4,6 +4,9 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import DonationNav from './DonationNav';
 import './DonationPage.css';
 
+// Import BASE_PATH constant from App.jsx or define it here
+const BASE_PATH = '/Care4Crisis';
+
 const DonationPage = () => {
   const [activeTab, setActiveTab] = useState('crypto');
   const [amount, setAmount] = useState('');
@@ -75,7 +78,7 @@ const DonationPage = () => {
     
     // Simulate successful donation
     alert(`Thank you for your donation of $${amount} via ${activeTab.toUpperCase()}!`);
-    navigate('/donation-success');
+    navigate(`${BASE_PATH}/donation-success`);
   };
 
   // Placeholder QR code URL - in a real app, this would be dynamically generated
@@ -316,7 +319,7 @@ const DonationPage = () => {
                       <Button type="submit" className="donate-submit-btn">
                         Complete Donation
                       </Button>
-                      <Link to="/events" className="cancel-link">Cancel</Link>
+                      <Link to={`${BASE_PATH}/events`} className="cancel-link">Cancel</Link>
                     </div>
                   </Form>
                 </div>
@@ -337,8 +340,8 @@ const DonationPage = () => {
               <div className="link-group">
                 <h4>Navigation</h4>
                 <ul>
-                  <li><Link to="/">Home</Link></li>
-                  <li><Link to="/events">Causes</Link></li>
+                  <li><Link to={`${BASE_PATH}/`}>Home</Link></li>
+                  <li><Link to={`${BASE_PATH}/events`}>Causes</Link></li>
                   <li><a href="#about">About</a></li>
                   <li><a href="#contact">Contact</a></li>
                 </ul>
