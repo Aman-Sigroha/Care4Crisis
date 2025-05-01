@@ -83,7 +83,9 @@ const DonationPage = () => {
 
   // Placeholder QR code URL - in a real app, this would be dynamically generated
   const getQrCodeUrl = () => {
-    return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ethereum:0x742d35Cc6634C0532925a3b844Bc454e4438f44e?value=${amount}`;
+    // Use a real wallet address for the QR code
+    const walletAddress = '0xFCe725102101817eC210FcE24F0ec91E277c7d29';
+    return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ethereum:${walletAddress}?value=${amount}`;
   };
 
   if (!causeDetails) return <div className="loading">Loading...</div>;
@@ -228,9 +230,9 @@ const DonationPage = () => {
                             <div className="wallet-address">
                               <p>Or send manually to:</p>
                               <div className="address-box">
-                                <code>0x742d35Cc6634C0532925a3b844Bc454e4438f44e</code>
+                                <code>0xFCe725102101817eC210FcE24F0ec91E277c7d29</code>
                                 <button className="copy-btn" onClick={() => {
-                                  navigator.clipboard.writeText('0x742d35Cc6634C0532925a3b844Bc454e4438f44e');
+                                  navigator.clipboard.writeText('0xFCe725102101817eC210FcE24F0ec91E277c7d29');
                                   alert('Address copied to clipboard!');
                                 }}>
                                   <i className="fas fa-copy"></i>
