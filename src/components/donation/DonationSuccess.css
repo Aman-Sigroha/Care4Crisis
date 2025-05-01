@@ -1,0 +1,528 @@
+/* Success Page Styling */
+.success-page {
+  background-color: #0a0e17;
+  min-height: 100vh;
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+.success-container {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+/* Success animation */
+.success-animation {
+  margin: 0 auto 3rem;
+  width: 100px;
+  height: 100px;
+  position: relative;
+}
+
+.checkmark-circle {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: block;
+  border-radius: 50%;
+  box-sizing: content-box;
+  padding: 10px;
+  background: rgba(5, 195, 221, 0.1);
+  animation: grow-circle 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.checkmark-circle::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background: radial-gradient(rgba(5, 195, 221, 0.2), transparent);
+  animation: pulse 2s infinite;
+}
+
+.checkmark-stem {
+  position: absolute;
+  width: 8px;
+  height: 40px;
+  background-color: #05c3dd;
+  left: 50px;
+  top: 30px;
+  transform: rotate(45deg);
+  animation: animate-stem 0.7s ease-out forwards 0.3s;
+  opacity: 0;
+}
+
+.checkmark-kick {
+  position: absolute;
+  width: 24px;
+  height: 8px;
+  background-color: #05c3dd;
+  left: 32px;
+  top: 60px;
+  transform: rotate(45deg);
+  animation: animate-kick 0.7s ease-out forwards 0.3s;
+  opacity: 0;
+}
+
+@keyframes grow-circle {
+  0% {
+    transform: scale(0.3);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes animate-stem {
+  0% {
+    height: 0;
+    opacity: 0;
+    transform: translate(15px, 40px) rotate(45deg);
+  }
+  100% {
+    height: 40px;
+    opacity: 1;
+    transform: rotate(45deg);
+  }
+}
+
+@keyframes animate-kick {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  100% {
+    width: 24px;
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Text styling */
+.success-page h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 15px rgba(5, 195, 221, 0.5);
+  animation: fade-in 1s ease-out forwards 0.7s;
+  opacity: 0;
+}
+
+.success-message {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  color: #b0b7c3;
+  animation: fade-in 1s ease-out forwards 0.9s;
+  opacity: 0;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Transaction details */
+.transaction-details {
+  margin-bottom: 4rem;
+  animation: fade-in 1s ease-out forwards 1.1s;
+  opacity: 0;
+}
+
+.transaction-details h2, .next-steps h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.transaction-details h2::after, .next-steps h2::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #05c3dd, transparent);
+}
+
+.details-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(5, 195, 221, 0.3);
+  border-radius: 10px;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(5, 195, 221, 0.1);
+}
+
+.detail-item:last-of-type {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: #05c3dd;
+  width: 150px;
+}
+
+.detail-value {
+  flex: 1;
+  color: #b0b7c3;
+  word-break: break-all;
+}
+
+.detail-value.success {
+  color: #34c759;
+}
+
+/* Blockchain verification */
+.blockchain-verification {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(5, 195, 221, 0.1);
+  border-radius: 10px;
+}
+
+.blockchain-verification i {
+  font-size: 2rem;
+  color: #05c3dd;
+}
+
+.verification-text {
+  flex: 1;
+}
+
+.verification-text h3 {
+  font-size: 1.2rem;
+  color: #05c3dd;
+  margin-bottom: 0.5rem;
+}
+
+.verification-text p {
+  color: #b0b7c3;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Receipt and verification buttons */
+.receipt-action {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.receipt-button, .verify-button {
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.receipt-button {
+  background-color: #05c3dd;
+  border: none;
+  color: #0a0e17;
+}
+
+.receipt-button:hover {
+  background-color: #04a0b5;
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.5);
+}
+
+.verify-button {
+  background-color: transparent;
+  border: 1px solid #05c3dd;
+  color: #05c3dd;
+}
+
+.verify-button:hover {
+  background-color: rgba(5, 195, 221, 0.1);
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.3);
+}
+
+/* Next steps section */
+.next-steps {
+  margin-bottom: 4rem;
+  animation: fade-in 1s ease-out forwards 1.3s;
+  opacity: 0;
+}
+
+.steps-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.step-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(5, 195, 221, 0.3);
+  border-radius: 10px;
+  padding: 2rem;
+  width: 100%;
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.step-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(5, 195, 221, 0.2);
+}
+
+.step-icon {
+  width: 60px;
+  height: 60px;
+  background: rgba(5, 195, 221, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.step-icon i {
+  font-size: 1.5rem;
+  color: #05c3dd;
+}
+
+.step-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.step-card p {
+  color: #b0b7c3;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Action buttons */
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  animation: fade-in 1s ease-out forwards 1.5s;
+  opacity: 0;
+}
+
+.explore-button, .home-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  min-width: 200px;
+}
+
+.explore-button {
+  background-color: #05c3dd;
+  border: none;
+  color: #0a0e17;
+}
+
+.explore-button:hover {
+  background-color: #04a0b5;
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.5);
+}
+
+.home-button {
+  background-color: transparent;
+  border: 1px solid #05c3dd;
+  color: #05c3dd;
+}
+
+.home-button:hover {
+  background-color: rgba(5, 195, 221, 0.1);
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.3);
+}
+
+/* Footer */
+.success-footer {
+  background: rgba(10, 14, 23, 0.8);
+  padding: 1.5rem 0;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(5, 195, 221, 0.2);
+}
+
+.success-footer .footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.success-footer p {
+  color: #888;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: rgba(5, 195, 221, 0.1);
+  border-radius: 50%;
+  color: #05c3dd;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.social-links a:hover {
+  background: rgba(5, 195, 221, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(5, 195, 221, 0.2);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .success-container {
+    padding: 3rem 1rem;
+  }
+  
+  .success-page h1 {
+    font-size: 2rem;
+  }
+  
+  .success-message {
+    font-size: 1rem;
+  }
+  
+  .blockchain-verification {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .details-card {
+    padding: 1.5rem;
+  }
+  
+  .detail-label, .detail-value {
+    width: 100%;
+  }
+  
+  .receipt-action, .action-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .success-footer .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+/* Adding new styles for the loading blockchain animation */
+.loading-blockchain {
+  margin: 3rem auto;
+  text-align: center;
+  max-width: 400px;
+}
+
+.loading-blockchain p {
+  margin-top: 1rem;
+  color: #b0b7c3;
+  animation: pulse-text 1.5s infinite;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto;
+  border: 4px solid rgba(5, 195, 221, 0.1);
+  border-radius: 50%;
+  border-top-color: #05c3dd;
+  animation: spin 1s ease-in-out infinite;
+  position: relative;
+}
+
+.spinner::before {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border-radius: 50%;
+  border: 4px solid transparent;
+  border-top-color: rgba(5, 195, 221, 0.3);
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse-text {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+} 

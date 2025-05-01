@@ -1,0 +1,304 @@
+/* EventCard Component Styling */
+.event-card {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(5, 195, 221, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.event-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(5, 195, 221, 0.2);
+  border-color: rgba(5, 195, 221, 0.5);
+}
+
+/* Image section */
+.event-image {
+  position: relative;
+  height: 200px;
+  overflow: hidden;
+}
+
+.event-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.5s ease;
+}
+
+.event-card:hover .event-image img {
+  transform: scale(1.05);
+}
+
+/* Category badge */
+.event-category {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: rgba(5, 195, 221, 0.9);
+  color: #0a0e17;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.5);
+}
+
+/* Urgency indicator */
+.event-urgency {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.high-urgency {
+  background: rgba(255, 59, 48, 0.9);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.5);
+}
+
+.medium-urgency {
+  background: rgba(255, 204, 0, 0.9);
+  color: #000;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+}
+
+.low-urgency {
+  background: rgba(52, 199, 89, 0.9);
+  color: #000;
+  box-shadow: 0 0 10px rgba(52, 199, 89, 0.5);
+}
+
+/* Content section */
+.event-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.event-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+  line-height: 1.3;
+}
+
+.event-organizer, .event-location {
+  color: #b0b7c3;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.event-organizer i, .event-location i {
+  color: #05c3dd;
+  margin-right: 0.5rem;
+  width: 16px;
+  text-align: center;
+}
+
+.event-description {
+  color: #b0b7c3;
+  margin: 1rem 0;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.details-toggle {
+  background: none;
+  border: none;
+  color: #05c3dd;
+  padding: 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.details-toggle:hover {
+  color: #fff;
+  text-shadow: 0 0 5px rgba(5, 195, 221, 0.8);
+}
+
+/* Progress section */
+.event-progress {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.raised, .goal {
+  font-size: 0.9rem;
+  color: #b0b7c3;
+}
+
+.raised span, .goal span {
+  color: #fff;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0575e6, #00f2fe);
+  border-radius: 4px;
+  position: relative;
+}
+
+.progress-glow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 10px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 10px 5px rgba(5, 195, 221, 0.5);
+  filter: blur(3px);
+  border-radius: 5px;
+}
+
+.progress-percentage {
+  text-align: right;
+  font-size: 0.8rem;
+  color: #05c3dd;
+  font-weight: 600;
+}
+
+/* Action buttons */
+.event-actions {
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(5, 195, 221, 0.2);
+  background: rgba(10, 14, 23, 0.5);
+}
+
+.action-group-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-right: auto;
+}
+
+.action-group-right {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.donate-button {
+  flex: 0 0 auto;
+  min-width: 150px;
+  background: #05c3dd !important;
+  border: none !important;
+  color: #0a0e17 !important;
+  font-family: 'Orbitron', sans-serif !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  padding: 0.6rem 1rem !important;
+  transition: all 0.3s ease !important;
+  border-radius: 5px !important;
+}
+
+.donate-button:hover {
+  background: #04a0b5 !important;
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.5) !important;
+}
+
+.share-button, .info-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(5, 195, 221, 0.3);
+  color: #05c3dd;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.share-button:hover, .info-button:hover {
+  background: rgba(5, 195, 221, 0.1);
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.3);
+}
+
+/* Blockchain badge */
+.blockchain-badge {
+  background: rgba(10, 14, 23, 0.8);
+  color: #05c3dd;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  border: 1px solid rgba(5, 195, 221, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+  height: 40px;
+}
+
+.blockchain-badge i {
+  font-size: 0.8rem;
+  margin-right: 4px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .event-title {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .event-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .action-group-left, .action-group-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .donate-button {
+    width: 100%;
+    margin-top: 0.75rem;
+  }
+} 

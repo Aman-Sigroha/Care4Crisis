@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import { Component } from 'react';
+import './signIn.css';
 
 class SignIn extends Component {
-
     constructor(props){
         super(props);
         this.state = {
@@ -36,31 +36,69 @@ class SignIn extends Component {
         })
     }
 
+    directAccess = () => {
+        // Direct access without authentication
+        this.props.onroutechange('home');
+    }
+
     render() {
         return(
-            <article className="br3 ba dark-gray b--black-10 mv4 w-100 w-50-m w-25-l mw6 shadow-5 center">
-                <main className="pa4 black-80">
-                    <div className="measure center">
-                        <fieldset id="sign_up" className="ba b--transparent ph0 mh0">
-                        <legend className="f1 fw6 ph0 mh0">Sign In</legend>
-                        <div className="mt3">
-                            <label className="db fw6 lh-copy f6" htmlFor="email-address">Email</label>
-                            <input onChange={this.onEmailChange} className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="email" name="email-address"  id="email-address"/>
-                        </div>
-                        <div className="mv3">
-                            <label className="db fw6 lh-copy f6" htmlFor="password">Password</label>
-                            <input onChange={this.onPasswordChange} className="b pa2 input-reset ba bg-transparent hover-bg-black hover-white w-100" type="password" name="password"  id="password"/>
-                        </div>
-                        </fieldset>
-                        <div className="">
-                        <input onClick={this.onSubmitSignIn} className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" type="submit" value="Sign in"/>
-                        </div>
-                        <div className="lh-copy mt3">
-                        <p  onClick={() => {this.props.onroutechange('register')}} className="f6 link dim black db pointer">Register</p>
-                        </div>
-                    </div>
-                </main>
-            </article>
+            <div className="cyber-container signin-container">
+                <div className="corner-decoration top-left"></div>
+                <div className="corner-decoration top-right"></div>
+                <div className="corner-decoration bottom-left"></div>
+                <div className="corner-decoration bottom-right"></div>
+                
+                <h2 className="form-title">Access System</h2>
+                
+                <div className="form-group">
+                    <label htmlFor="email-address">Email ID</label>
+                    <input 
+                        onChange={this.onEmailChange} 
+                        className="neon-input" 
+                        type="email" 
+                        name="email-address" 
+                        id="email-address"
+                        placeholder="Enter your email"
+                    />
+                </div>
+                
+                <div className="form-group">
+                    <label htmlFor="password">Security Key</label>
+                    <input 
+                        onChange={this.onPasswordChange} 
+                        className="neon-input" 
+                        type="password" 
+                        name="password" 
+                        id="password"
+                        placeholder="Enter your password"
+                    />
+                </div>
+                
+                <button 
+                    onClick={this.onSubmitSignIn} 
+                    className="cyber-button signin-btn"
+                >
+                    <span className="button-text">System Login</span>
+                </button>
+                
+                <div className="alt-action">
+                    <p>New user?</p>
+                    <button onClick={() => {this.props.onroutechange('register')}} className="text-link">
+                        Register for access
+                    </button>
+                </div>
+                
+                <div className="direct-access">
+                    <button 
+                        onClick={this.directAccess} 
+                        className="cyber-button direct-access-btn"
+                    >
+                        <i className="fas fa-rocket"></i> Direct Access
+                    </button>
+                    <p className="direct-note">No database connection required</p>
+                </div>
+            </div>
         )
     }
 }

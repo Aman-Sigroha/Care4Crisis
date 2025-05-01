@@ -1,0 +1,171 @@
+.signin-container {
+  max-width: 450px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.form-title {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--primary-color);
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.form-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--light-text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.signin-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, rgba(5, 195, 221, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.signin-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.signin-btn:hover::before {
+  opacity: 0.3;
+}
+
+.alt-action {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--light-text);
+}
+
+.text-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0;
+  margin: 0.5rem 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-transform: none;
+  letter-spacing: normal;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.text-link:hover {
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px rgba(243, 27, 239, 0.6);
+  box-shadow: none;
+}
+
+/* Direct Access Styles */
+.direct-access {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(5, 195, 221, 0.3);
+  text-align: center;
+}
+
+.direct-access-btn {
+  background: linear-gradient(135deg, rgba(243, 27, 239, 0.2) 0%, rgba(5, 195, 221, 0.2) 100%);
+  border: 1px solid var(--accent-color);
+  margin: 1rem auto;
+  padding: 0.8rem 2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  max-width: 250px;
+}
+
+.direct-access-btn i {
+  font-size: 1.1rem;
+}
+
+.direct-access-btn:hover {
+  box-shadow: 0 0 15px var(--accent-color);
+  transform: translateY(-2px);
+}
+
+.direct-note {
+  font-size: 0.8rem;
+  color: rgba(232, 236, 239, 0.6);
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Corner Decorations */
+.corner-decoration {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--primary-color);
+  z-index: 1;
+}
+
+.top-left {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+
+.top-right {
+  top: 0;
+  right: 0;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}

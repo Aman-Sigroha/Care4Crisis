@@ -42,6 +42,7 @@
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-right: 2rem;
   }
   
   .volunteer-btn:hover {

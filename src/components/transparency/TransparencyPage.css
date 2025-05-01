@@ -1,0 +1,179 @@
+.transparency-page {
+  background: #f4f7fa;
+  min-height: 100vh;
+}
+
+.transparency-hero {
+  background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.transparency-hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.transparency-content {
+  padding-bottom: 3rem;
+}
+
+.total-balance-card {
+  text-align: center;
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: none;
+  padding: 1rem;
+}
+
+.balance-amount {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 1rem 0;
+}
+
+.wallet-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.wallet-balance-card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border: none;
+  transition: transform 0.3s ease;
+  height: 100%;
+  width: 100%;
+}
+
+.wallet-balance-card:hover {
+  transform: translateY(-5px);
+}
+
+.wallet-balance-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.wallet-balance-card h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #1e40af;
+}
+
+.currency-balance {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.75rem 0;
+  color: #4f46e5;
+}
+
+.wallet-address {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.wallet-address a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.wallet-address a:hover {
+  text-decoration: underline;
+}
+
+.recent-transactions {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-top: 1rem;
+}
+
+.nav-pills {
+  padding-right: 1rem;
+}
+
+.nav-pills .nav-link {
+  color: #4b5563;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #3b82f6;
+}
+
+.wallet-info {
+  background: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid #3b82f6;
+}
+
+.tab-content {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+
+.tab-pane {
+  width: 100%;
+}
+
+/* Row containing the wallet cards */
+.tab-pane .row {
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.tab-content h3 {
+  color: #1e40af;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .transparency-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .balance-amount {
+    font-size: 2rem;
+  }
+  
+  .nav-pills {
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    padding-right: 0;
+  }
+  
+  .nav-pills .nav-item {
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .wallet-balance-card {
+    margin-bottom: 1rem;
+  }
+} 

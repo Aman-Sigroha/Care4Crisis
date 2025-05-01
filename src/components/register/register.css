@@ -1,0 +1,66 @@
+.register-container {
+  max-width: 450px;
+  margin: 2rem auto;
+  position: relative;
+}
+
+.register-btn {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem;
+  font-size: 1rem;
+  background: linear-gradient(135deg, rgba(243, 27, 239, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
+  position: relative;
+  overflow: hidden;
+  border-color: var(--secondary-color);
+}
+
+.register-btn:hover {
+  box-shadow: 0 0 15px var(--secondary-color);
+}
+
+.register-btn::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  z-index: -1;
+  background: linear-gradient(45deg, var(--secondary-color), var(--accent-color), var(--primary-color));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.register-btn:hover::before {
+  opacity: 0.3;
+}
+
+/* Animated background for the register container */
+.register-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(217deg, rgba(243, 27, 239, 0.03), rgba(0, 0, 0, 0) 70.71%),
+    linear-gradient(127deg, rgba(106, 51, 248, 0.03), rgba(0, 0, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(5, 195, 221, 0.03), rgba(0, 0, 0, 0) 70.71%);
+  z-index: -1;
+  border-radius: 12px;
+  animation: gradientMove 8s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

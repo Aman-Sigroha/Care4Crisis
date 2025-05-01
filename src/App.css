@@ -1,38 +1,212 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  position: relative;
+  width: 100%;
 }
 
-.App-link {
-  color: #61dafb;
+.content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Override Bootstrap container */
+.container,
+div.container,
+.container-fluid,
+div[class^="container"],
+div[class*=" container"] {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Futuristic Elements */
+.cyber-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  margin: 2rem auto;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: var(--neon-border);
+  padding: 2.5rem 2rem;
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.cyber-container::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 12px;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-container:hover::before {
+  opacity: 1;
+}
+
+.cyber-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--card-bg);
+  border-radius: 12px;
+  z-index: -1;
+}
+
+.cyber-button {
+  background: linear-gradient(135deg, rgba(5, 195, 221, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
+  border: 1px solid var(--primary-color);
+  color: var(--light-text);
+  padding: 0.8rem 1.8rem;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  margin: 0.5rem;
+  text-transform: uppercase;
+}
+
+.cyber-button:hover {
+  box-shadow: 0 0 15px var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.6s ease;
+}
+
+.cyber-button:hover::before {
+  left: 100%;
+}
+
+.neon-input {
+  background-color: rgba(10, 14, 23, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  color: var(--light-text);
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.neon-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--primary-color);
+}
+
+.cyberpunk-logo {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: transparent;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-shadow: 0 0 10px rgba(5, 195, 221, 0.5);
+  margin-bottom: 2rem;
+  letter-spacing: 2px;
+}
+
+.screen-glitch {
+  animation: glitch 1s linear infinite;
+  position: relative;
+}
+
+@keyframes glitch {
+  2%, 64% {
+    transform: translate(2px, 0) skew(0deg);
   }
-  to {
-    transform: rotate(360deg);
+  4%, 60% {
+    transform: translate(-2px, 0) skew(0deg);
   }
+  62% {
+    transform: translate(0, 0) skew(5deg);
+  }
+}
+
+.screen-glitch:before,
+.screen-glitch:after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+}
+
+.screen-glitch:before {
+  animation: glitchTop 1s linear infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+}
+
+@keyframes glitchTop {
+  2%, 64% {
+    transform: translate(2px, -2px);
+  }
+  4%, 60% {
+    transform: translate(-2px, 2px);
+  }
+  62% {
+    transform: translate(13px, -1px) skew(-13deg);
+  }
+}
+
+.screen-glitch:after {
+  animation: glitchBottom 1.5s linear infinite;
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+}
+
+@keyframes glitchBottom {
+  2%, 64% {
+    transform: translate(-2px, 0);
+  }
+  4%, 60% {
+    transform: translate(-2px, 0);
+  }
+  62% {
+    transform: translate(-22px, 5px) skew(21deg);
+  }
+}
+
+/* Cyberpunk grid background */
+.grid-background {
+  background-size: 40px 40px;
+  background-image: linear-gradient(to right, rgba(5, 195, 221, 0.05) 1px, transparent 1px),
+                    linear-gradient(to bottom, rgba(5, 195, 221, 0.05) 1px, transparent 1px);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -2;
 }

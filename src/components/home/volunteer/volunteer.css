@@ -73,8 +73,8 @@
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 4rem; /* Increased gap */
-  padding: 2rem; /* Added padding */
+  gap: 4rem; 
+  padding: 2rem; 
 }
 
 .stat-item {
@@ -82,12 +82,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1rem; /* Increased gap */
+  gap: 1rem; 
 }
 
 .stat-icon {
-  width: 3.5rem; /* Increased size */
-  height: 3.5rem; /* Increased size */
+  width: 3.5rem; 
+  height: 3.5rem; 
   color: #f97316;
 }
 
@@ -97,34 +97,34 @@
 }
 
 .stat-number {
-  font-size: 3.5rem; /* Increased font size */
+  font-size: 3.5rem; 
   font-weight: bold;
 }
 
 .stat-label {
   color: #d1d5db;
-  font-size: 1.2rem; /* Increased font size */
+  font-size: 1.2rem; 
 }
 
 /* Media query for desktop */
 @media (min-width: 768px) {
   .grid-container {
     grid-template-columns: repeat(2, 1fr);
-    min-height: 500px; /* Added minimum height for desktop */
+    min-height: 500px; 
   }
   
   .volunteer-container {
-    min-height: 700px; /* Increased height for desktop */
+    min-height: 700px; 
   }
 }
 
 /* Media query for larger screens */
 @media (min-width: 1024px) {
   .volunteer-container {
-    min-height: 800px; /* Further increased height for larger screens */
+    min-height: 800px; 
   }
   
   .heading {
-    font-size: 3rem; /* Larger heading for bigger screens */
+    font-size: 3rem; 
   }
 }

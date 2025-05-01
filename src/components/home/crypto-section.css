@@ -1,0 +1,236 @@
+/* Crypto Section Styling */
+.cryptoSection {
+  padding: 5rem 0;
+  background-color: #0a0e17;
+  position: relative;
+  overflow: hidden;
+}
+
+.cryptoSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(5, 195, 221, 0.5), transparent);
+}
+
+.cryptoSection::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(5, 195, 221, 0.5), transparent);
+}
+
+.cryptoSection .container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 2rem !important;
+}
+
+.cryptoSectionTitle {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.cryptoSectionTitle h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 1.5rem;
+  text-shadow: 0 0 10px rgba(5, 195, 221, 0.5);
+}
+
+.cryptoName {
+  color: #05c3dd;
+  position: relative;
+}
+
+.cryptoName::after {
+  content: '';
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #05c3dd;
+  box-shadow: 0 0 8px rgba(5, 195, 221, 0.8);
+}
+
+.cryptoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+
+.cryptoCard {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(5, 195, 221, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.cryptoCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #05c3dd;
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.8);
+}
+
+.cryptoCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  border-color: rgba(5, 195, 221, 0.5);
+}
+
+.cryptoIcon {
+  font-size: 2.5rem;
+  color: #05c3dd;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+}
+
+.cryptoCard h3 {
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.cryptoCard p {
+  color: #b0b7c3;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.cryptoProcess {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(5, 195, 221, 0.2);
+  border-radius: 8px;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+
+.cryptoProcess h3 {
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  display: inline-block;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.cryptoProcess h3::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #05c3dd, transparent);
+}
+
+.processSteps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+}
+
+.step:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 35px;
+  width: 2px;
+  height: 1.5rem;
+  background: linear-gradient(to bottom, #05c3dd, transparent);
+}
+
+.stepNumber {
+  width: 70px;
+  height: 70px;
+  background: rgba(5, 195, 221, 0.1);
+  border: 2px solid #05c3dd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #05c3dd;
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.3);
+}
+
+.step p {
+  color: #b0b7c3;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .cryptoSectionTitle h2 {
+    font-size: 1.8rem;
+  }
+  
+  .cryptoGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .step {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .step:not(:last-child)::after {
+    display: none;
+  }
+  
+  .stepNumber {
+    width: 60px;
+    height: 60px;
+    font-size: 1.5rem;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .cryptoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} 

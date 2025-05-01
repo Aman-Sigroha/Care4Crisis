@@ -1,70 +1,65 @@
-# Getting Started with Create React App
+# Care4Crisis - AI-Powered Crisis Management
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was created with Vite + React with a futuristic cyberpunk UI design.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+### Modern UI/UX Design
+- Futuristic cyberpunk theme with neon colors
+- Animated elements and hover effects
+- Responsive layout for all devices
+- Custom fonts: Orbitron for headings and Raleway for body text
 
-### `npm start`
+### Visual Elements
+- Custom SVG favicon
+- Neon glow effects
+- Animated background particles
+- Grid background patterns
+- Custom buttons and form elements
+- Corner decorations and gradients
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Technologies
+- Vite for fast development and building
+- React for component-based UI
+- CSS Variables for theming
+- Bootstrap integration with custom styling
+- Font Awesome icons
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Development
 
-### `npm test`
+To run the development server:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm run dev
+```
 
-### `npm run build`
+## Building for Production
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To build the project for production:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+npm run build
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Deployment
 
-### `npm run eject`
+This project is configured to deploy to GitHub Pages. To deploy:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
+npm run deploy
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project Structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `/src` - Source code with React components
+- `/public` - Static assets
+- `/dist` - Build output (generated)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## UI Components
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The app features several custom UI components:
+- Animated navigation bar
+- Glowing neon cards
+- Modern form inputs
+- Futuristic buttons
+- Responsive home page design

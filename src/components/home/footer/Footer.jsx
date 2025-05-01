@@ -45,16 +45,16 @@ const Footer = () => {
             <h3>RECENT POST</h3>
             <div className="recent-posts">
               <div className="post">
-                <a href="#">Car show event photos 2015</a>
-                <span className="date">March 14, 2017</span>
+                <a href="#">Car show event photos 2024</a>
+                <span className="date">March 14, 2024</span>
               </div>
               <div className="post">
                 <a href="#">Hope Kids Holiday Party</a>
-                <span className="date">February 21, 2017</span>
+                <span className="date">February 21, 2024</span>
               </div>
               <div className="post">
                 <a href="#">humanity Bikini Car wash photos</a>
-                <span className="date">January 15, 2017</span>
+                <span className="date">January 15, 2024</span>
               </div>
             </div>
           </div>
@@ -68,11 +68,11 @@ const Footer = () => {
                 New York, NY 10012, USA
               </p>
               <p>
-                <strong>Phone:</strong> (123) 0200 12345 &<br />
-                1800-45-678-9012
+                <strong>Phone:</strong> (91+) 9198700871 &<br />
+                9911864571
               </p>
               <p>
-                <strong>Email:</strong> ailus@Humanity.com
+                <strong>Email:</strong> care4crisis@gmail.com
               </p>
             </div>
           </div>
