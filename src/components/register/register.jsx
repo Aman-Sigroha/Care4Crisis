@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import './register.css';
-import apiService from '../../services/apiService';
 
 class Register extends Component{
     constructor(props){
