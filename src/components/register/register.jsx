@@ -70,7 +70,7 @@ class Register extends Component{
                     }
                     
                     this.props.loadUser(userData);
-                    this.props.onroutechange('home');
+                this.props.onroutechange('home');
                     return;
                 } else {
                     // Try to get error message from response
