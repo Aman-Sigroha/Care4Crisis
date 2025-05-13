@@ -9,9 +9,24 @@
   border-bottom: 1px solid rgba(108, 99, 255, 0.2);
 }
 
-.logo-container {
+.nav-left, .nav-center, .nav-right {
   display: flex;
   align-items: center;
+}
+
+.nav-left {
+  flex: 1;
+}
+
+.nav-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-right {
+  flex: 1;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
 .cyber-logo {
@@ -34,15 +49,9 @@
   background: linear-gradient(90deg, var(--primary-color), transparent);
 }
 
-.nav-links {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
 .menu-dropdown {
-  margin-right: auto;
-  margin-left: 2rem;
+  display: flex;
+  justify-content: center;
 }
 
 .dropdown-toggle.cyber-button {

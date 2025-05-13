@@ -14,7 +14,7 @@ const Navigation =({onroutechange, issignedin}) =>{
     if(issignedin){
         return(
             <nav className='cyber-nav'>
-                <div className="logo-container">
+                <div className="nav-left">
                     <span className="cyber-logo">C4C</span>
                 </div>
                 
@@ -31,10 +31,8 @@ const Navigation =({onroutechange, issignedin}) =>{
                     </div>
                 </div>
                 
-                <div className="nav-links">
-                    <div className="wallet-connector-wrapper">
-                        <WalletConnector onWalletConnect={handleWalletConnect} />
-                    </div>
+                <div className="nav-right">
+                    <WalletConnector onWalletConnect={handleWalletConnect} />
                     <button 
                         onClick={() => {onroutechange('profile')}} 
                         className='cyber-button profile-btn'
@@ -53,10 +51,13 @@ const Navigation =({onroutechange, issignedin}) =>{
     } else {
         return(
             <nav className='cyber-nav'>
-                <div className="logo-container">
+                <div className="nav-left">
                     <span className="cyber-logo">C4C</span>
                 </div>
-                <div className="nav-links">
+                <div className="nav-center">
+                    {/* Empty center space for consistent layout */}
+                </div>
+                <div className="nav-right">
                     <button 
                         onClick={() => {onroutechange('signin')}} 
                         className='cyber-button'

@@ -4,13 +4,85 @@ import contractABI from "../../blockchain/artifacts/contracts/Care4CrisisDonatio
 // This will be updated after deployment
 const CONTRACT_ADDRESS = "YOUR_DEPLOYED_CONTRACT_ADDRESS";
 
-// Connect to MetaMask or provider
-export const getProvider = async () => {
-  if (window.ethereum) {
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    return new ethers.BrowserProvider(window.ethereum);
+// Check if MetaMask is installed
+export const isMetaMaskInstalled = () => {
+  return typeof window !== 'undefined' && Boolean(window.ethereum);
+};
+
+// Switch to Sepolia network
+export const switchToSepoliaNetwork = async () => {
+  try {
+    // Sepolia chain ID in hex
+    const sepoliaChainId = '0xaa36a7'; // 11155111 in decimal
+    
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: sepoliaChainId }],
+    });
+    
+    return true;
+  } catch (error) {
+    // This error code means the chain has not been added to MetaMask
+    if (error.code === 4902) {
+      try {
+        await window.ethereum.request({
+          method: 'wallet_addEthereumChain',
+          params: [
+            {
+              chainId: '0xaa36a7',
+              chainName: 'Sepolia Testnet',
+              nativeCurrency: {
+                name: 'Sepolia ETH',
+                symbol: 'ETH',
+                decimals: 18,
+              },
+              rpcUrls: ['https://sepolia.infura.io/v3/'],
+              blockExplorerUrls: ['https://sepolia.etherscan.io'],
+            },
+          ],
+        });
+        return true;
+      } catch (addError) {
+        console.error('Error adding Sepolia network:', addError);
+        throw addError;
+      }
+    } else {
+      console.error('Error switching to Sepolia network:', error);
+      throw error;
+    }
   }
-  throw new Error("No Ethereum wallet found. Please install MetaMask.");
+};
+
+// Connect to MetaMask
+export const getProvider = async () => {
+  if (!isMetaMaskInstalled()) {
+    throw new Error("MetaMask is not installed. Please install MetaMask browser extension.");
+  }
+  
+  try {
+    // Request accounts and switch to Sepolia
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    await switchToSepoliaNetwork();
+    
+    // Create provider
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    
+    // Test the connection by getting the network
+    const network = await provider.getNetwork();
+    console.log("Connected to network:", network.name);
+    
+    return provider;
+  } catch (error) {
+    console.error("Error connecting to MetaMask:", error);
+    if (error.code === -32002) {
+      // MetaMask is already processing a request
+      throw new Error("MetaMask connection request already pending. Please check your MetaMask extension.");
+    } else if (error.code === 4001) {
+      // User rejected the request
+      throw new Error("Connection request rejected. Please approve the connection request in MetaMask.");
+    }
+    throw error;
+  }
 };
 
 // Get contract instance

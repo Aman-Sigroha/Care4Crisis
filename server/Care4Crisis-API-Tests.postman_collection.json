@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "c4c5d5e6-f7g8-h9i0-j1k2-l3m4n5o6p7q8",
+		"name": "Care4Crisis API Tests",
+		"description": "API tests for the Care4Crisis platform with the Render.com hosted backend.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				},
+				"description": "Check if the API server is running properly"
+			}
+		},
+		{
+			"name": "API Root",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						""
+					]
+				},
+				"description": "Get the API welcome message and version information"
+			}
+		},
+		{
+			"name": "Get All Campaigns",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/campaigns",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"campaigns"
+					]
+				},
+				"description": "Get all campaigns from the database"
+			}
+		},
+		{
+			"name": "Get All NGOs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/api/ngos",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"ngos"
+					]
+				},
+				"description": "Get all NGOs from the database"
+			}
+		},
+		{
+			"name": "Get All Donations",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{authToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/api/donations",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"donations"
+					]
+				},
+				"description": "Get all donations (requires authentication)"
+			}
+		},
+		{
+			"name": "User Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"admin@care4crisis.com\",\n    \"password\": \"secure_admin_password\"\n}"
+				},
+				"url": {
+					"raw": "{{baseUrl}}/api/users/login",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"api",
+						"users",
+						"login"
+					]
+				},
+				"description": "Login to get an auth token"
+			}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://care4crisis.onrender.com",
+			"type": "string"
+		},
+		{
+			"key": "authToken",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 

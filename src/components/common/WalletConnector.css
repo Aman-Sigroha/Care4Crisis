@@ -1,0 +1,157 @@
+/* WalletConnector Modal Styling */
+.wallet-modal .modal-content {
+  background-color: #0a0a14;
+  color: #fff;
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  box-shadow: 0 0 20px rgba(5, 195, 221, 0.2);
+}
+
+.wallet-modal .modal-header {
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  padding: 1.5rem;
+}
+
+.wallet-modal .modal-title {
+  color: #05c3dd;
+  font-weight: 600;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.wallet-modal .modal-header .btn-close {
+  color: #fff;
+  opacity: 0.8;
+  filter: invert(1) brightness(1.5);
+}
+
+.wallet-modal .nav-tabs {
+  border-bottom: 1px solid rgba(108, 99, 255, 0.3);
+}
+
+.wallet-modal .nav-link {
+  color: #ccc;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  margin-right: 0.5rem;
+  background: transparent;
+  position: relative;
+}
+
+.wallet-modal .nav-link:hover {
+  color: #05c3dd;
+}
+
+.wallet-modal .nav-link.active {
+  color: #05c3dd;
+  background-color: rgba(5, 195, 221, 0.1);
+  border: none;
+  font-weight: 600;
+}
+
+.wallet-modal .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, #05c3dd, #6a33f8);
+}
+
+.wallet-modal .tab-content {
+  padding: 1rem 0;
+}
+
+.wallet-modal .text-muted {
+  color: #888 !important;
+}
+
+.wallet-modal .text-success {
+  color: #5fff3d !important;
+}
+
+.wallet-button {
+  background-color: rgba(5, 195, 221, 0.1);
+  border: 1px solid #05c3dd;
+  color: #05c3dd;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.wallet-button:hover {
+  background-color: rgba(5, 195, 221, 0.2);
+  border-color: #05c3dd;
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.4);
+  color: #fff;
+}
+
+.connect-wallet-btn {
+  background: linear-gradient(90deg, #05c3dd, #6a33f8);
+  border: none;
+  color: #fff;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.3);
+}
+
+.connect-wallet-btn:hover {
+  background: linear-gradient(90deg, #00b2c9, #5d2ce0);
+  box-shadow: 0 0 15px rgba(5, 195, 221, 0.5);
+}
+
+.blockchain-note {
+  background-color: rgba(5, 195, 221, 0.05);
+  border-left: 3px solid #05c3dd;
+  padding: 1rem;
+  border-radius: 0 4px 4px 0;
+}
+
+.note-icon {
+  color: #05c3dd;
+  margin-right: 8px;
+  font-size: 1.1rem;
+}
+
+.wallet-modal p {
+  color: #ddd;
+}
+
+/* Error alert styling */
+.wallet-modal .alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #ff8a8a;
+  border: 1px solid rgba(220, 53, 69, 0.3);
+  border-radius: 4px;
+  padding: 1rem;
+  font-weight: 500;
+}
+
+/* MetaMask logo styling */
+.wallet-modal .wallet-logo {
+  max-width: 80px;
+  margin-bottom: 15px;
+}
+
+/* Wallet connection instructions */
+.wallet-instructions {
+  background-color: rgba(5, 195, 221, 0.05);
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.wallet-instructions h6 {
+  color: #05c3dd;
+  margin-bottom: 8px;
+}
+
+.wallet-instructions ul {
+  padding-left: 20px;
+  margin-bottom: 0;
+}
+
+.wallet-instructions li {
+  margin-bottom: 5px;
+} 

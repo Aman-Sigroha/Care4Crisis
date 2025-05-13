@@ -17,6 +17,7 @@ import CampaignsList from './components/donation/CampaignsList';
 import CreateCampaign from './components/donation/CreateCampaign';
 import BlockchainDonation from './components/donation/BlockchainDonation';
 import WalletConnector from './components/common/WalletConnector';
+import ConnectionTestPage from './components/ConnectionTestPage';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 // Base path for GitHub Pages
@@ -374,6 +375,18 @@ class App extends Component {
                 <>
                   <ProtectedNavigation />
                   <BlockchainDonation />
+                  <Chatbot />
+                </>
+              ) : (
+                <Navigate to={`${BASE_PATH}/signin`} />
+              )
+            } />
+            
+            <Route path={`${BASE_PATH}/connection-test`} element={
+              isSignedIn ? (
+                <>
+                  <ProtectedNavigation />
+                  <ConnectionTestPage />
                   <Chatbot />
                 </>
               ) : (
