@@ -33,60 +33,41 @@ class SignIn extends Component {
                 password: this.state.signInPassword
             };
             
-            // Use the correct API endpoint: /api/users/login
             try {
-                console.log('Trying login with correct endpoint: /api/users/login');
-                const response = await fetch('https://care4crisis-api.onrender.com/api/users/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json',
-                        'Origin': window.location.origin
-                    },
-                    body: JSON.stringify(credentials)
-                });
+                console.log('Trying login with apiService');
+                const response = await apiService.login(credentials);
                 
-                console.log('Login response status:', response.status);
+                console.log('Login successful:', response.data);
                 
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('Login successful:', data);
-                    
-                    // Map backend data structure to frontend expected structure
-                    const userData = {
-                        id: data.data.user.id,
-                        name: data.data.user.name,
-                        email: data.data.user.email,
-                        entries: 0,
-                        joined: data.data.user.createdAt || new Date().toISOString()
-                    };
-                    
-                    // Store token in localStorage
-                    if (data.data.token) {
-                        localStorage.setItem('token', data.data.token);
-                    }
-                    
-                    this.props.loadUser(userData);
-                    this.props.onroutechange('home');
-                    return;
-                } else {
-                    // Try to get error message from response
-                    let errorText = 'Login failed';
-                    try {
-                        const errorData = await response.json();
-                        errorText = errorData.message || errorText;
-                    } catch (e) {
-                        // If parsing JSON fails, use response status text
-                        errorText = response.statusText || errorText;
-                    }
-                    console.error('Login failed:', errorText);
-                    this.setState({ error: errorText });
+                // Map backend data structure to frontend expected structure
+                const userData = {
+                    id: response.data.data.user.id,
+                    name: response.data.data.user.name,
+                    email: response.data.data.user.email,
+                    entries: 0,
+                    joined: response.data.data.user.createdAt || new Date().toISOString()
+                };
+                
+                // Store token in localStorage
+                if (response.data.data.token) {
+                    localStorage.setItem('token', response.data.data.token);
                 }
-            } catch (fetchError) {
-                console.error('Login fetch error:', fetchError);
-                this.setState({ 
-                    error: 'Server connection error. Please try using Demo Mode.'
-                });
+                
+                this.props.loadUser(userData);
+                this.props.onroutechange('home');
+                
+            } catch (error) {
+                console.error('Login error:', error);
+                let errorText = 'Login failed';
+                
+                if (error.response) {
+                    errorText = error.response.data?.message || errorText;
+                    console.log('Login response status:', error.response.status);
+                } else {
+                    errorText = 'Server connection error. Please try using Demo Mode.';
+                }
+                
+                this.setState({ error: errorText });
             }
         } catch (error) {
             console.error('Login error details:', error);
