@@ -114,7 +114,7 @@ const User = {
   async getUserProfile(userId) {
     const query = `
       SELECT u.id, u.name, u.email, u.is_ngo, u.is_admin, u.created_at,
-             up.profile_picture, up.bio, up.location, up.phone, up.wallet_address, up.wallet_type
+             up.profile_picture, up.bio, up.address, up.phone, up.preferences
       FROM users u
       LEFT JOIN user_profiles up ON u.id = up.user_id
       WHERE u.id = $1
@@ -131,7 +131,7 @@ const User = {
    * @returns {Promise<Object>} - Updated profile
    */
   async updateUserProfile(userId, profileData) {
-    const { profilePicture, bio, location, phone, walletAddress, walletType } = profileData;
+    const { profilePicture, bio, address, phone, preferences } = profileData;
     
     // Check if profile exists
     const checkQuery = 'SELECT id FROM user_profiles WHERE user_id = $1';
@@ -142,26 +142,26 @@ const User = {
     if (checkResult.rows.length === 0) {
       // Create new profile
       const insertQuery = `
-        INSERT INTO user_profiles (user_id, profile_picture, bio, location, phone, wallet_address, wallet_type)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        INSERT INTO user_profiles (user_id, profile_picture, bio, address, phone, preferences)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *
       `;
       
       result = await db.query(insertQuery, [
-        userId, profilePicture, bio, location, phone, walletAddress, walletType
+        userId, profilePicture, bio, address, phone, preferences
       ]);
     } else {
       // Update existing profile
       const updateQuery = `
         UPDATE user_profiles
-        SET profile_picture = $1, bio = $2, location = $3, phone = $4, 
-            wallet_address = $5, wallet_type = $6, updated_at = CURRENT_TIMESTAMP
-        WHERE user_id = $7
+        SET profile_picture = $1, bio = $2, address = $3, phone = $4, 
+            preferences = $5, updated_at = CURRENT_TIMESTAMP
+        WHERE user_id = $6
         RETURNING *
       `;
       
       result = await db.query(updateQuery, [
-        profilePicture, bio, location, phone, walletAddress, walletType, userId
+        profilePicture, bio, address, phone, preferences, userId
       ]);
     }
     

@@ -41,6 +41,15 @@ const userController = {
         isAdmin: false
       });
       
+      // Create user profile
+      await User.updateUserProfile(user.id, {
+        profilePicture: null,
+        bio: null,
+        address: null,
+        phone: null,
+        preferences: null
+      });
+      
       // Generate JWT token
       const token = jwt.sign(
         { 
@@ -178,10 +187,9 @@ const userController = {
             isAdmin: profile.is_admin,
             profilePicture: profile.profile_picture,
             bio: profile.bio,
-            location: profile.location,
+            address: profile.address,
             phone: profile.phone,
-            walletAddress: profile.wallet_address,
-            walletType: profile.wallet_type,
+            preferences: profile.preferences,
             createdAt: profile.created_at
           }
         }
@@ -203,7 +211,7 @@ const userController = {
   async updateProfile(req, res) {
     try {
       const userId = req.user.id;
-      const { name, email, profilePicture, bio, location, phone, walletAddress, walletType } = req.body;
+      const { name, email, profilePicture, bio, address, phone, preferences } = req.body;
       
       // Update basic user info if provided
       if (name || email) {
@@ -214,14 +222,13 @@ const userController = {
       }
       
       // Update profile details if any provided
-      if (profilePicture || bio || location || phone || walletAddress || walletType) {
+      if (profilePicture || bio || address || phone || preferences) {
         await User.updateUserProfile(userId, {
           profilePicture,
           bio,
-          location,
+          address,
           phone,
-          walletAddress,
-          walletType
+          preferences
         });
       }
       
@@ -241,10 +248,9 @@ const userController = {
             isAdmin: updatedProfile.is_admin,
             profilePicture: updatedProfile.profile_picture,
             bio: updatedProfile.bio,
-            location: updatedProfile.location,
+            address: updatedProfile.address,
             phone: updatedProfile.phone,
-            walletAddress: updatedProfile.wallet_address,
-            walletType: updatedProfile.wallet_type,
+            preferences: updatedProfile.preferences,
             updatedAt: updatedProfile.updated_at
           }
         }
