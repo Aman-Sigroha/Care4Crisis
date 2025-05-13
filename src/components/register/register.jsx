@@ -36,10 +36,20 @@ class Register extends Component{
             const { name, email, password } = this.state;
             const response = await apiService.register({ name, email, password });
             
-            if (response.data) {
-                this.props.loadUser(response.data.data.user);
+            if (response.data && response.data.data.user) {
+                // Map backend data structure to frontend expected structure
+                const userData = {
+                    id: response.data.data.user.id,
+                    name: response.data.data.user.name,
+                    email: response.data.data.user.email,
+                    entries: 0, // Default value
+                    joined: response.data.data.user.createdAt // Map createdAt to joined
+                };
+                
                 // Store token in localStorage for authenticated requests
                 localStorage.setItem('token', response.data.data.token);
+                
+                this.props.loadUser(userData);
                 this.props.onroutechange('home');
             }
         } catch (error) {

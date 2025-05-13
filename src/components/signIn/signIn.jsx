@@ -1,12 +1,14 @@
 import { Component } from 'react';
 import './signIn.css';
+import apiService from '../../services/apiService';
 
 class SignIn extends Component {
     constructor(props){
         super(props);
         this.state = {
             signInEmail: '',
-            signInPassword: ''
+            signInPassword: '',
+            error: null
         }
     }
 
@@ -22,18 +24,37 @@ class SignIn extends Component {
         })
     }
 
-    onSubmitSignIn = () => {
-        fetch('https://care4crisis-api.onrender.com/signin', {
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ email: this.state.signInEmail, password: this.state.signInPassword})
-        }).then(response => response.json())
-        .then(user => {
-            if (user.id){
-                this.props.loadUser(user);
+    onSubmitSignIn = async () => {
+        try {
+            const response = await apiService.login({
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
+            });
+            
+            if (response.data && response.data.data.user) {
+                // Map backend data structure to frontend expected structure
+                const userData = {
+                    id: response.data.data.user.id,
+                    name: response.data.data.user.name,
+                    email: response.data.data.user.email,
+                    entries: 0, // Default value if not provided
+                    joined: response.data.data.user.createdAt // Map createdAt to joined
+                };
+                
+                // Store token in localStorage
+                localStorage.setItem('token', response.data.data.token);
+                
+                this.props.loadUser(userData);
                 this.props.onroutechange('home');
+            } else {
+                this.setState({ error: 'Invalid login response' });
             }
-        })
+        } catch (error) {
+            console.error('Login error:', error);
+            this.setState({ 
+                error: error.response?.data?.message || 'Login failed. Please check your credentials.'
+            });
+        }
     }
 
     directAccess = () => {
@@ -50,6 +71,12 @@ class SignIn extends Component {
                 <div className="corner-decoration bottom-right"></div>
                 
                 <h2 className="form-title">Access System</h2>
+                
+                {this.state.error && (
+                    <div className="error-message">
+                        {this.state.error}
+                    </div>
+                )}
                 
                 <div className="form-group">
                     <label htmlFor="email-address">Email ID</label>
