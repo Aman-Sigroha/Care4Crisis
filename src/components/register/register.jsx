@@ -35,55 +35,66 @@ class Register extends Component{
         try {
             const { name, email, password } = this.state;
             
-            // Try with the new API service first
+            console.log('Attempting registration with:', { email, name });
+            
+            // Use the correct API endpoint: /api/users/register
             try {
-                const response = await apiService.register({ name, email, password });
+                console.log('Trying registration with correct endpoint: /api/users/register');
+                const response = await fetch('https://care4crisis-api.onrender.com/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Origin': window.location.origin
+                    },
+                    body: JSON.stringify({ name, email, password })
+                });
                 
-                console.log('Register response (new API):', response);
+                console.log('Registration response status:', response.status);
                 
-                if (response.data && response.data.data && response.data.data.user) {
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Registration successful:', data);
+                    
                     // Map backend data structure to frontend expected structure
                     const userData = {
-                        id: response.data.data.user.id,
-                        name: response.data.data.user.name,
-                        email: response.data.data.user.email,
-                        entries: 0, // Default value
-                        joined: response.data.data.user.createdAt // Map createdAt to joined
+                        id: data.data.user.id,
+                        name: data.data.user.name,
+                        email: data.data.user.email,
+                        entries: 0,
+                        joined: data.data.user.createdAt || new Date().toISOString()
                     };
                     
-                    // Store token in localStorage for authenticated requests
-                    localStorage.setItem('token', response.data.data.token);
+                    // Store token in localStorage
+                    if (data.data.token) {
+                        localStorage.setItem('token', data.data.token);
+                    }
                     
                     this.props.loadUser(userData);
                     this.props.onroutechange('home');
                     return;
+                } else {
+                    // Try to get error message from response
+                    let errorText = 'Registration failed';
+                    try {
+                        const errorData = await response.json();
+                        errorText = errorData.message || errorText;
+                    } catch (e) {
+                        // If parsing JSON fails, use response status text
+                        errorText = response.statusText || errorText;
+                    }
+                    console.error('Registration failed:', errorText);
+                    this.setState({ error: errorText });
                 }
-            } catch (apiError) {
-                console.log('New API registration failed, trying legacy endpoint:', apiError);
-                // Continue to legacy approach if API service fails
-            }
-            
-            // Fallback to old endpoint directly
-            const response = await fetch('https://care4crisis-api.onrender.com/register', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ name, email, password })
-            });
-            
-            const data = await response.json();
-            console.log('Register response (legacy):', data);
-            
-            if (data.id) {
-                this.props.loadUser(data);
-                this.props.onroutechange('home');
-            } else {
-                this.setState({ error: data.message || 'Registration failed' });
+            } catch (fetchError) {
+                console.error('Registration fetch error:', fetchError);
+                this.setState({ 
+                    error: 'Server connection error. Please try using Demo Mode.'
+                });
             }
         } catch (error) {
             console.error('Registration error:', error);
-            this.setState({ 
-                error: error.response?.data?.message || 'Registration failed. Please try again.' 
-            });
+            this.setState({ error: 'Unable to connect to server. Try Demo Mode.' });
         }
     }
 

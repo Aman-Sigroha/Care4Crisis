@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import './signIn.css';
 import apiService from '../../services/apiService';
+import ApiTestComponent from '../ApiTestComponent';
 
 class SignIn extends Component {
     constructor(props){
@@ -27,82 +28,69 @@ class SignIn extends Component {
     onSubmitSignIn = async () => {
         try {
             console.log('Attempting login with:', { email: this.state.signInEmail });
+            const credentials = {
+                email: this.state.signInEmail,
+                password: this.state.signInPassword
+            };
             
-            // Try with the new API service first
+            // Use the correct API endpoint: /api/users/login
             try {
-                const response = await apiService.login({
-                    email: this.state.signInEmail,
-                    password: this.state.signInPassword
+                console.log('Trying login with correct endpoint: /api/users/login');
+                const response = await fetch('https://care4crisis-api.onrender.com/api/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                        'Origin': window.location.origin
+                    },
+                    body: JSON.stringify(credentials)
                 });
                 
-                console.log('Login response (new API):', response);
+                console.log('Login response status:', response.status);
                 
-                if (response.data && response.data.data && response.data.data.user) {
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log('Login successful:', data);
+                    
                     // Map backend data structure to frontend expected structure
                     const userData = {
-                        id: response.data.data.user.id,
-                        name: response.data.data.user.name,
-                        email: response.data.data.user.email,
-                        entries: 0, // Default value if not provided
-                        joined: response.data.data.user.createdAt // Map createdAt to joined
+                        id: data.data.user.id,
+                        name: data.data.user.name,
+                        email: data.data.user.email,
+                        entries: 0,
+                        joined: data.data.user.createdAt || new Date().toISOString()
                     };
                     
                     // Store token in localStorage
-                    localStorage.setItem('token', response.data.data.token);
+                    if (data.data.token) {
+                        localStorage.setItem('token', data.data.token);
+                    }
                     
                     this.props.loadUser(userData);
                     this.props.onroutechange('home');
                     return;
+                } else {
+                    // Try to get error message from response
+                    let errorText = 'Login failed';
+                    try {
+                        const errorData = await response.json();
+                        errorText = errorData.message || errorText;
+                    } catch (e) {
+                        // If parsing JSON fails, use response status text
+                        errorText = response.statusText || errorText;
+                    }
+                    console.error('Login failed:', errorText);
+                    this.setState({ error: errorText });
                 }
-            } catch (apiError) {
-                console.log('New API login failed, trying legacy endpoint:', apiError);
-                // Continue to legacy approach if API service fails
-            }
-            
-            // Fallback to old endpoint directly
-            const response = await fetch('https://care4crisis-api.onrender.com/signin', {
-                method: 'post',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({ 
-                    email: this.state.signInEmail, 
-                    password: this.state.signInPassword
-                })
-            });
-            
-            const data = await response.json();
-            console.log('Login response (legacy):', data);
-            
-            if (data.id) {
-                this.props.loadUser(data);
-                this.props.onroutechange('home');
-            } else {
-                this.setState({ error: data.message || 'Login failed' });
+            } catch (fetchError) {
+                console.error('Login fetch error:', fetchError);
+                this.setState({ 
+                    error: 'Server connection error. Please try using Demo Mode.'
+                });
             }
         } catch (error) {
             console.error('Login error details:', error);
-            
-            // More detailed error information
-            if (error.response) {
-                console.error('Error response:', error.response.data);
-                console.error('Error status:', error.response.status);
-                
-                // Display meaningful error based on status code
-                if (error.response.status === 400) {
-                    this.setState({ error: 'Invalid email or password format' });
-                } else if (error.response.status === 401) {
-                    this.setState({ error: 'Invalid credentials' });
-                } else {
-                    this.setState({ error: error.response.data?.message || 'Login failed' });
-                }
-            } else if (error.request) {
-                // Request was made but no response received
-                console.error('No response received:', error.request);
-                this.setState({ error: 'Server did not respond. Please try again later.' });
-            } else {
-                // Something happened in setting up the request
-                console.error('Error message:', error.message);
-                this.setState({ error: 'Failed to connect to the server' });
-            }
+            this.setState({ error: 'Unable to connect to server. Try Demo Mode.' });
         }
     }
 
@@ -112,70 +100,81 @@ class SignIn extends Component {
     }
 
     render() {
-        return(
-            <div className="cyber-container signin-container">
-                <div className="corner-decoration top-left"></div>
-                <div className="corner-decoration top-right"></div>
-                <div className="corner-decoration bottom-left"></div>
-                <div className="corner-decoration bottom-right"></div>
-                
-                <h2 className="form-title">Access System</h2>
-                
-                {this.state.error && (
-                    <div className="error-message">
-                        {this.state.error}
+        return (
+            <>
+                <div className="cyber-container signin-container">
+                    <div className="corner-decoration top-left"></div>
+                    <div className="corner-decoration top-right"></div>
+                    <div className="corner-decoration bottom-left"></div>
+                    <div className="corner-decoration bottom-right"></div>
+                    
+                    <h2 className="form-title">Access System</h2>
+                    
+                    {this.state.error && (
+                        <div className="error-message" style={{
+                            backgroundColor: 'rgba(255, 0, 0, 0.1)',
+                            border: '1px solid red',
+                            borderRadius: '4px',
+                            padding: '10px',
+                            marginBottom: '20px',
+                            color: '#ff6b6b'
+                        }}>
+                            <strong>Login failed:</strong> {this.state.error}
+                            <p style={{marginTop: '10px', fontSize: '0.9em'}}>
+                                Try using the Demo Mode button below.
+                            </p>
+                        </div>
+                    )}
+                    
+                    <div className="form-group">
+                        <label htmlFor="email-address">Email ID</label>
+                        <input 
+                            onChange={this.onEmailChange} 
+                            className="neon-input" 
+                            type="email" 
+                            name="email-address" 
+                            id="email-address"
+                            placeholder="Enter your email"
+                        />
                     </div>
-                )}
-                
-                <div className="form-group">
-                    <label htmlFor="email-address">Email ID</label>
-                    <input 
-                        onChange={this.onEmailChange} 
-                        className="neon-input" 
-                        type="email" 
-                        name="email-address" 
-                        id="email-address"
-                        placeholder="Enter your email"
-                    />
-                </div>
-                
-                <div className="form-group">
-                    <label htmlFor="password">Security Key</label>
-                    <input 
-                        onChange={this.onPasswordChange} 
-                        className="neon-input" 
-                        type="password" 
-                        name="password" 
-                        id="password"
-                        placeholder="Enter your password"
-                    />
-                </div>
-                
-                <button 
-                    onClick={this.onSubmitSignIn} 
-                    className="cyber-button signin-btn"
-                >
-                    <span className="button-text">System Login</span>
-                </button>
-                
-                <div className="alt-action">
-                    <p>New user?</p>
-                    <button onClick={() => {this.props.onroutechange('register')}} className="text-link">
-                        Register for access
+                    
+                    <div className="form-group">
+                        <label htmlFor="password">Security Key</label>
+                        <input 
+                            onChange={this.onPasswordChange} 
+                            className="neon-input" 
+                            type="password" 
+                            name="password" 
+                            id="password"
+                            placeholder="Enter your password"
+                        />
+                    </div>
+                    
+                    <button 
+                        onClick={this.onSubmitSignIn} 
+                        className="cyber-button signin-btn"
+                    >
+                        <span className="button-text">System Login</span>
                     </button>
-                </div>
-                
-                <div className="direct-access">
+                    
                     <button 
                         onClick={this.directAccess} 
-                        className="cyber-button direct-access-btn"
+                        className="cyber-button direct-access-btn mt-3"
+                        style={{backgroundColor: 'rgba(0, 128, 0, 0.6)', marginTop: '1rem', width: '100%'}}
                     >
-                        <i className="fas fa-rocket"></i> Direct Access
+                        <span className="button-text">Demo Mode</span>
                     </button>
-                    <p className="direct-note">No database connection required</p>
+                    
+                    <div className="alt-action">
+                        <p>New user?</p>
+                        <button onClick={() => {this.props.onroutechange('register')}} className="text-link">
+                            Register for access
+                        </button>
+                    </div>
                 </div>
-            </div>
-        )
+                <ApiTestComponent />
+            </>
+        );
     }
 }
 
