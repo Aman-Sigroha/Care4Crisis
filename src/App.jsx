@@ -12,6 +12,11 @@ import DonationSuccess from './components/donation/DonationSuccess';
 import TransparencyPage from './components/transparency/TransparencyPage';
 import Chatbot from './components/chatbot/Chatbot';
 import Profile from './components/profile/Profile.jsx';
+import NGOInfoPage from './components/ngo/NGOInfoPage';
+import CampaignsList from './components/donation/CampaignsList';
+import CreateCampaign from './components/donation/CreateCampaign';
+import BlockchainDonation from './components/donation/BlockchainDonation';
+import WalletConnector from './components/common/WalletConnector';
 import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 // Base path for GitHub Pages
@@ -308,6 +313,67 @@ class App extends Component {
                     user={this.state.user} 
                     updateUser={(updatedUser) => this.loadUser(updatedUser)}
                   />
+                  <Chatbot />
+                </>
+              ) : (
+                <Navigate to={`${BASE_PATH}/signin`} />
+              )
+            } />
+            
+            <Route path={`${BASE_PATH}/ngo-info`} element={
+              isSignedIn ? (
+                <>
+                  <ProtectedNavigation />
+                  <NGOInfoPage />
+                  <Chatbot />
+                </>
+              ) : (
+                <Navigate to={`${BASE_PATH}/signin`} />
+              )
+            } />
+            
+            <Route path={`${BASE_PATH}/ngo-info/:ngoId`} element={
+              isSignedIn ? (
+                <>
+                  <ProtectedNavigation />
+                  <NGOInfoPage />
+                  <Chatbot />
+                </>
+              ) : (
+                <Navigate to={`${BASE_PATH}/signin`} />
+              )
+            } />
+            
+            {/* New blockchain routes */}
+            <Route path={`${BASE_PATH}/campaigns`} element={
+              isSignedIn ? (
+                <>
+                  <ProtectedNavigation />
+                  <CampaignsList />
+                  <Chatbot />
+                </>
+              ) : (
+                <Navigate to={`${BASE_PATH}/signin`} />
+              )
+            } />
+            
+            <Route path={`${BASE_PATH}/create-campaign`} element={
+              isSignedIn ? (
+                <>
+                  <ProtectedNavigation />
+                  <CreateCampaign />
+                  <Chatbot />
+                </>
+              ) : (
+                <Navigate to={`${BASE_PATH}/signin`} />
+              )
+            } />
+            
+            <Route path={`${BASE_PATH}/donate-blockchain/:campaignId`} element={
+              isSignedIn ? (
+                <>
+                  <ProtectedNavigation />
+                  <BlockchainDonation />
                   <Chatbot />
                 </>
               ) : (

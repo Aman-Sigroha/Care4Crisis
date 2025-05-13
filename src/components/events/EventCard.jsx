@@ -1,10 +1,14 @@
 import { Button } from 'react-bootstrap';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './EventCard.css';
+
+// Import BASE_PATH constant or define it here
+const BASE_PATH = '/Care4Crisis';
 
 const EventCard = ({ event }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const navigate = useNavigate();
   
   // Calculate progress percentage
   const progressPercent = Math.round((event.raised / event.goal) * 100);
@@ -25,6 +29,24 @@ const EventCard = ({ event }) => {
     return 'low-urgency';
   };
 
+  // Get NGO slug for navigation
+  const getNgoSlug = (organizerName) => {
+    switch(organizerName) {
+      case 'WaterAid Foundation':
+        return 'wateraid-foundation';
+      case 'Education First NGO':
+        return 'education-first-ngo';
+      default:
+        return 'wateraid-foundation'; // default fallback
+    }
+  };
+
+  // Handle NGO info button click
+  const handleNgoInfoClick = () => {
+    const ngoSlug = getNgoSlug(event.organizer);
+    navigate(`${BASE_PATH}/ngo-info/${ngoSlug}`);
+  };
+
   return (
     <div className="event-card">
       <div className="event-image">
@@ -40,6 +62,13 @@ const EventCard = ({ event }) => {
         
         <div className="event-organizer">
           <i className="fas fa-building"></i> {event.organizer}
+          <Button 
+            variant="link" 
+            className="view-ngo-btn event-ngo-btn"
+            onClick={handleNgoInfoClick}
+          >
+            <i className="fas fa-info-circle"></i> NGO Info
+          </Button>
         </div>
         
         <div className="event-location">
@@ -93,14 +122,10 @@ const EventCard = ({ event }) => {
           <button className="share-button">
             <i className="fas fa-share-alt"></i>
           </button>
-          
-          <button className="info-button">
-            <i className="fas fa-info-circle"></i>
-          </button>
         </div>
         
         <div className="action-group-right">
-          <Link to={`/Care4Crisis/donate/${event.id}`}>
+          <Link to={`${BASE_PATH}/donate/${event.id}`}>
             <Button className="donate-button" variant="primary">
               <i className="fas fa-coins"></i> Donate Now
             </Button>

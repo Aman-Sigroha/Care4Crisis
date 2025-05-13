@@ -1,65 +1,111 @@
-# Care4Crisis - AI-Powered Crisis Management
+# Care4Crisis - Blockchain Donation Platform
 
-This project was created with Vite + React with a futuristic cyberpunk UI design.
+This project enhances the Care4Crisis donation platform with blockchain integration, providing transparency and automated fund distribution for donations.
 
-## Features
+## Smart Contract Details
 
-### Modern UI/UX Design
-- Futuristic cyberpunk theme with neon colors
-- Animated elements and hover effects
-- Responsive layout for all devices
-- Custom fonts: Orbitron for headings and Raleway for body text
+The platform uses smart contracts to handle donations for NGO campaigns:
 
-### Visual Elements
-- Custom SVG favicon
-- Neon glow effects
-- Animated background particles
-- Grid background patterns
-- Custom buttons and form elements
-- Corner decorations and gradients
+1. When an NGO contacts Care4Crisis, a campaign is created with:
+   - A target donation amount
+   - A deadline for fundraising
+   - The NGO's wallet address for receiving funds
 
-### Technologies
-- Vite for fast development and building
-- React for component-based UI
-- CSS Variables for theming
-- Bootstrap integration with custom styling
-- Font Awesome icons
+2. The smart contract automatically:
+   - Collects and holds donations made to the campaign
+   - Releases funds to the NGO when either:
+     - The target amount is reached
+     - The deadline has passed
 
-## Development
-
-To run the development server:
-
-```
-npm run dev
-```
-
-## Building for Production
-
-To build the project for production:
-
-```
-npm run build
-```
-
-## Deployment
-
-This project is configured to deploy to GitHub Pages. To deploy:
-
-```
-npm run deploy
-```
+3. All transactions are recorded on the blockchain for complete transparency
 
 ## Project Structure
 
-- `/src` - Source code with React components
-- `/public` - Static assets
-- `/dist` - Build output (generated)
+- `blockchain/` - Contains smart contract code and deployment scripts
+- `src/services/` - Integration services for Ethereum and Solana
+- `src/components/donation/` - React components for the donation platform
 
-## UI Components
+## Blockchain Technologies Used
 
-The app features several custom UI components:
-- Animated navigation bar
-- Glowing neon cards
-- Modern form inputs
-- Futuristic buttons
-- Responsive home page design
+- **Ethereum (Sepolia Testnet)**: Primary blockchain using MetaMask wallet
+- **Solana (Testnet)**: Alternative blockchain using Phantom wallet
+
+## Prerequisites
+
+- Node.js and npm
+- MetaMask browser extension
+- Phantom wallet (for Solana integration)
+- Sepolia ETH testnet tokens
+- Solana testnet tokens
+
+## Smart Contract Deployment
+
+### Deploying to Ethereum Sepolia Testnet
+
+1. Create a `.env` file in the `blockchain/` directory with your credentials:
+   ```
+   PRIVATE_KEY=your_metamask_private_key
+   ALCHEMY_API_URL=your_alchemy_sepolia_api_url
+   ETHERSCAN_API_KEY=your_etherscan_api_key (optional for verification)
+   ```
+
+2. Install dependencies:
+   ```
+   cd blockchain
+   npm install
+   ```
+
+3. Compile the contracts:
+   ```
+   npx hardhat compile
+   ```
+
+4. Deploy to Sepolia:
+   ```
+   npx hardhat run scripts/deploy.js --network sepolia
+   ```
+
+5. Update the contract address in `src/services/ethereumService.js` with the deployed address
+
+### Mainnet Deployment (When Ready)
+
+1. Update hardhat.config.js with mainnet configurations
+2. Run the deployment script with mainnet network flag
+3. Update the contract address in the frontend service
+
+## Interacting with the Contract
+
+After deployment, users can:
+
+1. View active campaigns from the blockchain
+2. Donate ETH or SOL to campaigns
+3. Create new campaigns (with platform approval)
+4. View transaction history on-chain
+
+## For Developers
+
+To extend this functionality:
+
+1. Enhance the contracts with additional features:
+   ```solidity
+   // Example of adding a new feature
+   function withdrawEmergencyFunds() public onlyOwner {
+     // Implementation details
+   }
+   ```
+
+2. Update the frontend services in `src/services/` to interact with new contract functions
+
+3. Add new components in the React frontend to expose the new functionality
+
+## Testing
+
+Run smart contract tests:
+```
+cd blockchain
+npx hardhat test
+```
+
+## License
+
+MIT

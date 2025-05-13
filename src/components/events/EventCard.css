@@ -301,4 +301,31 @@
     width: 100%;
     margin-top: 0.75rem;
   }
+}
+
+.event-ngo-btn {
+  margin-left: 8px;
+  padding: 4px 12px !important;
+  color: #05c3dd !important;
+  font-size: 0.8rem;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  background: rgba(5, 195, 221, 0.1) !important;
+  border-radius: 5px !important;
+  border: 1px solid rgba(5, 195, 221, 0.3) !important;
+  min-width: 100px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.event-ngo-btn:hover {
+  color: #fff !important;
+  background: rgba(5, 195, 221, 0.2) !important;
+  text-decoration: none !important;
+  border-color: rgba(5, 195, 221, 0.5) !important;
+}
+
+.event-ngo-btn i {
+  margin-right: 4px;
+  font-size: 0.9rem;
 } 

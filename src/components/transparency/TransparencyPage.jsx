@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Table, Badge, Nav, Tab } from 'react-bootstrap';
+import { Container, Row, Col, Card, Table, Badge, Nav, Tab, Alert } from 'react-bootstrap';
 import './TransparencyPage.css';
-import Navigation from '../navigation/nav';
 import Footer from '../home/footer/Footer';
 import EventDistribution from '../events/EventDistribution';
 
@@ -49,10 +48,10 @@ const TransparencyPage = () => {
         ]
       },
       solana: {
-        balance: '5.250000',
+        balance: '10.000000',
         transactions: [
           { id: 'tx1sol', date: '2023-11-25', type: 'received', amount: '3.500000', from: 'Donor', to: 'Care4Crisis', status: 'confirmed' },
-          { id: 'tx2sol', date: '2023-11-28', type: 'received', amount: '1.750000', from: 'Anonymous', to: 'Care4Crisis', status: 'confirmed' }
+          { id: 'tx2sol', date: '2023-11-28', type: 'received', amount: '6.500000', from: 'Anonymous', to: 'Care4Crisis', status: 'confirmed' }
         ]
       }
     };
@@ -123,7 +122,6 @@ const TransparencyPage = () => {
   
   return (
     <>
-      <Navigation />
       <div className="transparency-page">
         <div className="transparency-hero">
           <Container>
@@ -133,6 +131,15 @@ const TransparencyPage = () => {
         </div>
         
         <Container className="transparency-content">
+          <Alert variant="info" className="mb-4">
+            <Alert.Heading>Demo Mode - Testnet Transactions</Alert.Heading>
+            <p>
+              This transparency dashboard is currently displaying transactions on testnets:
+              Ethereum Sepolia, Bitcoin Testnet, and Solana Testnet.
+              All transactions shown are for demonstration purposes only.
+            </p>
+          </Alert>
+          
           <Row className="mb-4">
             <Col>
               <Card className="total-balance-card">
@@ -343,28 +350,30 @@ const TransparencyPage = () => {
 
 // Helper functions to generate blockchain explorer links
 function getExplorerLink(currency, address) {
-  switch(currency) {
+  switch(currency.toLowerCase()) {
     case 'bitcoin':
-      return `https://www.blockchain.com/explorer/addresses/btc/${address}`;
+      return `https://live.blockcypher.com/btc-testnet/address/${address}/`;
     case 'ethereum':
+      return `https://sepolia.etherscan.io/address/${address}`;
     case 'usdt':
-      return `https://etherscan.io/address/${address}`;
+      return `https://sepolia.etherscan.io/address/${address}`;
     case 'solana':
-      return `https://explorer.solana.com/address/${address}`;
+      return `https://explorer.solana.com/address/${address}?cluster=testnet`;
     default:
       return '#';
   }
 }
 
 function getTransactionLink(currency, txId) {
-  switch(currency) {
+  switch(currency.toLowerCase()) {
     case 'bitcoin':
-      return `https://www.blockchain.com/explorer/transactions/btc/${txId}`;
+      return `https://live.blockcypher.com/btc-testnet/tx/${txId}/`;
     case 'ethereum':
+      return `https://sepolia.etherscan.io/tx/${txId}`;
     case 'usdt':
-      return `https://etherscan.io/tx/${txId}`;
+      return `https://sepolia.etherscan.io/tx/${txId}`;
     case 'solana':
-      return `https://explorer.solana.com/tx/${txId}`;
+      return `https://explorer.solana.com/tx/${txId}?cluster=testnet`;
     default:
       return '#';
   }

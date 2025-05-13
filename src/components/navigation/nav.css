@@ -6,6 +6,7 @@
   width: 100%;
   z-index: 100;
   position: relative;
+  border-bottom: 1px solid rgba(108, 99, 255, 0.2);
 }
 
 .logo-container {
@@ -36,6 +37,40 @@
 .nav-links {
   display: flex;
   gap: 1rem;
+  align-items: center;
+}
+
+.menu-dropdown {
+  margin-right: auto;
+  margin-left: 2rem;
+}
+
+.dropdown-toggle.cyber-button {
+  background: linear-gradient(90deg, #00c8ff, #6a33f8);
+  border: none;
+  padding: 0.6rem 1.2rem;
+  color: #fff;
+  font-weight: 500;
+}
+
+.dropdown-menu {
+  background-color: rgba(15, 15, 25, 0.95) !important;
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.2);
+}
+
+.dropdown-item {
+  color: #fff !important;
+  padding: 0.5rem 1.2rem;
+}
+
+.dropdown-item:hover {
+  background-color: rgba(108, 99, 255, 0.3) !important;
+}
+
+.wallet-connector-wrapper {
+  display: flex;
+  align-items: center;
 }
 
 .register-btn {

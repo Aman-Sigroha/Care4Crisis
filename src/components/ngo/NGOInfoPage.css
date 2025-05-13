@@ -1,0 +1,686 @@
+/* NGO Info Page Styling */
+.ngo-info-page {
+  background-color: #0a0e17;
+  min-height: 100vh;
+  color: #fff;
+  padding-bottom: 3rem;
+}
+
+/* Hero section */
+.ngo-hero {
+  padding: 4rem 2rem;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.ngo-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(5, 195, 221, 0.7), transparent);
+}
+
+.ngo-logo {
+  background: rgba(15, 23, 42, 0.7);
+  border: 2px solid rgba(5, 195, 221, 0.5);
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: 0 0 20px rgba(5, 195, 221, 0.3);
+}
+
+.ngo-logo img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+}
+
+.ngo-hero h1 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 15px rgba(5, 195, 221, 0.5);
+}
+
+.ngo-tagline {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  color: #b0b7c3;
+  max-width: 80%;
+}
+
+.verification-badge .badge {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  margin-right: 0.5rem;
+}
+
+.cta-buttons {
+  margin-top: 1.5rem;
+}
+
+.cta-buttons .btn {
+  padding: 0.6rem 1.5rem;
+  font-weight: 600;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Content section */
+.ngo-content {
+  margin-bottom: 3rem;
+}
+
+/* Tab navigation */
+#ngo-tabs .nav-link {
+  color: #b0b7c3;
+  background: rgba(15, 23, 42, 0.7);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  margin-right: 0.5rem;
+  border-radius: 5px 5px 0 0;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+
+#ngo-tabs .nav-link:hover {
+  color: #fff;
+  background: rgba(15, 23, 42, 0.9);
+}
+
+#ngo-tabs .nav-link.active {
+  color: #05c3dd;
+  background: rgba(5, 195, 221, 0.1);
+  border-bottom: 3px solid #05c3dd;
+}
+
+/* Cards */
+.card {
+  background: rgba(15, 23, 42, 0.7) !important;
+  border: 1px solid rgba(5, 195, 221, 0.3) !important;
+  border-radius: 10px !important;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.card h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #fff;
+  position: relative;
+  display: inline-block;
+}
+
+.card h2::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(to right, #05c3dd, transparent);
+}
+
+.card h3 {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 1.5rem 0 1rem;
+  color: #05c3dd;
+}
+
+/* About tab */
+.ngo-description {
+  color: #b0b7c3;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.quick-facts {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 0.7rem;
+}
+
+.quick-facts td {
+  padding: 0.5rem;
+  vertical-align: middle;
+}
+
+.quick-facts td:first-child {
+  color: #05c3dd;
+  font-weight: 500;
+  width: 40%;
+}
+
+.quick-facts td:last-child {
+  color: #fff;
+}
+
+.quick-facts i {
+  margin-right: 0.5rem;
+}
+
+.leadership-section {
+  margin-top: 1.5rem;
+}
+
+.leader-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(5, 195, 221, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.leader-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(5, 195, 221, 0.4);
+}
+
+.leader-avatar {
+  font-size: 3rem;
+  color: #05c3dd;
+  margin-bottom: 1rem;
+}
+
+.leader-card h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.leader-card p {
+  color: #b0b7c3;
+  font-size: 0.9rem;
+}
+
+/* Projects tab */
+.projects-grid {
+  margin-top: 1.5rem;
+}
+
+.project-card {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(5, 195, 221, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  height: 100%;
+  transition: all 0.3s;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(5, 195, 221, 0.4);
+}
+
+.project-card h3 {
+  color: #fff;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  min-height: 50px;
+}
+
+.project-details p {
+  color: #b0b7c3;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.project-details i {
+  color: #05c3dd;
+  margin-right: 0.5rem;
+}
+
+.deadline {
+  color: #f7931a !important;
+  margin-bottom: 1rem !important;
+}
+
+.funding-progress {
+  margin-bottom: 1.5rem;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  font-size: 0.85rem;
+  color: #b0b7c3;
+}
+
+.progress-bar-container {
+  width: 100%;
+  height: 6px;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0575e6, #00f2fe);
+  border-radius: 3px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.progress-percentage {
+  text-align: right;
+  font-size: 0.8rem;
+  color: #05c3dd;
+  font-weight: 600;
+}
+
+/* Transparency tab */
+.financial-overview {
+  margin-top: 1.5rem;
+}
+
+.expense-ratio-chart {
+  margin-bottom: 2rem;
+}
+
+.ratio-bars {
+  margin-top: 1.5rem;
+}
+
+.ratio-item {
+  margin-bottom: 1.5rem;
+}
+
+.ratio-label {
+  color: #b0b7c3;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  display: block;
+}
+
+.ratio-bar-container {
+  width: 100%;
+  height: 25px;
+  background: rgba(15, 23, 42, 0.9);
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.ratio-bar {
+  height: 100%;
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.ratio-bar.program {
+  background: #05c3dd;
+}
+
+.ratio-bar.admin {
+  background: #f7931a;
+}
+
+.ratio-bar.fundraising {
+  background: #7a43b6;
+}
+
+.ratio-value {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.blockchain-verification {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(5, 195, 221, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.blockchain-verification p {
+  color: #b0b7c3;
+  margin-bottom: 1.5rem;
+}
+
+.verification-details {
+  margin-top: 1.5rem;
+}
+
+.detail-item {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-label {
+  color: #b0b7c3;
+  font-size: 0.85rem;
+  margin-bottom: 0.3rem;
+}
+
+.detail-value {
+  color: #fff;
+  font-weight: 500;
+}
+
+.detail-value.address {
+  color: #05c3dd;
+  background: rgba(5, 195, 221, 0.1);
+  padding: 0.5rem;
+  border-radius: 5px;
+  word-break: break-all;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+
+.detail-value.link {
+  color: #05c3dd;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.detail-value.link:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Contact tab */
+.contact-info {
+  margin-top: 1.5rem;
+}
+
+.contact-details {
+  margin-bottom: 2rem;
+}
+
+.contact-item {
+  display: flex;
+  margin-bottom: 1.5rem;
+}
+
+.contact-item i {
+  font-size: 1.8rem;
+  color: #05c3dd;
+  margin-right: 1.5rem;
+  min-width: 40px;
+  text-align: center;
+}
+
+.contact-text h4 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.contact-text p {
+  color: #b0b7c3;
+  margin: 0;
+}
+
+.contact-text a {
+  color: #05c3dd;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.contact-text a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.social-media {
+  background: rgba(15, 23, 42, 0.5);
+  border: 1px solid rgba(5, 195, 221, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.social-media h3 {
+  margin-bottom: 1.5rem;
+  position: relative;
+  text-align: center;
+  color: #05c3dd;
+}
+
+.social-media h3::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #05c3dd, transparent);
+}
+
+.social-links {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+.social-link i {
+  font-size: 22px;
+  color: #fff;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-left: 90px;
+}
+
+.social-link span.social-username {
+  font-size: 0.95rem;
+  color: #fff;
+  font-weight: 500;
+  padding-right: 5px;
+}
+
+.social-link.twitter {
+  background: rgba(29, 161, 242, 0.2);
+  border: 1px solid rgba(29, 161, 242, 0.3);
+}
+
+.social-link.twitter i {
+  background: #1DA1F2;
+  margin-left: 65px;
+}
+
+.social-link.twitter:hover {
+  background: rgba(29, 161, 242, 0.3);
+}
+
+.social-link.facebook {
+  background: rgba(59, 89, 152, 0.2);
+  border: 1px solid rgba(59, 89, 152, 0.3);
+}
+
+.social-link.facebook i {
+  background: #4267B2;
+}
+
+.social-link.facebook:hover {
+  background: rgba(59, 89, 152, 0.3);
+}
+
+.social-link.instagram {
+  background: rgba(225, 48, 108, 0.2);
+  border: 1px solid rgba(225, 48, 108, 0.3);
+}
+
+.social-link.instagram i {
+  background: #E1306C;
+}
+
+.social-link.instagram:hover {
+  background: rgba(225, 48, 108, 0.3);
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Back navigation */
+.back-navigation {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Loading spinner */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #0a0e17;
+  color: #05c3dd;
+}
+
+.loading-spinner {
+  width: 50px;
+  height: 50px;
+  border: 3px solid rgba(5, 195, 221, 0.3);
+  border-radius: 50%;
+  border-top-color: #05c3dd;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .ngo-hero {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+  
+  .ngo-logo {
+    margin-bottom: 1.5rem;
+  }
+  
+  .ngo-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .ngo-tagline {
+    max-width: 100%;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .card h2 {
+    font-size: 1.5rem;
+  }
+  
+  #ngo-tabs .nav-link {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+  
+  .contact-item {
+    flex-direction: column;
+  }
+  
+  .contact-item i {
+    margin-bottom: 0.5rem;
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .social-link {
+    padding: 12px 15px;
+  }
+  
+  .social-link i {
+    margin-right: 15px;
+    font-size: 20px;
+  }
+  
+  .social-link span.social-username {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .social-media {
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .social-link {
+    padding: 10px 12px;
+  }
+  
+  .social-link i {
+    margin-right: 12px;
+    font-size: 18px;
+  }
+  
+  .social-link span.social-username {
+    font-size: 0.85rem;
+  }
+} 
