@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Define API base URL based on environment
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://care4crisis.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://care4crisis-api.onrender.com';
 
 // Create axios instance with default config
 const apiClient = axios.create({

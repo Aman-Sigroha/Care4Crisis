@@ -34,23 +34,50 @@ class Register extends Component{
     onSubmitRegister = async () => {
         try {
             const { name, email, password } = this.state;
-            const response = await apiService.register({ name, email, password });
             
-            if (response.data && response.data.data.user) {
-                // Map backend data structure to frontend expected structure
-                const userData = {
-                    id: response.data.data.user.id,
-                    name: response.data.data.user.name,
-                    email: response.data.data.user.email,
-                    entries: 0, // Default value
-                    joined: response.data.data.user.createdAt // Map createdAt to joined
-                };
+            // Try with the new API service first
+            try {
+                const response = await apiService.register({ name, email, password });
                 
-                // Store token in localStorage for authenticated requests
-                localStorage.setItem('token', response.data.data.token);
+                console.log('Register response (new API):', response);
                 
-                this.props.loadUser(userData);
+                if (response.data && response.data.data && response.data.data.user) {
+                    // Map backend data structure to frontend expected structure
+                    const userData = {
+                        id: response.data.data.user.id,
+                        name: response.data.data.user.name,
+                        email: response.data.data.user.email,
+                        entries: 0, // Default value
+                        joined: response.data.data.user.createdAt // Map createdAt to joined
+                    };
+                    
+                    // Store token in localStorage for authenticated requests
+                    localStorage.setItem('token', response.data.data.token);
+                    
+                    this.props.loadUser(userData);
+                    this.props.onroutechange('home');
+                    return;
+                }
+            } catch (apiError) {
+                console.log('New API registration failed, trying legacy endpoint:', apiError);
+                // Continue to legacy approach if API service fails
+            }
+            
+            // Fallback to old endpoint directly
+            const response = await fetch('https://care4crisis-api.onrender.com/register', {
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ name, email, password })
+            });
+            
+            const data = await response.json();
+            console.log('Register response (legacy):', data);
+            
+            if (data.id) {
+                this.props.loadUser(data);
                 this.props.onroutechange('home');
+            } else {
+                this.setState({ error: data.message || 'Registration failed' });
             }
         } catch (error) {
             console.error('Registration error:', error);
