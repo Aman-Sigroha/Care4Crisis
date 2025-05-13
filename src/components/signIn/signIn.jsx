@@ -9,7 +9,8 @@ class SignIn extends Component {
         this.state = {
             signInEmail: '',
             signInPassword: '',
-            error: null
+            error: null,
+            isTryingDirectLogin: false
         }
     }
 
@@ -34,28 +35,30 @@ class SignIn extends Component {
             };
             
             try {
-                console.log('Trying login with apiService');
-                const response = await apiService.login(credentials);
-                
-                console.log('Login successful:', response.data);
-                
-                // Map backend data structure to frontend expected structure
-                const userData = {
-                    id: response.data.data.user.id,
-                    name: response.data.data.user.name,
-                    email: response.data.data.user.email,
-                    entries: 0,
-                    joined: response.data.data.user.createdAt || new Date().toISOString()
-                };
-                
-                // Store token in localStorage
-                if (response.data.data.token) {
-                    localStorage.setItem('token', response.data.data.token);
+                // First try normal login
+                if (!this.state.isTryingDirectLogin) {
+                    try {
+                        console.log('Trying login with apiService');
+                        const response = await apiService.login(credentials);
+                        
+                        this.handleSuccessfulLogin(response.data);
+                        return;
+                    } catch (error) {
+                        console.error('Regular login failed, trying direct login endpoint...');
+                        this.setState({ isTryingDirectLogin: true });
+                        
+                        // Try direct login endpoint as fallback
+                        const directResponse = await apiService.directLogin(credentials);
+                        this.handleSuccessfulLogin(directResponse.data);
+                        return;
+                    }
+                } else {
+                    // Already tried regular login, go straight to direct login
+                    console.log('Trying direct login endpoint');
+                    const directResponse = await apiService.directLogin(credentials);
+                    this.handleSuccessfulLogin(directResponse.data);
+                    return;
                 }
-                
-                this.props.loadUser(userData);
-                this.props.onroutechange('home');
-                
             } catch (error) {
                 console.error('Login error:', error);
                 let errorText = 'Login failed';
@@ -73,6 +76,27 @@ class SignIn extends Component {
             console.error('Login error details:', error);
             this.setState({ error: 'Unable to connect to server. Try Demo Mode.' });
         }
+    }
+
+    handleSuccessfulLogin = (data) => {
+        console.log('Login successful:', data);
+        
+        // Map backend data structure to frontend expected structure
+        const userData = {
+            id: data.data.user.id,
+            name: data.data.user.name,
+            email: data.data.user.email,
+            entries: 0,
+            joined: data.data.user.createdAt || new Date().toISOString()
+        };
+        
+        // Store token in localStorage
+        if (data.data.token) {
+            localStorage.setItem('token', data.data.token);
+        }
+        
+        this.props.loadUser(userData);
+        this.props.onroutechange('home');
     }
 
     directAccess = () => {

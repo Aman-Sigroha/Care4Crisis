@@ -30,6 +30,36 @@ app.use((req, res, next) => {
   next();
 });
 
+// Test route for CORS and POST requests
+app.post('/test-post', (req, res) => {
+  console.log('Test POST route called');
+  console.log('Request body:', req.body);
+  return res.status(200).json({
+    message: 'POST test route works!',
+    receivedData: req.body
+  });
+});
+
+// Direct test login route
+app.post('/direct-login', (req, res) => {
+  console.log('Direct login route called');
+  console.log('Login credentials:', req.body);
+  return res.status(200).json({
+    status: 'success',
+    message: 'Direct login route works!',
+    data: {
+      user: {
+        id: 1,
+        name: 'Test User',
+        email: req.body.email || 'test@example.com',
+        isNgo: false,
+        isAdmin: false
+      },
+      token: 'test-token-123'
+    }
+  });
+});
+
 // Routes
 console.log('Registering API routes...');
 app.use('/api/users', userRoutes);

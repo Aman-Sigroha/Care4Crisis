@@ -40,6 +40,10 @@ const apiService = {
   // User endpoints
   login: (credentials) => apiClient.post('/api/users/login', credentials),
   loginLegacy: (credentials) => apiClient.post('/signin', credentials),
+  // Test routes
+  testPost: (data) => apiClient.post('/test-post', data),
+  directLogin: (credentials) => apiClient.post('/direct-login', credentials),
+  
   register: (userData) => apiClient.post('/api/users/register', userData),
   registerLegacy: (userData) => apiClient.post('/register', userData),
   getUserProfile: () => apiClient.get('/api/users/profile'),
