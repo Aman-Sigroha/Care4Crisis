@@ -38,7 +38,7 @@ const apiService = {
   checkHealth: () => apiClient.get('/health'),
   
   // User endpoints
-  login: (credentials) => apiClient.post('/api/users/login', credentials),
+  login: (credentials) => apiClient.post('/users/login', credentials),
   loginLegacy: (credentials) => apiClient.post('/signin', credentials),
   register: (userData) => apiClient.post('/api/users/register', userData),
   registerLegacy: (userData) => apiClient.post('/register', userData),
