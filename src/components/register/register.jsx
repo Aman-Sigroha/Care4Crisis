@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import './register.css';
+import apiService from '../../services/apiService';
 
 class Register extends Component{
     constructor(props){
@@ -7,7 +8,8 @@ class Register extends Component{
         this.state = {
             email: '',
             password: '',
-            name: ''
+            name: '',
+            error: null
         }
     }
 
@@ -29,18 +31,23 @@ class Register extends Component{
         })
     }
 
-    onSubmitRegister = () => {
-        fetch('https://care4crisis-api.onrender.com/register', {
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ email: this.state.email, password: this.state.password, name: this.state.name})
-        }).then(response => response.json())
-        .then(user => {
-            if (user){
-                this.props.loadUser(user);
+    onSubmitRegister = async () => {
+        try {
+            const { name, email, password } = this.state;
+            const response = await apiService.register({ name, email, password });
+            
+            if (response.data) {
+                this.props.loadUser(response.data.data.user);
+                // Store token in localStorage for authenticated requests
+                localStorage.setItem('token', response.data.data.token);
                 this.props.onroutechange('home');
             }
-        })
+        } catch (error) {
+            console.error('Registration error:', error);
+            this.setState({ 
+                error: error.response?.data?.message || 'Registration failed. Please try again.' 
+            });
+        }
     }
 
     render(){
@@ -52,6 +59,12 @@ class Register extends Component{
                 <div className="corner-decoration bottom-right"></div>
                 
                 <h2 className="form-title">New User Registration</h2>
+                
+                {this.state.error && (
+                    <div className="error-message">
+                        {this.state.error}
+                    </div>
+                )}
                 
                 <div className="form-group">
                     <label htmlFor="name">Full Identity</label>
