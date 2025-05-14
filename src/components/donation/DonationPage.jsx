@@ -25,29 +25,29 @@ const DonationPage = () => {
   const causes = {
     1: {
       id: 1,
-        title: "Clean Water Initiative",
+      title: "Clean Water Initiative",
       category: "Water & Sanitation",
       organizer: "WaterAid Foundation",
       organizerId: "wateraid-foundation",
       location: "Eastern Africa",
       description: "Support our mission to provide clean drinking water to 10,000 people in Eastern Africa. Access to clean water is a fundamental human right, yet millions still lack this basic necessity.",
-        image: "/events/event1.jpg",
-        goal: 15000,
-        raised: 9750,
+      image: "/events/event1.jpg",
+      goal: 15000,
+      raised: 9750,
       daysLeft: 12,
       donationOptions: [10, 25, 50, 100, 250, 500]
-      },
+    },
     2: {
       id: 2,
-        title: "Education for Girls",
+      title: "Education for Girls",
       category: "Education",
       organizer: "Education First NGO",
       organizerId: "education-first-ngo",
       location: "South Asia",
       description: "Help us empower 5,000 girls through education in South Asia. By providing educational opportunities, we can break the cycle of poverty and create lasting change.",
-        image: "/events/event2.jpg",
-        goal: 25000,
-        raised: 18200,
+      image: "/events/event2.jpg",
+      goal: 25000,
+      raised: 18200,
       daysLeft: 23,
       donationOptions: [10, 25, 50, 100, 250, 500]
     },
@@ -139,18 +139,18 @@ const DonationPage = () => {
     const [qrUrl, setQrUrl] = useState('');
     
     useEffect(() => {
-    const walletAddress = getWalletAddress(cryptoCurrency);
+      const walletAddress = getWalletAddress(cryptoCurrency);
       let url = '';
-    
+      
       // Generate different URL formats based on cryptocurrency
-    if (cryptoCurrency === 'BTC') {
+      if (cryptoCurrency === 'BTC') {
         url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=bitcoin:${walletAddress}?amount=${amount}&testnet=true`;
-    } else if (cryptoCurrency === 'SOL') {
+      } else if (cryptoCurrency === 'SOL') {
         url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=solana:${walletAddress}?amount=${amount}&cluster=testnet`;
-    } else {
+      } else {
         // ETH and USDT on Sepolia testnet
         url = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=ethereum:${walletAddress}@11155111?value=${amount}`;
-    }
+      }
       
       console.log(`Generated QR URL for ${cryptoCurrency}:`, url);
       setQrUrl(url);
@@ -414,7 +414,7 @@ const DonationPage = () => {
                                   <small className="text-info">
                                     <i className="fas fa-check-circle"></i> Solana testnet is configured and ready. Make sure your Phantom wallet is set to Testnet mode.
                                   </small>
-                              </div>
+                                </div>
                               )}
                             </div>
                           </div>
@@ -551,4 +551,4 @@ const DonationPage = () => {
   );
 };
 
-export default DonationPage; 
+export default DonationPage;
