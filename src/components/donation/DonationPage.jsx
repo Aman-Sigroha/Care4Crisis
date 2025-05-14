@@ -36,7 +36,7 @@ const DonationPage = () => {
       organizerId: "wateraid-foundation",
       location: "Eastern Africa",
       description: "Support our mission to provide clean drinking water to 10,000 people in Eastern Africa. Access to clean water is a fundamental human right, yet millions still lack this basic necessity.",
-      image: "/events/event1.jpg",
+      image: "https://images.unsplash.com/photo-1541252260730-0412e8e2108e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       goal: 15000,
       raised: 9750,
       daysLeft: 12,
@@ -50,7 +50,7 @@ const DonationPage = () => {
       organizerId: "education-first-ngo",
       location: "South Asia",
       description: "Help us empower 5,000 girls through education in South Asia. By providing educational opportunities, we can break the cycle of poverty and create lasting change.",
-      image: "/events/event2.jpg",
+      image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       goal: 25000,
       raised: 18200,
       daysLeft: 23,
@@ -64,7 +64,7 @@ const DonationPage = () => {
       organizerId: "wateraid-foundation",
       location: "South Asia",
       description: "Fund the construction of 15 community wells that will provide clean water to rural villages in South Asia. Each well will serve approximately 200 families.",
-      image: "/events/event3.jpg",
+      image: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       goal: 22000,
       raised: 15300,
       daysLeft: 35,
@@ -78,7 +78,7 @@ const DonationPage = () => {
       organizerId: "education-first-ngo",
       location: "East Africa",
       description: "Support the construction of a new school that will provide quality education to 500 children in a remote area of East Africa. The school will include classrooms, a library, and computer facilities.",
-      image: "/events/event4.jpg",
+      image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
       goal: 40000,
       raised: 22500,
       daysLeft: 45,
@@ -385,6 +385,30 @@ const DonationPage = () => {
     );
   };
 
+  // NGO data for logos and contact info
+  const ngoData = {
+    "wateraid-foundation": {
+      logo: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+      email: "contact@wateraid.org",
+      website: "https://www.wateraid.org"
+    },
+    "education-first-ngo": {
+      logo: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+      email: "info@educationfirst.org",
+      website: "https://www.educationfirst.org"
+    },
+    "rapid-response-relief": {
+      logo: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+      email: "info@rapidresponse.org",
+      website: "https://www.rapidresponse.org"
+    },
+    "childrens-health-foundation": {
+      logo: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+      email: "contact@childrenshealth.org",
+      website: "https://www.childrenshealth.org"
+    }
+  };
+
   if (!causeDetails) return <div className="loading">Loading...</div>;
 
   return (
@@ -431,10 +455,7 @@ const DonationPage = () => {
                   <div className="ngo-info-area">
                     <div className="ngo-logo">
                       <img 
-                        src={causeDetails.organizerId === "wateraid-foundation" 
-                          ? "https://via.placeholder.com/60x60?text=W" 
-                          : "https://via.placeholder.com/60x60?text=E"
-                        } 
+                        src={ngoData[causeDetails.organizerId]?.logo || "https://via.placeholder.com/60x60?text=NGO"} 
                         alt={causeDetails.organizer} 
                       />
                     </div>
@@ -442,30 +463,18 @@ const DonationPage = () => {
                       <div className="ngo-contact">
                         <div className="contact-item">
                           <i className="fas fa-envelope"></i> 
-                          <span title={causeDetails.organizerId === "wateraid-foundation" 
-                            ? "contact@wateraidfoundation.org" 
-                            : "info@educationfirst.org"
-                          }>
-                            {causeDetails.organizerId === "wateraid-foundation" 
-                              ? "contact@wateraid.org" 
-                              : "info@edufirst.org"
-                            }
+                          <span title={ngoData[causeDetails.organizerId]?.email}>
+                            {ngoData[causeDetails.organizerId]?.email || "contact@ngo.org"}
                           </span>
                         </div>
                         <div className="contact-item">
                           <i className="fas fa-globe"></i> 
                           <a 
-                            href={causeDetails.organizerId === "wateraid-foundation" 
-                              ? "https://www.wateraidfoundation.org" 
-                              : "https://www.educationfirst.org"
-                            } 
+                            href={ngoData[causeDetails.organizerId]?.website} 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="ngo-website-link"
-                            title={causeDetails.organizerId === "wateraid-foundation" 
-                              ? "www.wateraidfoundation.org" 
-                              : "www.educationfirst.org"
-                            }
+                            title={ngoData[causeDetails.organizerId]?.website}
                           >
                             Visit Website
                           </a>

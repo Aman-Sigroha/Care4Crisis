@@ -8,6 +8,7 @@ const BASE_PATH = '/Care4Crisis';
 
 const EventCard = ({ event }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const navigate = useNavigate();
   
   // Calculate progress percentage
@@ -36,8 +37,24 @@ const EventCard = ({ event }) => {
         return 'wateraid-foundation';
       case 'Education First NGO':
         return 'education-first-ngo';
+      case 'Rapid Response Relief':
+        return 'rapid-response-relief';
+      case 'Children\'s Health Foundation':
+        return 'childrens-health-foundation';
+      case 'Wildlife Protection Society':
+        return 'wildlife-protection-society';
+      case 'Sustainable Earth Coalition':
+        return 'sustainable-earth-coalition';
+      case 'Urban Housing Initiative':
+        return 'urban-housing-initiative';
+      case 'Refugee Rights Alliance':
+        return 'refugee-rights-alliance';
       default:
-        return 'wateraid-foundation'; // default fallback
+        // Create a slug from the organizer name
+        return organizerName
+          .toLowerCase()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s]+/g, '-');
     }
   };
 
@@ -47,10 +64,43 @@ const EventCard = ({ event }) => {
     navigate(`${BASE_PATH}/ngo-info/${ngoSlug}`);
   };
 
+  // Handle image load error
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  // Get fallback image based on category
+  const getFallbackImage = () => {
+    switch(event.category) {
+      case 'ENVIRONMENT':
+        return 'https://images.unsplash.com/photo-1532408840957-031d8034aeef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'EDUCATION':
+        return 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'DISASTER':
+        return 'https://images.unsplash.com/photo-1573197852243-a2abcd12eab5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'WILDLIFE':
+        return 'https://images.unsplash.com/photo-1557178985-891ca9b6659f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'HEALTH':
+        return 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'AGRICULTURE':
+        return 'https://images.unsplash.com/photo-1608526728034-8fee8193e1e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'HOUSING':
+        return 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      case 'HUMANITARIAN':
+        return 'https://images.unsplash.com/photo-1560269507-c5e084b07f94?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+      default:
+        return 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80';
+    }
+  };
+
   return (
     <div className="event-card">
       <div className="event-image">
-        <img src={event.image || 'https://via.placeholder.com/400x250?text=Donation+Cause'} alt={event.title} />
+        <img 
+          src={imageError ? getFallbackImage() : (event.image || getFallbackImage())} 
+          alt={event.title} 
+          onError={handleImageError}
+        />
         <div className="event-category">{event.category}</div>
         <div className={`event-urgency ${getUrgencyClass()}`}>
           {event.daysLeft} {event.daysLeft === 1 ? 'day' : 'days'} left

@@ -11,7 +11,7 @@ const sampleEvents = [
   {
     id: 1,
     title: "Clean Water Initiative",
-    image: "/events/event1.jpg",
+    image: "https://images.unsplash.com/photo-1541252260730-0412e8e2108e?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "ENVIRONMENT",
     description: "Providing clean drinking water to remote villages in drought-affected regions. Access to clean water is a fundamental human right.",
     goal: 15000,
@@ -23,7 +23,7 @@ const sampleEvents = [
   {
     id: 2,
     title: "Education for Girls",
-    image: "/events/event2.jpg",
+    image: "https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "EDUCATION",
     description: "Supporting education for girls in underserved communities. Empowering young women through knowledge and skills development.",
     goal: 25000,
@@ -35,7 +35,7 @@ const sampleEvents = [
   {
     id: 3,
     title: "Emergency Flood Relief",
-    image: "/events/event3.jpg",
+    image: "https://images.unsplash.com/photo-1547683905-f686c993aae5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "DISASTER",
     description: "Providing emergency supplies and support to families affected by recent flooding. Immediate assistance for those who lost everything.",
     goal: 50000,
@@ -47,7 +47,7 @@ const sampleEvents = [
   {
     id: 4,
     title: "Wildlife Conservation",
-    image: "/events/event4.jpg",
+    image: "https://images.unsplash.com/photo-1564760055775-d63b17a55c44?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "WILDLIFE",
     description: "Protecting endangered species and their habitats from poaching and environmental destruction. Preserving biodiversity for future generations.",
     goal: 35000,
@@ -59,7 +59,7 @@ const sampleEvents = [
   {
     id: 5,
     title: "Healthcare for Children",
-    image: "/events/event5.jpg",
+    image: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "HEALTH",
     description: "Providing essential medical care and vaccinations for children in poverty-stricken areas. Every child deserves a healthy start in life.",
     goal: 40000,
@@ -71,7 +71,7 @@ const sampleEvents = [
   {
     id: 6,
     title: "Sustainable Farming",
-    image: "/events/event6.jpg",
+    image: "https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "AGRICULTURE",
     description: "Teaching sustainable farming techniques to rural communities facing climate change challenges. Building resilience through knowledge.",
     goal: 20000,
@@ -83,7 +83,7 @@ const sampleEvents = [
   {
     id: 7,
     title: "Homeless Shelter Expansion",
-    image: "/events/event7.jpg",
+    image: "https://images.unsplash.com/photo-1518398046578-8cca57782e17?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "HOUSING",
     description: "Expanding facilities at an urban homeless shelter to accommodate more individuals and families in need of safe housing.",
     goal: 60000,
@@ -95,7 +95,7 @@ const sampleEvents = [
   {
     id: 8,
     title: "Refugee Support Program",
-    image: "/events/event8.jpg",
+    image: "https://images.unsplash.com/photo-1593113598332-cd59a0c3d8a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
     category: "HUMANITARIAN",
     description: "Providing essential services, legal support, and integration assistance to refugees seeking safety and a new beginning.",
     goal: 45000,

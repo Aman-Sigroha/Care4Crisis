@@ -12,8 +12,8 @@ const ngoDatabase = {
   "wateraid-foundation": {
     id: "wateraid-foundation",
     name: "WaterAid Foundation",
-    logo: "/ngo/wateraid-logo.png", // would need to add this image
-    coverImage: "/events/event1.jpg", // reusing existing image
+    logo: "https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+    coverImage: "https://images.unsplash.com/photo-1541252260730-0412e8e2108e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     description: "WaterAid Foundation is dedicated to providing clean and safe drinking water to communities around the world that lack access to this basic necessity. Our mission is to transform lives by improving access to clean water, decent toilets, and good hygiene.",
     mission: "To transform the lives of the poorest and most marginalized people by improving access to safe water, sanitation, and hygiene services.",
     vision: "A world where everyone has access to safe water and sanitation.",
@@ -37,13 +37,13 @@ const ngoDatabase = {
       fundraisingExpenseRatio: "5.2%"
     },
     contactInfo: {
-      email: "contact@wateraidfoundation.org",
+      email: "contact@wateraid.org",
       phone: "+1 (555) 123-4567",
-      website: "https://www.wateraidfoundation.org",
+      website: "https://www.wateraid.org",
       socialMedia: {
-        twitter: "@WaterAidFoundation",
-        facebook: "WaterAidFoundation",
-        instagram: "wateraid_foundation"
+        twitter: "@WaterAid",
+        facebook: "WaterAid",
+        instagram: "wateraid"
       }
     },
     activeProjects: [
@@ -79,8 +79,8 @@ const ngoDatabase = {
   "education-first-ngo": {
     id: "education-first-ngo",
     name: "Education First NGO",
-    logo: "/ngo/education-first-logo.png", // would need to add this image
-    coverImage: "/events/event2.jpg", // reusing existing image
+    logo: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+    coverImage: "https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
     description: "Education First NGO is committed to ensuring quality education for all, particularly focusing on girls and underserved communities. We work to break down barriers to education and create opportunities for children to learn and grow.",
     mission: "To ensure that every child, regardless of their circumstances, has access to quality education.",
     vision: "A world where education is accessible to all and serves as a pathway out of poverty.",
@@ -141,6 +141,140 @@ const ngoDatabase = {
       transactionLink: "https://sepolia.etherscan.io/address/0x9bC5Fc9B0AeE9488Ff797B0d49Aa49e5e4f2B3EA",
       verificationType: "Ethereum Smart Contract",
       verificationAuthority: "PwC Blockchain Verification"
+    }
+  },
+  "rapid-response-relief": {
+    id: "rapid-response-relief",
+    name: "Rapid Response Relief",
+    logo: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+    coverImage: "https://images.unsplash.com/photo-1547683905-f686c993aae5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    description: "Rapid Response Relief provides immediate assistance to communities affected by natural disasters and emergencies. We deploy quickly to deliver essential supplies, medical aid, and logistical support when it matters most.",
+    mission: "To deliver rapid, effective relief to communities affected by disasters, reducing suffering and supporting recovery.",
+    vision: "A world where no community faces disaster recovery alone.",
+    foundedYear: 2010,
+    headquarters: "Seattle, USA with global response capabilities",
+    leadership: [
+      { name: "James Rodriguez", position: "Executive Director" },
+      { name: "Elena Kim", position: "Operations Director" },
+      { name: "Abdul Hassan", position: "Logistics Coordinator" }
+    ],
+    impactStats: {
+      peopleHelped: "3.7 million",
+      countriesServed: 28,
+      projectsCompleted: 75,
+      volunteerCount: 2500
+    },
+    financialInfo: {
+      transparencyRating: "A",
+      adminExpenseRatio: "7.8%",
+      programExpenseRatio: "87.2%",
+      fundraisingExpenseRatio: "5.0%"
+    },
+    contactInfo: {
+      email: "info@rapidresponse.org",
+      phone: "+1 (555) 456-7890",
+      website: "https://www.rapidresponse.org",
+      socialMedia: {
+        twitter: "@RapidResponse",
+        facebook: "RapidResponseRelief",
+        instagram: "rapid_response_relief"
+      }
+    },
+    activeProjects: [
+      {
+        name: "Emergency Flood Relief",
+        location: "Southeast Asia",
+        goal: 50000,
+        raised: 32150,
+        deadline: "2023-11-30"
+      },
+      {
+        name: "Earthquake Recovery",
+        location: "Central Asia",
+        goal: 65000,
+        raised: 41200,
+        deadline: "2024-01-15"
+      },
+      {
+        name: "Hurricane Response",
+        location: "Caribbean",
+        goal: 55000,
+        raised: 28700,
+        deadline: "2023-12-20"
+      }
+    ],
+    blockchainVerification: {
+      walletAddress: "0x3aD4E8B9A3A6D9864ce69cF3E92A427f6fA1BF3C",
+      transactionLink: "https://sepolia.etherscan.io/address/0x3aD4E8B9A3A6D9864ce69cF3E92A427f6fA1BF3C",
+      verificationType: "Ethereum Smart Contract",
+      verificationAuthority: "Ernst & Young Blockchain Verification"
+    }
+  },
+  "childrens-health-foundation": {
+    id: "childrens-health-foundation",
+    name: "Children's Health Foundation",
+    logo: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=300&h=300&q=80",
+    coverImage: "https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80",
+    description: "Children's Health Foundation is dedicated to improving the health and well-being of children worldwide through medical care, vaccination programs, and health education. We believe every child deserves a healthy start in life.",
+    mission: "To ensure that all children have access to essential healthcare and the opportunity to thrive.",
+    vision: "A world where no child suffers from preventable diseases or lack of healthcare.",
+    foundedYear: 1995,
+    headquarters: "Boston, USA with programs in 31 countries",
+    leadership: [
+      { name: "Dr. Emily Sanchez", position: "President" },
+      { name: "Robert Lee", position: "Director of Programs" },
+      { name: "Grace Okonkwo", position: "Medical Director" }
+    ],
+    impactStats: {
+      peopleHelped: "15.3 million",
+      countriesServed: 31,
+      projectsCompleted: 208,
+      volunteerCount: 4700
+    },
+    financialInfo: {
+      transparencyRating: "A+",
+      adminExpenseRatio: "8.0%",
+      programExpenseRatio: "85.5%",
+      fundraisingExpenseRatio: "6.5%"
+    },
+    contactInfo: {
+      email: "contact@childrenshealth.org",
+      phone: "+1 (555) 234-5678",
+      website: "https://www.childrenshealth.org",
+      socialMedia: {
+        twitter: "@ChildrensHealth",
+        facebook: "ChildrensHealthFoundation",
+        instagram: "childrens_health"
+      }
+    },
+    activeProjects: [
+      {
+        name: "Healthcare for Children",
+        location: "Multiple Regions",
+        goal: 40000,
+        raised: 27500,
+        deadline: "2024-01-31"
+      },
+      {
+        name: "Vaccination Campaign",
+        location: "West Africa",
+        goal: 35000,
+        raised: 19800,
+        deadline: "2023-12-31"
+      },
+      {
+        name: "Pediatric Clinic Support",
+        location: "South America",
+        goal: 30000,
+        raised: 15600,
+        deadline: "2024-02-15"
+      }
+    ],
+    blockchainVerification: {
+      walletAddress: "0x5F2dB7E93A9C7cD2D45454f3CcD8624c8b3eF5Ec",
+      transactionLink: "https://sepolia.etherscan.io/address/0x5F2dB7E93A9C7cD2D45454f3CcD8624c8b3eF5Ec",
+      verificationType: "Ethereum Smart Contract",
+      verificationAuthority: "KPMG Blockchain Audit"
     }
   }
 };
@@ -292,7 +426,16 @@ const NGOInfoPage = () => {
                       <Col md={4} key={index}>
                         <div className="leader-card">
                           <div className="leader-avatar">
-                            <i className="fas fa-user-circle"></i>
+                            {leader.image ? (
+                              <img src={leader.image} alt={leader.name} />
+                            ) : (
+                              <div className="avatar-placeholder">
+                                <i className="fas fa-user-circle"></i>
+                                <div className="avatar-initials">
+                                  {leader.name.split(' ').map(n => n[0]).join('')}
+                                </div>
+                              </div>
+                            )}
                           </div>
                           <h4>{leader.name}</h4>
                           <p>{leader.position}</p>

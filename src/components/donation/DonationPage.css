@@ -8,7 +8,7 @@
 
 /* Hero section */
 .donation-hero {
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(10, 14, 23, 1)), url('/events/hero-bg.jpg');
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(10, 14, 23, 1)), url('https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
   background-size: cover;
   background-position: center;
   padding: 4rem 2rem;
@@ -677,6 +677,13 @@
   background: rgba(15, 23, 42, 0.3);
   border: 1px solid rgba(5, 195, 221, 0.2);
   border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.ngo-info-area:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(5, 195, 221, 0.15);
+  border-color: rgba(5, 195, 221, 0.4);
 }
 
 .ngo-logo {
@@ -686,9 +693,32 @@
   height: 60px;
   border-radius: 50%;
   overflow: hidden;
-  border: 3px solid rgba(5, 195, 221, 0.5);
-  background: #0f172a;
-  display: block;
+  border: 2px solid rgba(5, 195, 221, 0.5);
+  background: rgba(15, 23, 42, 0.7);
+  position: relative;
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.3);
+}
+
+.ngo-logo::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(45deg, rgba(5, 195, 221, 0.5), transparent, rgba(5, 195, 221, 0.5));
+  border-radius: 50%;
+  z-index: -1;
+  animation: rotate 4s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .ngo-logo img {
@@ -697,6 +727,12 @@
   object-fit: cover;
   border-radius: 50%;
   display: block;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.ngo-logo:hover img {
+  transform: scale(1.05);
+  filter: brightness(1.1);
 }
 
 .ngo-details {
@@ -717,6 +753,11 @@
   align-items: center;
   font-size: 0.9rem;
   color: #b0b7c3;
+  transition: color 0.3s ease;
+}
+
+.ngo-info-area:hover .ngo-contact .contact-item {
+  color: #fff;
 }
 
 .ngo-contact .contact-item i {
@@ -738,9 +779,26 @@
   text-decoration: none;
   transition: all 0.3s;
   font-size: 0.85rem;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.ngo-website-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: #fff;
+  transition: width 0.3s ease;
 }
 
 .ngo-website-link:hover {
   color: #fff;
-  text-decoration: underline;
+  text-decoration: none;
+}
+
+.ngo-website-link:hover::after {
+  width: 100%;
 } 
