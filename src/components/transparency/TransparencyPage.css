@@ -80,6 +80,29 @@
   color: #4f46e5;
 }
 
+.real-time-indicator {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: flex;
+  justify-content: center;
+}
+
+.real-time-indicator i {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
 .wallet-address {
   font-size: 0.875rem;
   color: #6b7280;
@@ -150,6 +173,29 @@
   color: #1e40af;
   margin-bottom: 1.5rem;
   font-weight: 600;
+}
+
+.refresh-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.refresh-btn .fa-spin {
+  animation: fa-spin 1s infinite linear;
+}
+
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.badge.bg-success {
+  animation: pulse 2s infinite;
 }
 
 @media (max-width: 768px) {

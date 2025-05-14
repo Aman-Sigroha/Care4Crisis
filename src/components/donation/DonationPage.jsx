@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Container, Row, Col, Card, Nav, Form, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Card, Nav, Form, Button, Alert, Spinner } from 'react-bootstrap';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import DonationNav from './DonationNav';
 import './DonationPage.css';
+import { sendEth } from '../../services/ethereumService';
+import { makeDonation } from '../../services/solanaService';
 
 // Import BASE_PATH constant from App.jsx or define it here
 const BASE_PATH = '/Care4Crisis';
@@ -17,6 +19,9 @@ const DonationPage = () => {
   const [ifscCode, setIfscCode] = useState('');
   const [email, setEmail] = useState('');
   const [causeDetails, setCauseDetails] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [transactionResult, setTransactionResult] = useState(null);
+  const [transactionError, setTransactionError] = useState(null);
   const { causeId } = useParams();
   const navigate = useNavigate();
 
@@ -87,36 +92,6 @@ const DonationPage = () => {
     setCauseDetails(foundCause);
   }, [causeId]);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Process donation based on active tab
-    const donationData = {
-      causeId,
-      amount: parseFloat(amount),
-      paymentMethod: activeTab,
-      email
-    };
-
-    // Add payment method specific details
-    if (activeTab === 'crypto') {
-      donationData.cryptoCurrency = cryptoCurrency;
-    } else if (activeTab === 'upi') {
-      donationData.upiId = upiId;
-    } else if (activeTab === 'netbanking') {
-      donationData.accountDetails = {
-        name: accountName,
-        accountNumber,
-        ifscCode
-      };
-    }
-
-    console.log('Processing donation:', donationData);
-    
-    // Simulate successful donation
-    alert(`Thank you for your donation of $${amount} via ${activeTab.toUpperCase()}!`);
-    navigate(`${BASE_PATH}/donation-success`);
-  };
-
   // Get wallet address based on selected cryptocurrency
   const getWalletAddress = (cryptoCurrency) => {
     console.log('Getting wallet address for:', cryptoCurrency);
@@ -134,11 +109,232 @@ const DonationPage = () => {
     return address;
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsProcessing(true);
+    setTransactionResult(null);
+    setTransactionError(null);
+    
+    // Process donation based on active tab
+    const donationData = {
+      causeId,
+      amount: parseFloat(amount),
+      paymentMethod: activeTab,
+      email
+    };
+
+    try {
+      // Add payment method specific details
+      if (activeTab === 'crypto') {
+        donationData.cryptoCurrency = cryptoCurrency;
+        
+        // Handle cryptocurrency donations with actual blockchain transactions
+        if (cryptoCurrency === 'ETH' || cryptoCurrency === 'USDT') {
+          // Get recipient address
+          const recipientAddress = getWalletAddress(cryptoCurrency);
+          console.log(`Starting ETH transaction: Sending ${amount} ${cryptoCurrency} to ${recipientAddress}`);
+          
+          try {
+            // Execute Ethereum transaction - make sure MetaMask is connected
+            if (window.ethereum) {
+              console.log("Found Ethereum provider, requesting accounts...");
+              try {
+                await window.ethereum.request({ method: 'eth_requestAccounts' });
+                console.log("Ethereum accounts requested, executing sendEth");
+              } catch (connErr) {
+                console.error("Error connecting to MetaMask:", connErr);
+                // Continue with transaction attempt anyway
+              }
+            }
+            
+            // Execute transaction
+            const result = await sendEth(recipientAddress, amount);
+            console.log('Ethereum transaction result:', result);
+            
+            if (!result || !result.txHash) {
+              throw new Error("Transaction failed - no transaction hash returned");
+            }
+            
+            // Create transaction result object
+            const txResult = {
+              txHash: result.txHash,
+              blockNumber: result.blockNumber,
+              from: result.from,
+              to: result.to,
+              amount: result.amount,
+              currency: cryptoCurrency,
+              explorer: `https://sepolia.etherscan.io/tx/${result.txHash}`
+            };
+            
+            // Update state and navigate
+            setTransactionResult(txResult);
+            console.log('Ethereum donation successful:', result);
+            
+            // Navigate after a slight delay to ensure state is updated
+            setTimeout(() => {
+              navigate(`${BASE_PATH}/donation-success`, { 
+                state: { 
+                  transactionResult: txResult,
+                  donationData 
+                }
+              });
+            }, 500);
+            
+            return; // Return early to avoid the navigation at the end
+          } catch (ethError) {
+            console.error('Ethereum transaction error:', ethError);
+            setTransactionError(ethError.message || "Failed to execute Ethereum transaction");
+            setIsProcessing(false);
+            return;
+          }
+        } 
+        else if (cryptoCurrency === 'SOL') {
+          // Get recipient address
+          const recipientAddress = getWalletAddress(cryptoCurrency);
+          console.log(`Starting SOL transaction: Sending ${amount} SOL to ${recipientAddress}`);
+          
+          try {
+            // Make sure Phantom is connected
+            if (window.solana && !window.solana.isConnected) {
+              console.log("Solana wallet not connected, trying to connect...");
+              try {
+                await window.solana.connect();
+                console.log("Solana wallet connected");
+              } catch (connErr) {
+                console.error("Error connecting to Phantom:", connErr);
+                throw new Error("Could not connect to Phantom wallet. Please ensure it is installed and unlocked.");
+              }
+            }
+            
+            // Add a slight variation to the amount to avoid duplicate transaction errors
+            // Solana often has issues with identical transactions
+            const adjustedAmount = parseFloat(amount) + (Math.random() * 0.000001);
+            console.log(`Adjusted amount for uniqueness: ${adjustedAmount}`);
+            
+            // Execute Solana transaction
+            const result = await makeDonation(recipientAddress, adjustedAmount.toString());
+            console.log('Solana transaction complete:', result);
+            
+            // Create transaction result object
+            const txResult = {
+              txHash: result.transactionHash,
+              from: result.senderAddress,
+              to: result.receiverAddress,
+              amount: result.amount,
+              currency: cryptoCurrency,
+              explorer: `https://explorer.solana.com/tx/${result.transactionHash}?cluster=testnet`
+            };
+            
+            // Update state and navigate
+            setTransactionResult(txResult);
+            console.log('Solana donation successful, navigating to success page');
+            
+            // Navigate after a slight delay to ensure state is updated
+            setTimeout(() => {
+              navigate(`${BASE_PATH}/donation-success`, { 
+                state: { 
+                  transactionResult: txResult,
+                  donationData 
+                }
+              });
+            }, 500);
+            
+            return; // Return early to avoid the navigation at the end
+          } catch (solError) {
+            console.error('Solana transaction error:', solError);
+            
+            // If this is a duplicate transaction error, offer to retry with a different amount
+            if (solError.message.includes('already been processed')) {
+              setTransactionError(
+                "Transaction was already processed. Please try again with a slightly different amount. " +
+                "Solana requires each transaction to be unique."
+              );
+            } else {
+              setTransactionError(solError.message || "Failed to execute Solana transaction");
+            }
+            
+            setIsProcessing(false);
+            return;
+          }
+        }
+        else if (cryptoCurrency === 'BTC') {
+          // For Bitcoin, we currently don't have direct integration
+          // This would require additional setup with a Bitcoin testnet library
+          setTransactionError("Direct Bitcoin testnet transactions are not yet implemented. Please use the QR code or address to send a manual transaction.");
+          setIsProcessing(false);
+          return;
+        }
+      } else if (activeTab === 'upi') {
+        donationData.upiId = upiId;
+        // Simulate UPI transaction
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        const txResult = {
+          reference: `UPI${Date.now()}`,
+          method: 'UPI',
+          to: 'care4crisis@ybl',
+          amount: amount,
+          currency: 'INR'
+        };
+        
+        setTransactionResult(txResult);
+        
+        // Navigate after state is updated
+        setTimeout(() => {
+          navigate(`${BASE_PATH}/donation-success`, { 
+            state: { 
+              transactionResult: txResult,
+              donationData 
+            }
+          });
+        }, 500);
+        
+        return; // Return early
+      } else if (activeTab === 'netbanking') {
+        donationData.accountDetails = {
+          name: accountName,
+          accountNumber,
+          ifscCode
+        };
+        // Simulate netbanking transaction
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        const txResult = {
+          reference: `NB${Date.now()}`,
+          method: 'Net Banking',
+          to: 'Care4Crisis Foundation',
+          amount: amount,
+          currency: 'INR'
+        };
+        
+        setTransactionResult(txResult);
+        
+        // Navigate after state is updated
+        setTimeout(() => {
+          navigate(`${BASE_PATH}/donation-success`, { 
+            state: { 
+              transactionResult: txResult,
+              donationData 
+            }
+          });
+        }, 500);
+        
+        return; // Return early
+      }
+
+      console.log('Processing donation:', donationData);
+    } catch (error) {
+      console.error('Donation error:', error);
+      setTransactionError(error.message || 'An error occurred during the donation process. Please try again.');
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   // Generate wallet address and QR code as separate components with their own state
   const CryptoQRCode = ({ cryptoCurrency, amount }) => {
     const [qrUrl, setQrUrl] = useState('');
     
     useEffect(() => {
+      console.log(`CryptoQRCode: Generating QR for ${cryptoCurrency} with amount ${amount}`);
       const walletAddress = getWalletAddress(cryptoCurrency);
       let url = '';
       
@@ -158,7 +354,7 @@ const DonationPage = () => {
     
     return (
       <div className="qr-container">
-        {qrUrl && <img src={qrUrl} alt={`${cryptoCurrency} payment QR code`} />}
+        {qrUrl && <img src={qrUrl} alt={`${cryptoCurrency} payment QR code`} key={`qr-${cryptoCurrency}-${amount}`} />}
       </div>
     );
   };
@@ -167,9 +363,10 @@ const DonationPage = () => {
     const [address, setAddress] = useState('');
     
     useEffect(() => {
+      console.log(`CryptoAddressDisplay: Getting address for ${cryptoCurrency}`);
       const walletAddress = getWalletAddress(cryptoCurrency);
       setAddress(walletAddress);
-      console.log(`Setting address for ${cryptoCurrency}:`, walletAddress);
+      console.log(`Set address for ${cryptoCurrency}:`, walletAddress);
     }, [cryptoCurrency]);
     
     return (
@@ -320,6 +517,46 @@ const DonationPage = () => {
                 <h2>Make Your Donation</h2>
                 <p className="form-subtitle">Choose your preferred payment method</p>
                 
+                <Alert variant="info" className="mb-4">
+                  <Alert.Heading>Testing Guidelines</Alert.Heading>
+                  <p>
+                    For testing purposes, we recommend donating small amounts (0.01-0.05 ETH/SOL).
+                    Make sure your wallet has sufficient funds for both the donation and gas fees.
+                  </p>
+                  <hr />
+                  <p className="mb-0">
+                    Need testnet ETH? <a href="https://sepolia-faucet.pk910.de/" target="_blank" rel="noopener noreferrer">Get Sepolia ETH here</a>
+                  </p>
+                </Alert>
+                
+                {transactionError && (
+                  <Alert variant="danger" className="mb-4">
+                    <Alert.Heading>Transaction Error</Alert.Heading>
+                    <p>{transactionError}</p>
+                  </Alert>
+                )}
+                
+                {transactionResult && (
+                  <Alert variant="success" className="mb-4">
+                    <Alert.Heading>Transaction Successful!</Alert.Heading>
+                    <p>Your donation has been processed successfully.</p>
+                    {transactionResult.txHash && (
+                      <div>
+                        <p className="mb-1"><strong>Transaction Hash:</strong></p>
+                        <code className="d-block mb-2">{transactionResult.txHash}</code>
+                        <a 
+                          href={transactionResult.explorer}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-sm btn-outline-primary"
+                        >
+                          View on Blockchain Explorer
+                        </a>
+                      </div>
+                    )}
+                  </Alert>
+                )}
+                
                 <Nav variant="tabs" className="payment-tabs">
                   <Nav.Item>
                     <Nav.Link 
@@ -357,8 +594,12 @@ const DonationPage = () => {
                         value={amount}
                         onChange={(e) => setAmount(e.target.value)}
                         required
-                        min="1"
+                        min="0.01"
+                        step="0.01"
                       />
+                      <Form.Text className="text-muted">
+                        For test transactions, we recommend using 0.01-0.1 {activeTab === 'crypto' ? cryptoCurrency : 'USD'}.
+                      </Form.Text>
                     </Form.Group>
                     
                     <Form.Group className="mb-4">
@@ -496,8 +737,8 @@ const DonationPage = () => {
                     )}
                     
                     <div className="form-actions">
-                      <Button type="submit" className="donate-submit-btn">
-                        Complete Donation
+                      <Button type="submit" className="donate-submit-btn" disabled={isProcessing}>
+                        {isProcessing ? <Spinner animation="border" size="sm" /> : 'Complete Donation'}
                       </Button>
                       <Link to={`${BASE_PATH}/events`} className="cancel-link">Cancel</Link>
                     </div>

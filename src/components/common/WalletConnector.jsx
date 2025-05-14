@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Button, Modal, Tabs, Tab, Alert } from 'react-bootstrap';
-import { getProvider, isMetaMaskInstalled, switchToSepoliaNetwork } from '../../services/ethereumService';
+import { getProvider, switchToSepoliaNetwork, getMetaMaskProvider } from '../../services/ethereumService';
 import { connectWallet as connectSolanaWallet, isWalletConnected as checkSolanaWalletConnected, getWalletPublicKey } from '../../services/solanaService';
 import './WalletConnector.css';
 
@@ -11,34 +11,53 @@ const WalletConnector = ({ onWalletConnect }) => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isMetaMaskAvailable, setIsMetaMaskAvailable] = useState(false);
+  const [isPhantomAvailable, setIsPhantomAvailable] = useState(false);
 
   useEffect(() => {
     // Check if MetaMask is installed
-    setIsMetaMaskAvailable(isMetaMaskInstalled());
+    const metaMaskProvider = getMetaMaskProvider();
+    setIsMetaMaskAvailable(metaMaskProvider !== null);
+    console.log('MetaMask detection result:', metaMaskProvider !== null);
+    if (metaMaskProvider) {
+      console.log('MetaMask provider detected:', metaMaskProvider);
+    }
+    
+    // Check if Phantom is installed
+    const phantomAvailable = typeof window !== 'undefined' && Boolean(window.solana?.isPhantom);
+    setIsPhantomAvailable(phantomAvailable);
+    console.log('Phantom detection result:', phantomAvailable);
     
     // Check if wallets are already connected
     const checkWalletConnections = async () => {
       try {
-        // Check Ethereum wallet
-        if (window.ethereum && window.ethereum.selectedAddress) {
+        // Check Ethereum wallet independently
+        const provider = getMetaMaskProvider();
+        if (provider && provider.selectedAddress) {
+          console.log('Found connected Ethereum wallet:', provider.selectedAddress);
           setActiveWallet('ethereum');
-          setWalletAddress(window.ethereum.selectedAddress);
+          setWalletAddress(provider.selectedAddress);
           
           if (onWalletConnect) {
-            onWalletConnect('ethereum', window.ethereum.selectedAddress);
+            onWalletConnect('ethereum', provider.selectedAddress);
           }
+          return; // Stop here if Ethereum is connected
+        } else {
+          console.log('No connected Ethereum wallet found');
         }
         
-        // Check Solana wallet
+        // Only check Solana wallet if Ethereum isn't connected
         const solanaConnected = await checkSolanaWalletConnected();
         if (solanaConnected) {
           const address = await getWalletPublicKey();
+          console.log('Found connected Solana wallet:', address);
           setActiveWallet('solana');
           setWalletAddress(address);
           
           if (onWalletConnect) {
             onWalletConnect('solana', address);
           }
+        } else {
+          console.log('No connected Solana wallet found');
         }
       } catch (err) {
         console.error('Error checking wallet connection:', err);
@@ -58,6 +77,8 @@ const WalletConnector = ({ onWalletConnect }) => {
         throw new Error("MetaMask is not installed. Please install MetaMask browser extension.");
       }
       
+      console.log('Attempting to connect to Ethereum wallet using MetaMask provider');
+      
       // Try to switch to Sepolia network first
       try {
         await switchToSepoliaNetwork();
@@ -70,6 +91,9 @@ const WalletConnector = ({ onWalletConnect }) => {
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
       
+      console.log('Successfully connected to Ethereum wallet:', address);
+      
+      // Clear other wallet connections to ensure only one is active
       setActiveWallet('ethereum');
       setWalletAddress(address);
       setShowModal(false);
@@ -88,7 +112,7 @@ const WalletConnector = ({ onWalletConnect }) => {
       } else if (err.message.includes("not installed")) {
         setError("MetaMask is not installed. Please install the MetaMask browser extension.");
       } else {
-        setError("Failed to connect to Ethereum wallet. " + err.message);
+        setError("Failed to connect to Ethereum wallet: " + err.message);
       }
     } finally {
       setLoading(false);
@@ -100,8 +124,13 @@ const WalletConnector = ({ onWalletConnect }) => {
     setError(null);
     
     try {
+      if (!isPhantomAvailable) {
+        throw new Error("Phantom wallet is not installed. Please install the Phantom extension.");
+      }
+      
       const address = await connectSolanaWallet();
       
+      // Clear other wallet connections to ensure only one is active
       setActiveWallet('solana');
       setWalletAddress(address);
       setShowModal(false);
@@ -111,10 +140,35 @@ const WalletConnector = ({ onWalletConnect }) => {
       }
     } catch (err) {
       console.error('Error connecting to Solana wallet:', err);
-      setError('Failed to connect to Phantom wallet. Make sure it is installed and unlocked.');
+      setError(err.message || 'Failed to connect to Phantom wallet. Make sure it is installed and unlocked.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const disconnectWallet = () => {
+    console.log('Disconnecting wallet:', activeWallet);
+    if (activeWallet === 'solana') {
+      // Try to disconnect Phantom if possible
+      if (window.solana?.disconnect) {
+        try {
+          window.solana.disconnect();
+        } catch (err) {
+          console.error('Error disconnecting Solana:', err);
+        }
+      }
+    }
+    
+    // Reset state regardless of which wallet was active
+    setActiveWallet(null);
+    setWalletAddress('');
+    setShowModal(false);
+    
+    if (onWalletConnect) {
+      onWalletConnect(null, null);
+    }
+    
+    console.log('Wallet disconnected');
   };
 
   const formatAddress = (address) => {
@@ -168,6 +222,92 @@ const WalletConnector = ({ onWalletConnect }) => {
             <li>You will be prompted to switch to Sepolia Testnet</li>
           </ul>
         </div>
+        
+        {/* Emergency fallback option if automatic detection fails */}
+        <div className="mt-4 border-top pt-3">
+          <h6 className="text-warning">Having Issues?</h6>
+          <p className="small">If automatic detection fails, you can try the manual connection option:</p>
+          <Button 
+            size="sm"
+            variant="outline-warning"
+            onClick={() => {
+              if (window.ethereum) {
+                console.log("Attempting forced MetaMask connection");
+                
+                // Force disconnect Phantom if present
+                if (window.solana && typeof window.solana.disconnect === 'function') {
+                  try {
+                    window.solana.disconnect();
+                  } catch (e) { /* ignore */ }
+                }
+                
+                // Try to connect directly using window.ethereum
+                window.ethereum.request({ method: 'eth_requestAccounts' })
+                  .then(accounts => {
+                    if (accounts && accounts.length > 0) {
+                      console.log("Forced connection succeeded:", accounts[0]);
+                      setActiveWallet('ethereum');
+                      setWalletAddress(accounts[0]);
+                      setShowModal(false);
+                      
+                      if (onWalletConnect) {
+                        onWalletConnect('ethereum', accounts[0]);
+                      }
+                    }
+                  })
+                  .catch(err => {
+                    console.error("Forced connection failed:", err);
+                    setError("Manual connection failed: " + err.message);
+                  });
+              } else {
+                setError("No Ethereum provider found in browser");
+              }
+            }}
+          >
+            Force MetaMask Connection
+          </Button>
+        </div>
+      </div>
+    );
+  };
+  
+  const renderPhantomTab = () => {
+    return (
+      <div className="text-center p-4">
+        <img 
+          src="/crypto-icons/phantom.png" 
+          alt="Phantom" 
+          className="wallet-logo"
+        />
+        <h5>Phantom Wallet</h5>
+        <p>Connect to Solana Testnet</p>
+        
+        {!isPhantomAvailable && (
+          <div className="wallet-instructions mb-3">
+            <h6>Phantom Not Detected</h6>
+            <p>Please install the Phantom wallet:</p>
+            <ol>
+              <li>Visit <a href="https://phantom.app/" target="_blank" rel="noopener noreferrer" style={{color: '#05c3dd'}}>phantom.app</a></li>
+              <li>Install the extension for your browser</li>
+              <li>Set up your wallet and refresh this page</li>
+            </ol>
+          </div>
+        )}
+        
+        <Button 
+          className="connect-wallet-btn w-100" 
+          onClick={connectSolana}
+          disabled={loading || !isPhantomAvailable}
+        >
+          {loading ? 'Connecting...' : isPhantomAvailable ? 'Connect Phantom' : 'Phantom Not Installed'}
+        </Button>
+        
+        {activeWallet === 'solana' && (
+          <div className="mt-3 text-success">
+            <i className="fas fa-check-circle me-2"></i>
+            Connected: {formatAddress(walletAddress)}
+          </div>
+        )}
       </div>
     );
   };
@@ -175,13 +315,23 @@ const WalletConnector = ({ onWalletConnect }) => {
   return (
     <>
       {activeWallet ? (
-        <Button 
-          className="wallet-button"
-          onClick={() => setShowModal(true)}
-        >
-          <i className={`me-2 ${activeWallet === 'ethereum' ? 'fab fa-ethereum' : 'fas fa-wallet'}`}></i>
-          {formatAddress(walletAddress)}
-        </Button>
+        <div className="d-flex">
+          <Button 
+            className="wallet-button"
+            onClick={() => setShowModal(true)}
+          >
+            <i className={`me-2 ${activeWallet === 'ethereum' ? 'fab fa-ethereum' : 'fas fa-wallet'}`}></i>
+            {formatAddress(walletAddress)}
+          </Button>
+          <Button 
+            className="ms-2 disconnect-wallet-btn"
+            variant="outline-danger"
+            size="sm"
+            onClick={disconnectWallet}
+          >
+            <i className="fas fa-sign-out-alt"></i>
+          </Button>
+        </div>
       ) : (
         <Button 
           className="connect-wallet-btn"
@@ -207,30 +357,7 @@ const WalletConnector = ({ onWalletConnect }) => {
               {renderMetaMaskTab()}
             </Tab>
             <Tab eventKey="solana" title="Solana">
-              <div className="text-center p-4">
-                <img 
-                  src="/crypto-icons/phantom.png" 
-                  alt="Phantom" 
-                  className="wallet-logo"
-                />
-                <h5>Phantom Wallet</h5>
-                <p>Connect to Solana Testnet</p>
-                
-                <Button 
-                  className="connect-wallet-btn w-100" 
-                  onClick={connectSolana}
-                  disabled={loading}
-                >
-                  {loading ? 'Connecting...' : 'Connect Phantom'}
-                </Button>
-                
-                {activeWallet === 'solana' && (
-                  <div className="mt-3 text-success">
-                    <i className="fas fa-check-circle me-2"></i>
-                    Connected: {formatAddress(walletAddress)}
-                  </div>
-                )}
-              </div>
+              {renderPhantomTab()}
             </Tab>
           </Tabs>
           

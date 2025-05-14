@@ -1,11 +1,17 @@
 import { Container, Navbar, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './DonationNav.css';
+import WalletConnector from '../common/WalletConnector';
 
 // Import BASE_PATH constant from App.jsx or define it here
 const BASE_PATH = '/Care4Crisis';
 
 const DonationNav = () => {
+  const handleWalletConnect = (walletType, address) => {
+    console.log(`Connected to ${walletType} wallet: ${address}`);
+    // You could store this in app state or context if needed
+  };
+
   return (
     <Navbar className='donation-navbar' bg="dark" data-bs-theme="dark" expand="lg" sticky="top">
       <Container>
@@ -21,7 +27,8 @@ const DonationNav = () => {
             <Nav.Link href="#contact">Contact</Nav.Link>
           </Nav>
           <Nav className="ms-auto">
-            <div className="secure-badge">
+            <WalletConnector onWalletConnect={handleWalletConnect} />
+            <div className="secure-badge ms-2">
               <i className="fas fa-lock"></i> Secure Donation
             </div>
           </Nav>

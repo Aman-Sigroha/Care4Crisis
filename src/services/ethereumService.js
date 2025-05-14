@@ -4,18 +4,82 @@ import contractABI from "../../blockchain/artifacts/contracts/Care4CrisisDonatio
 // This will be updated after deployment
 const CONTRACT_ADDRESS = "YOUR_DEPLOYED_CONTRACT_ADDRESS";
 
+// Get the MetaMask provider specifically
+export const getMetaMaskProvider = () => {
+  console.log("Checking for MetaMask provider...");
+  
+  // Check if window.ethereum exists
+  if (!window.ethereum) {
+    console.log("window.ethereum is not available");
+    return null;
+  }
+
+  console.log("window.ethereum properties:", Object.getOwnPropertyNames(window.ethereum));
+  
+  // Check if window.ethereum has providers
+  if (window.ethereum.providers) {
+    console.log("window.ethereum.providers exists, checking for MetaMask...");
+    const providers = window.ethereum.providers;
+    console.log("Available providers:", providers.map(p => p.isMetaMask ? "MetaMask" : (p.isPhantom ? "Phantom" : "Unknown")));
+    const metaMaskProvider = providers.find(provider => provider.isMetaMask);
+    if (metaMaskProvider) {
+      console.log("Found MetaMask in providers array");
+      return metaMaskProvider;
+    }
+  }
+
+  // If window.ethereum.isMetaMask exists and is true, it's MetaMask
+  if (window.ethereum.isMetaMask) {
+    console.log("window.ethereum.isMetaMask is true");
+    
+    // Check if it's also identified as Phantom
+    if (window.ethereum.isPhantom) {
+      console.log("WARNING: Provider is identified as both MetaMask and Phantom");
+      // We need to determine which one it really is
+      // For now, we'll assume it's not MetaMask if it's also identified as Phantom
+      return null;
+    }
+    
+    return window.ethereum;
+  }
+
+  // In some cases, window.ethereum might be injected by another wallet even though it's MetaMask
+  console.log("Additional provider checks:");
+  if (window.ethereum.isPhantom) console.log("- isPhantom: true");
+  if (window.ethereum.isBraveWallet) console.log("- isBraveWallet: true");
+  
+  // If it's identified as another wallet, it's not MetaMask
+  if (window.ethereum.isPhantom || window.ethereum.isBraveWallet) {
+    console.log("Identified as another wallet, not MetaMask");
+    return null;
+  }
+  
+  // If we get here and none of the above conditions match, it might still be MetaMask
+  // This is a fallback for older versions or unusual configurations
+  console.log("Using fallback detection for MetaMask");
+  return window.ethereum;
+};
+
 // Check if MetaMask is installed
 export const isMetaMaskInstalled = () => {
-  return typeof window !== 'undefined' && Boolean(window.ethereum);
+  return getMetaMaskProvider() !== null;
 };
 
 // Switch to Sepolia network
 export const switchToSepoliaNetwork = async () => {
   try {
+    // Get the MetaMask provider
+    const provider = getMetaMaskProvider();
+    
+    // Check if ethereum object exists
+    if (!provider) {
+      throw new Error("MetaMask is not installed or not accessible");
+    }
+    
     // Sepolia chain ID in hex
     const sepoliaChainId = '0xaa36a7'; // 11155111 in decimal
     
-    await window.ethereum.request({
+    await provider.request({
       method: 'wallet_switchEthereumChain',
       params: [{ chainId: sepoliaChainId }],
     });
@@ -25,7 +89,8 @@ export const switchToSepoliaNetwork = async () => {
     // This error code means the chain has not been added to MetaMask
     if (error.code === 4902) {
       try {
-        await window.ethereum.request({
+        const provider = getMetaMaskProvider();
+        await provider.request({
           method: 'wallet_addEthereumChain',
           params: [
             {
@@ -55,17 +120,38 @@ export const switchToSepoliaNetwork = async () => {
 
 // Connect to MetaMask
 export const getProvider = async () => {
-  if (!isMetaMaskInstalled()) {
+  const metaMaskProvider = getMetaMaskProvider();
+  
+  if (!metaMaskProvider) {
     throw new Error("MetaMask is not installed. Please install MetaMask browser extension.");
   }
   
   try {
+    console.log("Using MetaMask provider:", metaMaskProvider);
+    
+    // Special handling for cases where Phantom is interfering
+    if (window.ethereum && window.ethereum.isPhantom) {
+      console.log("Detected Phantom may be interfering with MetaMask, trying workaround");
+      
+      // If Phantom exposes a disconnect method, try to disconnect it first
+      if (window.solana && typeof window.solana.disconnect === 'function') {
+        try {
+          console.log("Attempting to disconnect Phantom first");
+          await window.solana.disconnect();
+          console.log("Successfully disconnected Phantom");
+        } catch (err) {
+          console.warn("Failed to disconnect Phantom:", err);
+          // Continue anyway
+        }
+      }
+    }
+    
     // Request accounts and switch to Sepolia
-    await window.ethereum.request({ method: "eth_requestAccounts" });
+    await metaMaskProvider.request({ method: "eth_requestAccounts" });
     await switchToSepoliaNetwork();
     
     // Create provider
-    const provider = new ethers.BrowserProvider(window.ethereum);
+    const provider = new ethers.BrowserProvider(metaMaskProvider);
     
     // Test the connection by getting the network
     const network = await provider.getNetwork();
@@ -221,4 +307,70 @@ export const setupEventListeners = (onDonation, onFundRelease) => {
   };
   
   return setupEvents();
+};
+
+// Send Sepolia ETH to a recipient address
+export const sendEth = async (recipientAddress, amount) => {
+  try {
+    console.log(`Sending ${amount} ETH to ${recipientAddress}`);
+    
+    const metaMaskProvider = getMetaMaskProvider();
+    if (!metaMaskProvider) {
+      throw new Error("MetaMask not found. Please connect your MetaMask wallet.");
+    }
+    
+    // Get the BrowserProvider and signer
+    const provider = new ethers.BrowserProvider(metaMaskProvider);
+    const signer = await provider.getSigner();
+    const fromAddress = await signer.getAddress();
+    
+    // Check balance to provide better error messages
+    const balance = await provider.getBalance(fromAddress);
+    const balanceInEth = parseFloat(ethers.formatEther(balance));
+    console.log(`Current wallet balance: ${balanceInEth} ETH`);
+    
+    const amountToSend = parseFloat(amount);
+    
+    if (balanceInEth < amountToSend) {
+      throw new Error(`Insufficient funds: Your wallet has ${balanceInEth.toFixed(4)} ETH, but you're trying to send ${amountToSend} ETH. Please reduce the amount or add more test ETH to your wallet from a Sepolia faucet.`);
+    }
+    
+    console.log(`Sending from ${fromAddress} to ${recipientAddress}`);
+    
+    // Build the transaction
+    const tx = {
+      to: recipientAddress,
+      value: ethers.parseEther(amount.toString()),
+    };
+    
+    // Send the transaction
+    const txResponse = await signer.sendTransaction(tx);
+    console.log('Transaction sent:', txResponse.hash);
+    
+    // Wait for the transaction to be mined
+    const receipt = await txResponse.wait();
+    console.log('Transaction confirmed in block:', receipt.blockNumber);
+    
+    return {
+      success: true,
+      txHash: txResponse.hash,
+      blockNumber: receipt.blockNumber,
+      from: fromAddress,
+      to: recipientAddress,
+      amount
+    };
+  } catch (error) {
+    console.error('Error sending ETH:', error);
+    
+    // Provide more user-friendly error messages for common issues
+    if (error.message.includes("insufficient funds")) {
+      throw new Error("Insufficient funds in your wallet. Please get test ETH from a Sepolia faucet.");
+    } else if (error.code === "ACTION_REJECTED") {
+      throw new Error("You rejected the transaction in MetaMask. Please try again and approve the transaction.");
+    } else if (error.message.includes("user rejected") || error.message.includes("User denied")) {
+      throw new Error("You rejected the transaction. Please try again and approve the transaction in your wallet.");
+    }
+    
+    throw error;
+  }
 }; 

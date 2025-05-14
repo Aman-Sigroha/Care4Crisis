@@ -22,18 +22,34 @@ const BlockchainConfirmation = ({ donation }) => {
   
   // Generate blockchain explorer link based on currency
   const getExplorerLink = (currency, txId) => {
+    // If transaction has a specific explorer URL, use that
+    if (transactionData.explorerUrl) {
+      return transactionData.explorerUrl;
+    }
+    
+    // Otherwise generate based on currency and testnet
+    const isTestnet = true; // Assuming testnet for demo purposes
+    
     switch(currency.toLowerCase()) {
       case 'btc':
       case 'bitcoin':
-        return `https://www.blockchain.com/explorer/transactions/btc/${txId}`;
+        return isTestnet 
+          ? `https://live.blockcypher.com/btc-testnet/tx/${txId}/`
+          : `https://www.blockchain.com/explorer/transactions/btc/${txId}`;
       case 'eth':
       case 'ethereum':
-        return `https://etherscan.io/tx/${txId}`;
+        return isTestnet
+          ? `https://sepolia.etherscan.io/tx/${txId}`
+          : `https://etherscan.io/tx/${txId}`;
       case 'usdt':
-        return `https://etherscan.io/tx/${txId}`;
+        return isTestnet
+          ? `https://sepolia.etherscan.io/tx/${txId}`
+          : `https://etherscan.io/tx/${txId}`;
       case 'sol':
       case 'solana':
-        return `https://explorer.solana.com/tx/${txId}`;
+        return isTestnet
+          ? `https://explorer.solana.com/tx/${txId}?cluster=testnet`
+          : `https://explorer.solana.com/tx/${txId}`;
       default:
         return '#';
     }
@@ -101,6 +117,20 @@ const BlockchainConfirmation = ({ donation }) => {
                     <span className="detail-value truncate-address">{transactionData.ngoWallet}</span>
                   </Col>
                 </Row>
+                {transactionData.blockNumber && (
+                  <Row>
+                    <Col md={6} className="detail-item">
+                      <span className="detail-label">Block Number:</span>
+                      <span className="detail-value">{transactionData.blockNumber}</span>
+                    </Col>
+                    {transactionData.txHash && transactionData.txHash !== transactionData.id && (
+                      <Col md={6} className="detail-item">
+                        <span className="detail-label">TX Hash:</span>
+                        <span className="detail-value truncate-address">{transactionData.txHash}</span>
+                      </Col>
+                    )}
+                  </Row>
+                )}
               </div>
               
               <div className="verification-links">
