@@ -20,18 +20,22 @@ let txCache = {
   usdt: []
 };
 
-// Track if local transactions have been added to the cache
-let hasAddedLocalTx = false;
-
 // Add local transaction data from localStorage
 const addLocalTransactionsToCache = () => {
-  if (hasAddedLocalTx) return;
-  
   try {
+    // Clear transaction cache first to avoid duplicates and ensure fresh data
+    txCache = {
+      ethereum: [],
+      solana: [],
+      bitcoin: [],
+      usdt: []
+    };
+    
     // Get donation history from localStorage
     const donationHistoryStr = localStorage.getItem('donationHistory');
     if (donationHistoryStr) {
       const donationHistory = JSON.parse(donationHistoryStr);
+      console.log('Loading donation history from localStorage, found:', donationHistory.length, 'items');
       
       // Add each donation to the appropriate cache
       donationHistory.forEach(donation => {
@@ -50,16 +54,12 @@ const addLocalTransactionsToCache = () => {
         
         const currency = donation.currency.toLowerCase();
         if (txCache[currency]) {
-          // Check if transaction is already in cache
-          const exists = txCache[currency].some(t => t.id === tx.id);
-          if (!exists) {
-            txCache[currency].push(tx);
-          }
+          // No need to check for duplicates since we cleared the cache
+          txCache[currency].push(tx);
+          console.log(`Added transaction ${tx.id} to ${currency} cache`);
         }
       });
     }
-    
-    hasAddedLocalTx = true;
   } catch (err) {
     console.error('Error adding local transactions to cache:', err);
   }
@@ -213,10 +213,26 @@ export const addTransactionToHistory = (transaction) => {
   
   const currency = transaction.currency.toLowerCase();
   if (txCache[currency]) {
-    // Check if transaction is already in cache
-    const exists = txCache[currency].some(t => t.id === transaction.id);
+    // Ensure we have a valid transaction ID
+    const txId = transaction.id || transaction.txHash || ('tx-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9));
+    
+    // Create a standardized transaction record
+    const standardTx = {
+      id: txId,
+      date: transaction.date || new Date().toISOString(),
+      type: 'received',
+      amount: transaction.amount.toString(),
+      from: transaction.from || 'Donor',
+      to: transaction.to || ADDRESSES[currency] || 'Care4Crisis',
+      status: 'confirmed',
+      currency: transaction.currency
+    };
+    
+    // Check if transaction is already in cache using the standardized ID
+    const exists = txCache[currency].some(t => t.id === standardTx.id);
     if (!exists) {
-      txCache[currency].push(transaction);
+      // Add to in-memory cache
+      txCache[currency].push(standardTx);
       
       // Also store in local storage for persistence
       try {
@@ -226,8 +242,25 @@ export const addTransactionToHistory = (transaction) => {
           donationHistory = JSON.parse(existingHistory);
         }
         
-        donationHistory.push(transaction);
-        localStorage.setItem('donationHistory', JSON.stringify(donationHistory));
+        // Format the transaction to match what addLocalTransactionsToCache expects
+        const historyEntry = {
+          timestamp: standardTx.date,
+          amount: standardTx.amount,
+          currency: standardTx.currency,
+          from: standardTx.from,
+          to: standardTx.to,
+          txHash: standardTx.id, // Use the standardized ID as txHash
+          explorer: getTransactionLink(standardTx.currency, standardTx.id)
+        };
+        
+        // Check if this transaction is already in the donation history
+        const existsInHistory = donationHistory.some(item => item.txHash === standardTx.id);
+        if (!existsInHistory) {
+          donationHistory.push(historyEntry);
+          
+          localStorage.setItem('donationHistory', JSON.stringify(donationHistory));
+          console.log('Transaction saved to donation history:', standardTx.id);
+        }
       } catch (err) {
         console.error('Error saving transaction to localStorage:', err);
       }

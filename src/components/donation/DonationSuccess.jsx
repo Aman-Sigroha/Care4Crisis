@@ -6,6 +6,14 @@ import BlockchainConfirmation from './BlockchainConfirmation';
 import { addTransactionToHistory } from '../../services/blockchainExplorerService';
 import './DonationSuccess.css';
 
+// Default wallet addresses for donations (matching the ones in blockchainExplorerService)
+const ADDRESSES = {
+  bitcoin: "tb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
+  ethereum: "0xFCe725102101817eC210FcE24F0ec91E277c7d29",
+  usdt: "0xFCe725102101817eC210FcE24F0ec91E277c7d29",
+  solana: "AWKV2E7xsQmnY1tz9tAfMygtrDDhzSsNUGKgc9RxPYcG"
+};
+
 const DonationSuccess = () => {
   const location = useLocation();
   const [showBlockchainDetails, setShowBlockchainDetails] = useState(false);
@@ -40,48 +48,21 @@ const DonationSuccess = () => {
       
       // Save to donation history in localStorage for transparency page
       const transaction = {
-        id: txResult.txHash,
+        id: txResult.txHash || ('tx-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9)),
         date: new Date().toISOString(),
         type: 'received',
-        amount: txResult.amount,
-        from: txResult.from,
-        to: txResult.to,
+        amount: String(txResult.amount || '0'),
+        from: txResult.from || 'Anonymous Donor',
+        to: txResult.to || ADDRESSES[txResult.currency.toLowerCase()] || 'Care4Crisis',
         status: 'confirmed',
-        currency: txResult.currency,
-        txHash: txResult.txHash
+        currency: txResult.currency || 'ETH'
       };
+      
+      // Log the transaction we're about to add
+      console.log('Adding transaction to history:', transaction);
       
       // Add the transaction to history service
       addTransactionToHistory(transaction);
-      
-      // Also update localStorage directly (belt and suspenders approach)
-      try {
-        let donationHistory = [];
-        const existingHistory = localStorage.getItem('donationHistory');
-        if (existingHistory) {
-          donationHistory = JSON.parse(existingHistory);
-        }
-        
-        // Check if this transaction is already in history
-        const exists = donationHistory.some(item => item.txHash === txResult.txHash);
-        
-        if (!exists && txResult.txHash) {
-          donationHistory.push({
-            timestamp: new Date().toISOString(),
-            amount: txResult.amount,
-            currency: txResult.currency,
-            from: txResult.from,
-            to: txResult.to,
-            txHash: txResult.txHash,
-            explorer: txResult.explorer
-          });
-          
-          localStorage.setItem('donationHistory', JSON.stringify(donationHistory));
-          console.log('Transaction saved to donation history');
-        }
-      } catch (err) {
-        console.error('Error saving to localStorage:', err);
-      }
     } else {
       // Fallback to default demo data if no transaction data is available
       const demoData = {

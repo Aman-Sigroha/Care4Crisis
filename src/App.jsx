@@ -259,15 +259,11 @@ class App extends Component {
             } />
             
             <Route path={`${BASE_PATH}/transparency`} element={
-              isSignedIn ? (
-                <>
-                  <ProtectedNavigation />
-                  <TransparencyPage />
-                  <Chatbot />
-                </>
-              ) : (
-                <Navigate to={`${BASE_PATH}/signin`} />
-              )
+              <>
+                <ProtectedNavigation />
+                <TransparencyPage />
+                <Chatbot />
+              </>
             } />
             
             <Route path={`${BASE_PATH}/about`} element={

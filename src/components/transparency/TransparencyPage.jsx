@@ -32,6 +32,9 @@ const TransparencyPage = () => {
   // Load real transaction data from blockchain
   const fetchTransactions = useCallback(async () => {
     try {
+      // Clear existing cache to ensure fresh data
+      setIsLoading(true);
+      
       // Fetch all transactions from our service
       const txData = await getAllTransactions();
       
@@ -82,17 +85,58 @@ const TransparencyPage = () => {
   
   // Initial load
   useEffect(() => {
-    setIsLoading(true);
     fetchTransactions();
     
-    // Set up auto-refresh every 2 minutes
+    // Set up auto-refresh every 60 seconds
     const refreshInterval = setInterval(() => {
       setIsRefreshing(true);
       fetchTransactions();
-    }, 120000); // 2 minutes
+    }, 60000); // 1 minute
     
     return () => clearInterval(refreshInterval);
   }, [fetchTransactions]);
+  
+  // Set up storage event listener to detect transactions added in other tabs/windows
+  useEffect(() => {
+    // Define a handler to respond to storage events
+    const handleStorageChange = (e) => {
+      // Only respond to donationHistory changes
+      if (e.key === 'donationHistory') {
+        console.log('Donation history updated in localStorage, refreshing transactions...');
+        fetchTransactions();
+      }
+    };
+
+    // Add event listener for storage events
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [fetchTransactions]);
+
+  // Add a custom refresh for single-tab updates (since storage events only fire in other tabs)
+  useEffect(() => {
+    // Check for transactions every 5 seconds (lighter than a full refresh)
+    const checkInterval = setInterval(() => {
+      const donationHistoryStr = localStorage.getItem('donationHistory');
+      if (donationHistoryStr) {
+        const count = JSON.parse(donationHistoryStr).length;
+        // Compare with current transaction count
+        const currentCount = Object.values(walletData).reduce(
+          (total, wallet) => total + wallet.transactions.length, 0
+        );
+        
+        if (count !== currentCount) {
+          console.log(`Transaction count mismatch: ${count} in storage vs ${currentCount} displayed`);
+          fetchTransactions();
+        }
+      }
+    }, 5000); // Check every 5 seconds
+    
+    return () => clearInterval(checkInterval);
+  }, [fetchTransactions, walletData]);
   
   // Handle manual refresh
   const handleRefresh = () => {
