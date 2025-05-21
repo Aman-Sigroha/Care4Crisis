@@ -19,6 +19,30 @@ The platform uses smart contracts to handle donations for NGO campaigns:
 
 3. All transactions are recorded on the blockchain for complete transparency
 
+## UI Features and Improvements
+
+The platform includes several UI improvements for better user experience:
+
+1. **Donation Page Enhancements**:
+   - Properly styled round NGO logo containers
+   - Improved contact information display with proper text truncation
+   - Fixed alignment issues for better readability
+
+2. **NGO Information Display**:
+   - Redesigned NGO Info buttons with consistent sizing and styling
+   - Enhanced event cards with proper button styling
+   - Improved hover states for interactive elements
+
+3. **Progress Tracking**:
+   - Fixed progress bars with accurate percentage display
+   - Proper width calculation for visual representation of funding progress
+   - Clear visual indication of campaign funding status
+
+4. **Social Media Integration**:
+   - Improved "Follow Us" section with platform-specific icons
+   - Enhanced social media links with hover effects
+   - Optimized layout for better visibility and engagement
+
 ## Project Structure
 
 - `blockchain/` - Contains smart contract code and deployment scripts
