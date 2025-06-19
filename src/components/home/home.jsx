@@ -226,14 +226,102 @@ class Home extends Component {
                 <div className='aboutUsContent'>
                   <div>
                     <div className='aboutLeft1'>
-                      <img src={about1}></img>
+                      <div className="banner-graphic">
+                        <svg width="100%" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          {/* Background grid for techy feel */}
+                          <rect width="400" height="200" fill="url(#grid)" />
+                          <defs>
+                            <pattern id="grid" patternUnits="userSpaceOnUse" width="20" height="20">
+                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1a3c4d" strokeWidth="0.5" />
+                            </pattern>
+                          </defs>
+
+                          {/* Nodes with pulsing animation */}
+                          <circle cx="100" cy="50" r="10" fill="#00ddeb" className="pulse-node" />
+                          <circle cx="300" cy="50" r="10" fill="#00ddeb" className="pulse-node" />
+                          <circle cx="200" cy="120" r="10" fill="#00ddeb" className="pulse-node" />
+                          <circle cx="100" cy="150" r="10" fill="#00ddeb" className="pulse-node" />
+                          <circle cx="300" cy="150" r="10" fill="#00ddeb" className="pulse-node" />
+
+                          {/* Animated dashed lines to show data flow */}
+                          <line
+                            x1="100"
+                            y1="50"
+                            x2="200"
+                            y2="120"
+                            stroke="#00ddeb"
+                            strokeWidth="2"
+                            strokeDasharray="10,10"
+                            className="data-flow"
+                          />
+                          <line
+                            x1="300"
+                            y1="50"
+                            x2="200"
+                            y2="120"
+                            stroke="#00ddeb"
+                            strokeWidth="2"
+                            strokeDasharray="10,10"
+                            className="data-flow"
+                          />
+                          <line
+                            x1="200"
+                            y1="120"
+                            x2="100"
+                            y2="150"
+                            stroke="#00ddeb"
+                            strokeWidth="2"
+                            strokeDasharray="10,10"
+                            className="data-flow"
+                          />
+                          <line
+                            x1="200"
+                            y1="120"
+                            x2="300"
+                            y2="150"
+                            stroke="#00ddeb"
+                            strokeWidth="2"
+                            strokeDasharray="10,10"
+                            className="data-flow"
+                          />
+                        </svg>
+                      </div>
                       <div className='aboutText'>
                         <h4>How It Works</h4>
                         <p>Who loves or pursues or desires to obtain pain of itself, because it is pain, because occasionally circumstances occur which toil and pain can procure him some great pleasure.</p>
                       </div>
                     </div>
                     <div className='aboutLeft2'>
-                      <img src={about2}></img>
+                      <div className="banner-graphic">
+                        <svg width="100%" height="200" viewBox="0 0 400 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          {/* Background grid */}
+                          <rect width="400" height="200" fill="url(#grid)" />
+                          <defs>
+                            <pattern id="grid" patternUnits="userSpaceOnUse" width="20" height="20">
+                              <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#1a3c4d" strokeWidth="0.5" />
+                            </pattern>
+                          </defs>
+
+                          {/* Group of people (simplified shapes) */}
+                          <g className="support-group">
+                            {/* Person 1 */}
+                            <circle cx="150" cy="70" r="20" fill="#00ddeb" />
+                            <path d="M150 90 Q150 120 150 150 Q150 180 130 180 Q110 180 110 150 Q110 120 110 90 Z" fill="#00ddeb" />
+                            {/* Person 2 */}
+                            <circle cx="200" cy="50" r="20" fill="#00ddeb" />
+                            <path d="M200 70 Q200 100 200 140 Q200 170 180 170 Q160 170 160 140 Q160 100 160 70 Z" fill="#00ddeb" />
+                            {/* Person 3 */}
+                            <circle cx="250" cy="70" r="20" fill="#00ddeb" />
+                            <path d="M250 90 Q250 120 250 150 Q250 180 230 180 Q210 180 210 150 Q210 120 210 90 Z" fill="#00ddeb" />
+                            {/* Glow effect */}
+                            <g className="glow">
+                              <circle cx="150" cy="70" r="20" fill="none" stroke="#00ddeb" strokeWidth="4" />
+                              <circle cx="200" cy="50" r="20" fill="none" stroke="#00ddeb" strokeWidth="4" />
+                              <circle cx="250" cy="70" r="20" fill="none" stroke="#00ddeb" strokeWidth="4" />
+                            </g>
+                          </g>
+                        </svg>
+                      </div>
                       <div className='aboutText'>
                         <h4>What We Do</h4>
                         <p>Idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actually teachings of the great explorer of the truth.</p>

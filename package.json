@@ -2,7 +2,6 @@
   "name": "care4crisis",
   "private": true,
   "version": "0.1.0",
-  "homepage": "https://Aman-Sigroha.github.io/Care4Crisis",
   "type": "module",
   "scripts": {
     "dev": "vite",

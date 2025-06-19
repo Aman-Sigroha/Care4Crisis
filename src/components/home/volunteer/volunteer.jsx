@@ -1,4 +1,3 @@
-import React from 'react';
 import './volunteer.css';
 
 const VolunteerStats = () => {
@@ -9,7 +8,6 @@ const VolunteerStats = () => {
           {/* Left side - Call to action */}
           <div className="cta-card">
             <div className="cta-content">
-              <p className="join-text">Want to join with us</p>
               <h2 className="heading">BECOME A PROUD VOLUNTEER</h2>
               <p className="description">
                 When you bring together those who have, with those who have not - 
