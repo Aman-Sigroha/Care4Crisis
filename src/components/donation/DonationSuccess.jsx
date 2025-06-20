@@ -1,7 +1,7 @@
 import { Container } from 'react-bootstrap';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import DonationNav from './DonationNav';
+// import DonationNav from './DonationNav'; // Removed to prevent double navbar
 import BlockchainConfirmation from './BlockchainConfirmation';
 import { addTransactionToHistory } from '../../services/blockchainExplorerService';
 import './DonationSuccess.css';
@@ -92,7 +92,7 @@ const DonationSuccess = () => {
   if (showBlockchainDetails && donationData) {
     return (
       <>
-        <DonationNav />
+        {/* <DonationNav /> Removed to prevent double navbar */}
         <BlockchainConfirmation donation={donationData} />
       </>
     );
@@ -101,8 +101,7 @@ const DonationSuccess = () => {
   // Otherwise show the initial success animation
   return (
     <div className="success-page">
-      <DonationNav />
-      
+      {/* <DonationNav /> Removed to prevent double navbar */}
       <Container className="success-container text-center">
         <div className="success-animation">
           <div className="checkmark-circle">

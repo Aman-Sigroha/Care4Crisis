@@ -1,6 +1,6 @@
 /* Blockchain Flow Component Styling */
 .blockchain-flow-container {
-  padding: 5rem 2rem;
+  padding: 2rem 1rem;
   background-color: #0a0e17;
   position: relative;
   overflow: hidden;
@@ -18,11 +18,11 @@
 
 .blockchain-flow-container h2 {
   font-family: 'Orbitron', sans-serif;
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #fff;
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   text-shadow: 0 0 10px rgba(5, 195, 221, 0.3);
   letter-spacing: 2px;
 }
@@ -45,7 +45,7 @@
 
 /* Blockchain visualization */
 .blockchain-visualization {
-  margin: 0 auto 4rem;
+  margin: 0 auto 2rem;
   max-width: 1200px;
 }
 
@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-around;
   position: relative;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   height: 250px;
   align-items: center;
 }
@@ -305,7 +305,7 @@
   background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(5, 195, 221, 0.2);
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1rem;
   text-align: center;
   transition: all 0.3s ease;
 }

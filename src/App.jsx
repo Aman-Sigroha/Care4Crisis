@@ -136,13 +136,12 @@ class App extends Component {
     // Login component with particles background
     const LoginComponent = () => (
       <>
-        <NavigationWithRouter
+        {/* <NavigationWithRouter
           issignedin={isSignedIn}
           updateSignInStatus={this.updateSignInStatus}
-        />
+        /> */}
         <div className="content-container">
           <h1 className="cyberpunk-logo screen-glitch" title="CARE4CRISIS">CARE4CRISIS</h1>
-          <p className="neon-text">AI-Powered Crisis Detection & Management</p>
           <SignInWithNavigation
             loadUser={this.loadUser}
             updateSignInStatus={this.updateSignInStatus}
@@ -152,7 +151,7 @@ class App extends Component {
           type="cobweb" 
           bg={true} 
           color={["#05C3DD", "#6A33F8", "#F31BEF"]}
-          num={150}
+          num={75}
         />
       </>
     );

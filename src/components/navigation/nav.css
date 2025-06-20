@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 0.4rem 1rem;
   width: 100%;
   z-index: 100;
   position: relative;
@@ -31,12 +31,13 @@
 
 .cyber-logo {
   font-family: 'Orbitron', sans-serif;
-  font-size: 1.8rem;
+  font-size: 1.4rem;
   font-weight: 800;
   color: var(--primary-color);
   text-shadow: 0 0 10px rgba(5, 195, 221, 0.6);
   letter-spacing: 2px;
   position: relative;
+  margin: 0;
 }
 
 .cyber-logo::after {
@@ -52,14 +53,18 @@
 .menu-dropdown {
   display: flex;
   justify-content: center;
+  margin: 0;
+  padding: 0;
 }
 
 .dropdown-toggle.cyber-button {
   background: linear-gradient(90deg, #00c8ff, #6a33f8);
   border: none;
-  padding: 0.6rem 1.2rem;
+  padding: 0.4rem 1rem;
   color: #fff;
   font-weight: 500;
+  margin: 0 0.2rem;
+  font-size: 0.9rem;
 }
 
 .dropdown-menu {
@@ -85,6 +90,9 @@
 .register-btn {
   background: linear-gradient(135deg, rgba(243, 27, 239, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
   border-color: var(--secondary-color);
+  padding: 0.4rem 1rem;
+  margin: 0 0.2rem;
+  font-size: 0.9rem;
 }
 
 .register-btn:hover {
@@ -95,6 +103,9 @@
 .profile-btn {
   background: linear-gradient(135deg, rgba(5, 195, 221, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
   border-color: var(--primary-color);
+  padding: 0.4rem 1rem;
+  margin: 0 0.2rem;
+  font-size: 0.9rem;
 }
 
 .profile-btn:hover {

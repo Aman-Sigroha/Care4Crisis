@@ -8,7 +8,7 @@
 .content-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0;
+  padding: 0.5rem 0 0.5rem 0;
   width: 100%;
 }
 
@@ -138,9 +138,16 @@ div[class*=" container"] {
   letter-spacing: 2px;
 }
 
+.neon-text {
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+
 .screen-glitch {
   animation: glitch 1s linear infinite;
   position: relative;
+  display: inline-block;
+  margin: 0 auto;
 }
 
 @keyframes glitch {
@@ -160,12 +167,17 @@ div[class*=" container"] {
   content: attr(title);
   position: absolute;
   left: 0;
+  top: 0;
+  width: 100%;
+  text-align: inherit;
+  white-space: nowrap;
 }
 
 .screen-glitch:before {
   animation: glitchTop 1s linear infinite;
   clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
   -webkit-clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  top: 7px;
 }
 
 @keyframes glitchTop {
@@ -184,6 +196,7 @@ div[class*=" container"] {
   animation: glitchBottom 1.5s linear infinite;
   clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
   -webkit-clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  top: 14px;
 }
 
 @keyframes glitchBottom {
@@ -379,4 +392,21 @@ div[class*=" container"] {
 .highlight-error {
   color: #ff3d3d;
   font-weight: bold;
+}
+
+/* Responsive heading size */
+@media (max-width: 900px) {
+  .cyberpunk-logo {
+    font-size: 2.2rem;
+  }
+}
+@media (max-width: 600px) {
+  .cyberpunk-logo {
+    font-size: 1.5rem;
+  }
+}
+@media (max-width: 400px) {
+  .cyberpunk-logo {
+    font-size: 1.1rem;
+  }
 }

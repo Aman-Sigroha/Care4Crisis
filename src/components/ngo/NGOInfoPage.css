@@ -8,7 +8,7 @@
 
 /* Hero section */
 .ngo-hero {
-  padding: 4rem 2rem;
+  padding: 1.5rem 1rem;
   background-size: cover;
   background-position: center;
   margin-bottom: 3rem;
@@ -147,7 +147,7 @@
 }
 
 .card-body {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .card h2 {
@@ -369,19 +369,19 @@
 
 /* Transparency tab */
 .financial-overview {
-  margin-top: 1.5rem;
+  margin-top: 0.8rem;
 }
 
 .expense-ratio-chart {
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
 }
 
 .ratio-bars {
-  margin-top: 1.5rem;
+  margin-top: 0.8rem;
 }
 
 .ratio-item {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .ratio-label {
@@ -438,16 +438,16 @@
   background: rgba(15, 23, 42, 0.5);
   border: 1px solid rgba(5, 195, 221, 0.2);
   border-radius: 8px;
-  padding: 1.5rem;
+  padding: 0.8rem;
 }
 
 .blockchain-verification p {
   color: #b0b7c3;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .verification-details {
-  margin-top: 1.5rem;
+  margin-top: 0.8rem;
 }
 
 .detail-item {
