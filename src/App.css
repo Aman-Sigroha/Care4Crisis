@@ -125,10 +125,6 @@ div[class*=" container"] {
   box-shadow: 0 0 10px var(--primary-color);
 }
 
-.content-container .cyberpunk-logo {
-  margin-bottom: 0;
-}
-
 .cyberpunk-logo {
   font-family: 'Orbitron', sans-serif;
   font-size: 3rem;
