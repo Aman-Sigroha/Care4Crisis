@@ -65,57 +65,56 @@ class SignIn extends Component {
     render() {
         return(
             <div className="signin-outer-wrapper">
-                <div className="cyber-container signin-container">
-                    <div className="corner-decoration top-left"></div>
-                    <div className="corner-decoration top-right"></div>
-                    <div className="corner-decoration bottom-left"></div>
-                    <div className="corner-decoration bottom-right"></div>
-                    
-                    <h2 className="form-title">Access System</h2>
-                    
-                    {this.state.error && (
-                        <div className="error-message">
-                            {this.state.error}
-                        </div>
-                    )}
-                    
-                    <div className="form-group">
-                        <label htmlFor="email-address">Email ID</label>
-                        <input 
-                            onChange={this.onEmailChange} 
-                            className="neon-input" 
-                            type="email" 
-                            name="email-address" 
-                            id="email-address"
-                            placeholder="Enter your email"
-                        />
+            <div className="cyber-container signin-container">
+                <div className="corner-decoration top-left"></div>
+                <div className="corner-decoration top-right"></div>
+                <div className="corner-decoration bottom-left"></div>
+                <div className="corner-decoration bottom-right"></div>
+                
+                <h2 className="form-title">Access System</h2>
+                
+                {this.state.error && (
+                    <div className="error-message">
+                        {this.state.error}
                     </div>
-                    
-                    <div className="form-group">
-                        <label htmlFor="password">Security Key</label>
-                        <input 
-                            onChange={this.onPasswordChange} 
-                            className="neon-input" 
-                            type="password" 
-                            name="password" 
-                            id="password"
-                            placeholder="Enter your password"
-                        />
-                    </div>
-                    
-                    <button 
-                        onClick={this.onSubmitSignIn} 
-                        className="cyber-button signin-btn"
-                    >
-                        <span className="button-text">System Login</span>
+                )}
+                
+                <form onSubmit={e => { e.preventDefault(); this.onSubmitSignIn(); }}>
+                  <div className="form-group">
+                      <label htmlFor="email-address">Email ID</label>
+                      <input 
+                          onChange={this.onEmailChange} 
+                          className="neon-input" 
+                          type="email" 
+                          name="email-address" 
+                          id="email-address"
+                          placeholder="Enter your email"
+                      />
+                  </div>
+                  <div className="form-group">
+                      <label htmlFor="password">Security Key</label>
+                      <input 
+                          onChange={this.onPasswordChange} 
+                          className="neon-input" 
+                          type="password" 
+                          name="password" 
+                          id="password"
+                          placeholder="Enter your password"
+                      />
+                  </div>
+                  <button 
+                      type="submit"
+                      className="cyber-button signin-btn"
+                  >
+                      <span className="button-text">System Login</span>
+                  </button>
+                </form>
+                <div className="alt-action">
+                    <p>New user?</p>
+                    <button onClick={() => {this.props.onroutechange('register')}} className="text-link">
+                        Register for access
                     </button>
-                    
-                    <div className="alt-action">
-                        <p>New user?</p>
-                        <button onClick={() => {this.props.onroutechange('register')}} className="text-link">
-                            Register for access
-                        </button>
-                    </div>
+                </div>
                 </div>
             </div>
         )

@@ -75,50 +75,47 @@ class Register extends Component{
                         {this.state.error}
                     </div>
                 )}
-                
-                <div className="form-group">
-                    <label htmlFor="name">Full Identity</label>
-                    <input 
-                        onChange={this.onNameChange} 
-                        className="neon-input" 
-                        type="text" 
-                        name="name" 
-                        id="name"
-                        placeholder="Enter your name"
-                    />
-                </div>
-                
-                <div className="form-group">
-                    <label htmlFor="email-address">Email ID</label>
-                    <input 
-                        onChange={this.onEmailChange} 
-                        className="neon-input" 
-                        type="email" 
-                        name="email-address" 
-                        id="email-address"
-                        placeholder="Enter your email"
-                    />
-                </div>
-                
-                <div className="form-group">
-                    <label htmlFor="password">Security Key</label>
-                    <input 
-                        onChange={this.onPasswordChange} 
-                        className="neon-input" 
-                        type="password" 
-                        name="password" 
-                        id="password"
-                        placeholder="Create a password"
-                    />
-                </div>
-                
-                <button 
-                    onClick={this.onSubmitRegister} 
-                    className="cyber-button register-btn"
-                >
-                    <span className="button-text">Create Account</span>
-                </button>
-                
+                <form onSubmit={e => { e.preventDefault(); this.onSubmitRegister(); }}>
+                  <div className="form-group">
+                      <label htmlFor="name">Full Identity</label>
+                      <input 
+                          onChange={this.onNameChange} 
+                          className="neon-input" 
+                          type="text" 
+                          name="name" 
+                          id="name"
+                          placeholder="Enter your name"
+                      />
+                  </div>
+                  <div className="form-group">
+                      <label htmlFor="email-address">Email ID</label>
+                      <input 
+                          onChange={this.onEmailChange} 
+                          className="neon-input" 
+                          type="email" 
+                          name="email-address" 
+                          id="email-address"
+                          placeholder="Enter your email"
+                      />
+                  </div>
+                  <div className="form-group">
+                      <label htmlFor="password">Security Key</label>
+                      <input 
+                          onChange={this.onPasswordChange} 
+                          className="neon-input" 
+                          type="password" 
+                          name="password" 
+                          id="password"
+                          placeholder="Create a password"
+                      />
+                  </div>
+                  <button 
+                      type="submit"
+                      className="cyber-button register-btn"
+                  >
+                      <span className="button-text">Create Account</span>
+                  </button>
+                </form>
                 <div className="alt-action">
                     <p>Already registered?</p>
                     <button onClick={() => {this.props.onroutechange('signin')}} className="text-link">

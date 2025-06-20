@@ -159,10 +159,10 @@ class App extends Component {
     // Register component with particles background
     const RegisterComponent = () => (
       <>
-        <NavigationWithRouter
+        {/* <NavigationWithRouter
           issignedin={isSignedIn}
           updateSignInStatus={this.updateSignInStatus}
-        />
+        /> */}
         <div className="content-container">
           <h1 className="cyberpunk-logo">CARE4CRISIS</h1>
           <p className="neon-text">Create Your AI Crisis Management Account</p>

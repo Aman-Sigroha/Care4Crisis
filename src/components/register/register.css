@@ -1,24 +1,88 @@
+/* --- Compact and Responsive Register Page Styles --- */
+
 .register-container {
-  max-width: 450px;
-  margin: 2rem auto;
+  max-width: 370px;
+  width: 100%;
+  margin: 2.5rem auto 0 auto;
   position: relative;
+  background: var(--card-bg);
+  border-radius: 12px;
+  border: var(--neon-border);
+  padding: 1.2rem 0.7rem 1.2rem 0.7rem;
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+  top: 0;
+}
+
+.form-title {
+  font-family: 'Orbitron', sans-serif;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+  text-align: center;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+}
+.form-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+}
+
+.form-group {
+  margin-bottom: 0.2rem;
+}
+.form-group label {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  color: var(--light-text);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0;
+}
+
+.neon-input {
+  background-color: rgba(10, 14, 23, 0.7);
+  border: 1px solid var(--primary-color);
+  border-radius: 4px;
+  color: var(--light-text);
+  padding: 0.3rem;
+  margin-bottom: 0.2rem;
+  width: 100%;
+  font-family: 'Raleway', sans-serif;
+  transition: all 0.3s ease;
+}
+.neon-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px var(--primary-color);
 }
 
 .register-btn {
-  width: 100%;
-  margin-top: 1rem;
-  padding: 1rem;
+  padding: 0.2rem 1.5rem;
+  margin-top: 0.2rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  min-width: 180px;
+  max-width: 100%;
   font-size: 1rem;
   background: linear-gradient(135deg, rgba(243, 27, 239, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
   position: relative;
   overflow: hidden;
   border-color: var(--secondary-color);
 }
-
 .register-btn:hover {
   box-shadow: 0 0 15px var(--secondary-color);
 }
-
 .register-btn::before {
   content: '';
   position: absolute;
@@ -31,9 +95,128 @@
   opacity: 0;
   transition: opacity 0.3s ease;
 }
-
 .register-btn:hover::before {
   opacity: 0.3;
+}
+
+.alt-action {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--light-text);
+  margin-top: 0.1rem;
+}
+.text-link {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  cursor: pointer;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-transform: none;
+  letter-spacing: normal;
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+.text-link:hover {
+  color: var(--secondary-color);
+  text-shadow: 0 0 8px rgba(243, 27, 239, 0.6);
+  box-shadow: none;
+}
+
+.corner-decoration {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--primary-color);
+  z-index: 1;
+}
+.top-left {
+  top: 0;
+  left: 0;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.top-right {
+  top: 0;
+  right: 0;
+  border-top: 2px solid;
+  border-right: 2px solid;
+}
+.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-bottom: 2px solid;
+  border-left: 2px solid;
+}
+.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+.error-message {
+  background: #2b1b1b;
+  padding: 10px;
+  border-radius: 4px;
+  color: #ff9e9e;
+  font-family: monospace;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* Responsive styles for register card */
+@media (max-width: 900px) {
+  .register-container {
+    max-width: 320px;
+    padding: 0.5rem 0.3rem;
+  }
+  .register-btn {
+    min-width: 140px;
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 400px) {
+  .register-container {
+    max-width: 98vw;
+    padding: 0.2rem 0.1rem;
+  }
+  .form-title {
+    font-size: 1rem;
+  }
+  .register-btn {
+    min-width: 100px;
+    font-size: 0.9rem;
+  }
+  .neon-input {
+    font-size: 0.9rem;
+    padding: 0.2rem;
+  }
+}
+@media (max-width: 375px) {
+  .register-container {
+    max-width: 99vw;
+    padding: 0.1rem 0.05rem;
+  }
+  .neon-input,
+  .form-title {
+    font-size: 0.85rem;
+  }
+}
+@media (max-width: 340px) {
+  .register-container {
+    max-width: 100vw;
+    padding: 0;
+  }
+  .form-title {
+    font-size: 0.8rem;
+  }
+  .register-btn {
+    min-width: 80px;
+    font-size: 0.8rem;
+  }
 }
 
 /* Animated background for the register container */
