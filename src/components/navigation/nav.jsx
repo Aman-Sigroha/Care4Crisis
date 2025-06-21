@@ -32,12 +32,12 @@ const Navigation =({onroutechange, issignedin, currentRoute, isWalletConnected, 
                             HOME
                         </button>
                     ) : (
-                        <button 
-                            onClick={() => {onroutechange('profile')}} 
-                            className='cyber-button profile-btn'
-                        >
-                            PROFILE
-                        </button>
+                    <button 
+                        onClick={() => {onroutechange('profile')}} 
+                        className='cyber-button profile-btn'
+                    >
+                        PROFILE
+                    </button>
                     )}
                     <button 
                         onClick={() => {onroutechange('signin')}} 

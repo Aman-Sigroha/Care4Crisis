@@ -88,7 +88,7 @@ export const fetchUSDTTransactions = async () => {
       amount: (tx.value / 1e6).toFixed(2),
       from: tx.from,
       to: tx.to,
-      status: 'confirmed',
+          status: 'confirmed',
       currency: 'USDT'
     }));
 
@@ -101,9 +101,9 @@ export const fetchUSDTTransactions = async () => {
 
 // Fetch Solana data from public RPC
 export const fetchSolanaTransactions = async () => {
-  try {
-    const { Connection, PublicKey, LAMPORTS_PER_SOL } = await import('@solana/web3.js');
-    const connection = new Connection('https://api.testnet.solana.com', 'confirmed');
+    try {
+      const { Connection, PublicKey, LAMPORTS_PER_SOL } = await import('@solana/web3.js');
+      const connection = new Connection('https://api.testnet.solana.com', 'confirmed');
     const pubKey = new PublicKey(ADDRESSES.solana);
 
     const solBalance = await connection.getBalance(pubKey);
@@ -161,7 +161,7 @@ export const getExplorerLink = (currency, address) => {
   if (c === 'bitcoin') return `https://www.blockcypher.com/btc-testnet/address/${address}`;
   if (c === 'ethereum' || c === 'usdt') return `https://sepolia.etherscan.io/address/${address}`;
   if (c === 'solana') return `https://explorer.solana.com/address/${address}?cluster=testnet`;
-  return '#';
+      return '#';
 };
 
 export const getTransactionLink = (currency, txId) => {
@@ -169,5 +169,5 @@ export const getTransactionLink = (currency, txId) => {
   if (c === 'bitcoin') return `https://www.blockcypher.com/btc-testnet/tx/${txId}`;
   if (c === 'ethereum' || c === 'usdt') return `https://sepolia.etherscan.io/tx/${txId}`;
   if (c === 'solana') return `https://explorer.solana.com/tx/${txId}?cluster=testnet`;
-  return '#';
+      return '#';
 }; 

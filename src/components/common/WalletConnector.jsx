@@ -30,14 +30,14 @@ const WalletConnector = ({ isWalletConnected, walletAddress, walletType, onWalle
         throw new Error("MetaMask is not installed. Please install MetaMask browser extension.");
       }
       
-      await switchToSepoliaNetwork();
+        await switchToSepoliaNetwork();
       const provider = await getProvider();
       const signer = await provider.getSigner();
       const address = await signer.getAddress();
       
       onWalletConnect('ethereum', address); // Report up to App.jsx
       setShowModal(false);
-
+      
     } catch (err) {
       console.error('Error connecting to Ethereum wallet:', err);
       if (err.message.includes("user rejected")) {
@@ -62,7 +62,7 @@ const WalletConnector = ({ isWalletConnected, walletAddress, walletType, onWalle
       const address = await connectSolanaWallet();
       onWalletConnect('solana', address); // Report up to App.jsx
       setShowModal(false);
-
+      
     } catch (err) {
       console.error('Error connecting to Solana wallet:', err);
       setError(err.message || 'Failed to connect to Phantom wallet.');
@@ -73,7 +73,7 @@ const WalletConnector = ({ isWalletConnected, walletAddress, walletType, onWalle
 
   const disconnectWallet = () => {
     if (walletType === 'solana' && window.solana?.disconnect) {
-      window.solana.disconnect();
+          window.solana.disconnect();
     }
     onWalletConnect(null, null); // Report disconnection up to App.jsx
   };
@@ -105,8 +105,8 @@ const WalletConnector = ({ isWalletConnected, walletAddress, walletType, onWalle
   return (
     <>
       <Button className="cyber-button" onClick={() => setShowModal(true)}>
-        Connect Wallet
-      </Button>
+          Connect Wallet
+        </Button>
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
@@ -124,8 +124,8 @@ const WalletConnector = ({ isWalletConnected, walletAddress, walletType, onWalle
                 {!isMetaMaskAvailable && (
                   <Alert variant="warning">
                     MetaMask is not installed. Please install the browser extension.
-                  </Alert>
-                )}
+            </Alert>
+          )}
                 <Button className="connect-wallet-btn w-100" onClick={connectEthereumWallet} disabled={loading || !isMetaMaskAvailable}>
                   {loading ? 'Connecting...' : 'Connect MetaMask'}
                 </Button>
