@@ -204,7 +204,7 @@ class App extends Component {
       />
     );
     
-    const MainContent = () => (
+    return (
       <Router>
         <div className="App">
           <Helmet>
@@ -416,19 +416,6 @@ class App extends Component {
             {/* Catch-all route */}
             <Route path="*" element={<Navigate to={`${BASE_PATH}/signin`} />} />
           </Routes>
-        </div>
-      </Router>
-    );
-
-    return (
-      <Router>
-        <div className="App">
-          <Helmet>
-            <title>Care4Crisis - AI-Powered Crisis Management</title>
-            <meta name="description" content="Care4Crisis is an AI-driven platform for effective crisis management and donation tracking, ensuring transparency and efficiency in aid distribution." />
-            <meta name="keywords" content="crisis management, AI, donation tracking, blockchain, transparency, disaster relief" />
-          </Helmet>
-          <MainContent />
         </div>
       </Router>
     );
