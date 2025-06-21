@@ -2,7 +2,7 @@ import './nav.css';
 import { useNavigate } from 'react-router-dom';
 import WalletConnector from '../common/WalletConnector';
  
-const Navigation =({onroutechange, issignedin}) =>{
+const Navigation =({onroutechange, issignedin, currentRoute}) =>{
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
     
@@ -24,12 +24,21 @@ const Navigation =({onroutechange, issignedin}) =>{
                 
                 <div className="nav-right">
                     <WalletConnector onWalletConnect={handleWalletConnect} />
-                    <button 
-                        onClick={() => {onroutechange('profile')}} 
-                        className='cyber-button profile-btn'
-                    >
-                        PROFILE
-                    </button>
+                    {currentRoute.includes('/profile') ? (
+                        <button 
+                            onClick={() => {onroutechange('home')}} 
+                            className='cyber-button profile-btn'
+                        >
+                            HOME
+                        </button>
+                    ) : (
+                        <button 
+                            onClick={() => {onroutechange('profile')}} 
+                            className='cyber-button profile-btn'
+                        >
+                            PROFILE
+                        </button>
+                    )}
                     <button 
                         onClick={() => {onroutechange('signin')}} 
                         className='cyber-button'

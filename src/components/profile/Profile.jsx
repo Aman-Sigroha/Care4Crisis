@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import './Profile.css';
 
-const Profile = ({ user, updateUser }) => {
+const Profile = ({ user, updateUser, onroutechange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedUser, setEditedUser] = useState({ ...user });
   const [showSuccessAlert, setShowSuccessAlert] = useState(false);
@@ -52,6 +52,13 @@ const Profile = ({ user, updateUser }) => {
 
   return (
     <Container className="profile-container">
+      <Button 
+        className="back-button"
+        onClick={() => onroutechange('home')}
+      >
+        <i className="fas fa-arrow-left"></i>
+      </Button>
+
       {showSuccessAlert && (
         <Alert variant="success" className="mb-4 cyber-alert">
           Profile updated successfully!

@@ -27,44 +27,44 @@ const WalletConnector = ({ onWalletConnect }) => {
     setIsPhantomAvailable(phantomAvailable);
     console.log('Phantom detection result:', phantomAvailable);
     
-    // Check if wallets are already connected
-    const checkWalletConnections = async () => {
-      try {
-        // Check Ethereum wallet independently
-        const provider = getMetaMaskProvider();
-        if (provider && provider.selectedAddress) {
-          console.log('Found connected Ethereum wallet:', provider.selectedAddress);
-          setActiveWallet('ethereum');
-          setWalletAddress(provider.selectedAddress);
+    // // Check if wallets are already connected (REMOVED to prevent auto-connection)
+    // const checkWalletConnections = async () => {
+    //   try {
+    //     // Check Ethereum wallet independently
+    //     const provider = getMetaMaskProvider();
+    //     if (provider && provider.selectedAddress) {
+    //       console.log('Found connected Ethereum wallet:', provider.selectedAddress);
+    //       setActiveWallet('ethereum');
+    //       setWalletAddress(provider.selectedAddress);
           
-          if (onWalletConnect) {
-            onWalletConnect('ethereum', provider.selectedAddress);
-          }
-          return; // Stop here if Ethereum is connected
-        } else {
-          console.log('No connected Ethereum wallet found');
-        }
+    //       if (onWalletConnect) {
+    //         onWalletConnect('ethereum', provider.selectedAddress);
+    //       }
+    //       return; // Stop here if Ethereum is connected
+    //     } else {
+    //       console.log('No connected Ethereum wallet found');
+    //     }
         
-        // Only check Solana wallet if Ethereum isn't connected
-        const solanaConnected = await checkSolanaWalletConnected();
-        if (solanaConnected) {
-          const address = await getWalletPublicKey();
-          console.log('Found connected Solana wallet:', address);
-          setActiveWallet('solana');
-          setWalletAddress(address);
+    //     // Only check Solana wallet if Ethereum isn't connected
+    //     const solanaConnected = await checkSolanaWalletConnected();
+    //     if (solanaConnected) {
+    //       const address = await getWalletPublicKey();
+    //       console.log('Found connected Solana wallet:', address);
+    //       setActiveWallet('solana');
+    //       setWalletAddress(address);
           
-          if (onWalletConnect) {
-            onWalletConnect('solana', address);
-          }
-        } else {
-          console.log('No connected Solana wallet found');
-        }
-      } catch (err) {
-        console.error('Error checking wallet connection:', err);
-      }
-    };
+    //       if (onWalletConnect) {
+    //         onWalletConnect('solana', address);
+    //       }
+    //     } else {
+    //       console.log('No connected Solana wallet found');
+    //     }
+    //   } catch (err) {
+    //     console.error('Error checking wallet connection:', err);
+    //   }
+    // };
     
-    checkWalletConnections();
+    // checkWalletConnections();
   }, [onWalletConnect]);
 
   const connectEthereumWallet = async () => {
@@ -264,7 +264,7 @@ const WalletConnector = ({ onWalletConnect }) => {
               }
             }}
           >
-            Force MetaMask Connection
+            Force Manual Connection
           </Button>
         </div>
       </div>
@@ -312,34 +312,35 @@ const WalletConnector = ({ onWalletConnect }) => {
     );
   };
 
+  if (walletAddress) {
+    return (
+      <div className="wallet-connector-wrapper">
+        <div className="wallet-display">
+          <img 
+            src={activeWallet === 'ethereum' ? '/crypto-icons/ethereum.png' : '/crypto-icons/solana.png'} 
+            alt={activeWallet} 
+            className="wallet-icon"
+          />
+          <span className="wallet-address">{formatAddress(walletAddress)}</span>
+        </div>
+        <button 
+          className="disconnect-btn"
+          onClick={disconnectWallet}
+        >
+          <i className="fas fa-sign-out-alt"></i>
+        </button>
+      </div>
+    );
+  }
+
   return (
     <>
-      {activeWallet ? (
-        <div className="d-flex">
-          <Button 
-            className="wallet-button"
-            onClick={() => setShowModal(true)}
-          >
-            <i className={`me-2 ${activeWallet === 'ethereum' ? 'fab fa-ethereum' : 'fas fa-wallet'}`}></i>
-            {formatAddress(walletAddress)}
-          </Button>
-          <Button 
-            className="ms-2 disconnect-wallet-btn"
-            variant="outline-danger"
-            size="sm"
-            onClick={disconnectWallet}
-          >
-            <i className="fas fa-sign-out-alt"></i>
-          </Button>
-        </div>
-      ) : (
-        <Button 
-          className="connect-wallet-btn"
-          onClick={() => setShowModal(true)}
-        >
-          Connect Wallet
-        </Button>
-      )}
+      <Button
+        className="cyber-button"
+        onClick={() => setShowModal(true)}
+      >
+        Connect Wallet
+      </Button>
 
       <Modal className="wallet-modal" show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>

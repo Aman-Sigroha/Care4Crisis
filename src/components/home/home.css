@@ -12,6 +12,7 @@
   animation: changeBackground 30s infinite;
   margin: 0;
   padding: 0;
+  z-index: 1;
 }
 @keyframes changeBackground {
   0% {
@@ -97,20 +98,79 @@
   color: var(--light-text);
   text-shadow: 0 0 10px rgba(5, 195, 221, 0.7), 0 0 20px rgba(5, 195, 221, 0.5), 0 0 30px rgba(5, 195, 221, 0.3);
   letter-spacing: 4px;
+  position: relative;
+  animation: glitch 3s infinite alternate;
   margin: 0 0 1.5rem 0;
-  animation: pulse 3s infinite;
 }
 
-@keyframes pulse {
-  0% {
-    text-shadow: 0 0 10px rgba(5, 195, 221, 0.7), 0 0 20px rgba(5, 195, 221, 0.4);
-  }
-  50% {
-    text-shadow: 0 0 15px rgba(5, 195, 221, 0.8), 0 0 25px rgba(5, 195, 221, 0.5), 0 0 35px rgba(5, 195, 221, 0.3);
-  }
-  100% {
-    text-shadow: 0 0 10px rgba(5, 195, 221, 0.7), 0 0 20px rgba(5, 195, 221, 0.4);
-  }
+.logo::before,
+.logo::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    overflow: hidden;
+}
+
+.logo::before {
+    left: 2px;
+    text-shadow: -2px 0 red;
+    animation: glitch-before 3s infinite alternate;
+}
+
+.logo::after {
+    left: -2px;
+    text-shadow: -2px 0 blue;
+    animation: glitch-after 3s infinite alternate;
+}
+
+@keyframes glitch-before {
+    0% {
+        clip-path: inset(85% 0 5% 0);
+        transform: translate(-0.025em, -0.0125em);
+    }
+    25% {
+        clip-path: inset(55% 0 25% 0);
+        transform: translate(0.0125em, 0.025em);
+    }
+    50% {
+        clip-path: inset(15% 0 75% 0);
+        transform: translate(-0.0125em, -0.0125em);
+    }
+    75% {
+        clip-path: inset(95% 0 2% 0);
+        transform: translate(0.025em, -0.0125em);
+    }
+    100% {
+        clip-path: inset(35% 0 45% 0);
+        transform: translate(-0.025em, 0.0125em);
+    }
+}
+
+@keyframes glitch-after {
+    0% {
+        clip-path: inset(5% 0 85% 0);
+        transform: translate(0.0125em, 0.0125em);
+    }
+    25% {
+        clip-path: inset(25% 0 55% 0);
+        transform: translate(-0.025em, -0.025em);
+    }
+    50% {
+        clip-path: inset(75% 0 15% 0);
+        transform: translate(0.0125em, 0.0125em);
+    }
+    75% {
+        clip-path: inset(2% 0 95% 0);
+        transform: translate(-0.0125em, 0.025em);
+    }
+    100% {
+        clip-path: inset(45% 0 35% 0);
+        transform: translate(0.025em, -0.0125em);
+    }
 }
 
 .buttonContainer {
@@ -258,9 +318,7 @@ body, html {
 }
 
 .homeCardHolder > div {
-  flex: 1 1 calc(33.333% - 2rem);
-  min-width: 300px;
-  margin-bottom: 2rem;
+  flex-basis: calc(50% - 1rem);
 }
 
 /* Make the home section content more readable */
@@ -291,37 +349,33 @@ body, html {
 
 /* Urgent cause section improvements */
 .urgentCause {
-  padding: 2rem 1rem;
-  background-color: rgba(10, 14, 23, 0.95);
-  position: relative;
+  padding: 4rem 2rem;
+  background-color: var(--dark-bg);
 }
 
 .causeSectionTitle {
-  text-align: center;
-  margin-bottom: 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  flex-wrap: wrap;
+  text-align: left;
 }
 
 .causeSectionTitle h3 {
-  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
   color: var(--secondary-color);
-  font-size: 2.5rem;
-  letter-spacing: 2px;
-  position: relative;
-  display: inline-block;
   text-shadow: 0 0 10px rgba(243, 27, 239, 0.5);
-  margin: 0 auto 1rem;
+  margin: 0;
 }
 
 .button2 {
-  background: transparent !important;
   border: 2px solid var(--secondary-color) !important;
+  background: transparent !important;
   color: var(--secondary-color) !important;
   padding: 0.8rem 1.8rem !important;
   font-family: 'Orbitron', sans-serif !important;
@@ -527,7 +581,7 @@ body, html {
   }
   
   .logo {
-    font-size: 3.5rem;
+    font-size: 3rem;
   }
   
   .buttonContainer {
@@ -537,7 +591,8 @@ body, html {
   }
   
   .banner_button {
-    margin-bottom: 1rem;
+    font-size: 1rem !important;
+    padding: 0.8rem 1.5rem !important;
   }
   
   .aboutUsContent {
@@ -563,5 +618,17 @@ body, html {
   .homeCardHolder > div,
   .causeCardHolder > div {
     flex: 1 1 calc(50% - 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+  }
+
+  .buttonContainer {
+    flex-direction: column;
+    gap: 1rem;
   }
 }

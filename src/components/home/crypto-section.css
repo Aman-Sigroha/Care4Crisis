@@ -174,7 +174,8 @@
   content: '';
   position: absolute;
   top: 100%;
-  left: 35px;
+  left: 50%;
+  transform: translateX(-50%);
   width: 2px;
   height: 1.5rem;
   background: linear-gradient(to bottom, #05c3dd, transparent);

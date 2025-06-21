@@ -2,11 +2,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.4rem 1rem;
+  padding: 0.2rem 1rem;
   width: 100%;
   z-index: 100;
   position: relative;
   border-bottom: 1px solid rgba(108, 99, 255, 0.2);
+  gap: 0.5rem;
 }
 
 .nav-left, .nav-center, .nav-right {
@@ -26,7 +27,7 @@
 .nav-right {
   flex: 1;
   justify-content: flex-end;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .cyber-logo {
@@ -84,31 +85,89 @@
 
 .wallet-connector-wrapper {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--primary-color);
+  background: rgba(5, 195, 221, 0.1);
+  height: 38px;
 }
 
-.register-btn {
-  background: linear-gradient(135deg, rgba(243, 27, 239, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
-  border-color: var(--secondary-color);
-  padding: 0.4rem 1rem;
-  margin: 0 0.2rem;
+.wallet-connector-wrapper .wallet-button {
+  border: 1px solid var(--primary-color);
+  background: rgba(5, 195, 221, 0.1);
+}
+
+.wallet-display {
+  display: flex;
+  align-items: center;
+  padding: 0 0.8rem;
+  gap: 0.5rem;
+  background-color: #002D3A;
+  color: #fff;
+}
+
+.wallet-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.wallet-address {
+  font-family: 'Roboto Mono', monospace;
   font-size: 0.9rem;
 }
 
-.register-btn:hover {
+.disconnect-btn {
+  background: #C70039 !important;
+  color: #fff !important;
+  border: none !important;
+  border-left: 1px solid var(--primary-color) !important;
+  padding: 0 0.8rem !important;
+  font-size: 1rem !important;
+  border-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.disconnect-btn:hover {
+  background: #900C3F !important;
+}
+
+.nav-right .cyber-button {
+  padding: 0.4rem 1rem;
+  font-size: 0.9rem;
+  min-width: 110px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(90deg, #05c3dd, #6a33f8);
+  border: 1px solid #05c3dd;
+  color: #fff;
+  font-weight: 500;
+}
+
+.nav-right .cyber-button:hover {
+  box-shadow: 0 0 10px rgba(5, 195, 221, 0.5);
+}
+
+.nav-right .register-btn {
+  background: linear-gradient(135deg, rgba(243, 27, 239, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
+  border-color: var(--secondary-color);
+}
+
+.nav-right .register-btn:hover {
   box-shadow: 0 0 15px var(--secondary-color);
   border-color: var(--secondary-color);
 }
 
-.profile-btn {
+.nav-right .profile-btn {
   background: linear-gradient(135deg, rgba(5, 195, 221, 0.2) 0%, rgba(106, 51, 248, 0.2) 100%);
   border-color: var(--primary-color);
-  padding: 0.4rem 1rem;
-  margin: 0 0.2rem;
-  font-size: 0.9rem;
 }
 
-.profile-btn:hover {
+.nav-right .profile-btn:hover {
   box-shadow: 0 0 15px var(--primary-color);
   border-color: var(--primary-color);
 } 
