@@ -251,9 +251,13 @@
 }
 
 .payment-tabs .nav-link.active {
-  color: #05c3dd;
+  color: white !important;
   background: rgba(5, 195, 221, 0.1);
   border-bottom: 3px solid #05c3dd;
+}
+
+.payment-tabs .nav-link.active i {
+  color: #fff !important;
 }
 
 .payment-tabs .nav-link i {
