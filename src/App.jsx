@@ -1,7 +1,6 @@
 import './App.css';
 import Navigation from './components/navigation/nav';
 import { Component, useCallback } from 'react';
-import Particles from "react-tsparticles";
 import { loadFull } from "tsparticles";
 import SignIn from './components/signIn/signIn.jsx';
 import Register from './components/register/register.jsx';
@@ -176,78 +175,7 @@ class App extends Component {
             updateSignInStatus={this.updateSignInStatus}
           />
         </div>
-        <Particles
-          id="tsparticles-cobweb"
-          init={particlesInit}
-          options={{
-            background: {
-              color: {
-                value: '#0A0E17',
-              },
-            },
-            fpsLimit: 60,
-            interactivity: {
-              events: {
-                onHover: {
-                  enable: true,
-                  mode: 'grab',
-                },
-                resize: true,
-              },
-              modes: {
-                grab: {
-                  distance: 140,
-                  links: {
-                    opacity: 1,
-                  },
-                },
-              },
-            },
-            particles: {
-              color: {
-                value: ['#05C3DD', '#6A33F8', '#F31BEF'],
-              },
-              links: {
-                color: '#ffffff',
-                distance: 150,
-                enable: true,
-                opacity: 0.4,
-                width: 1,
-              },
-              collisions: {
-                enable: true,
-              },
-              move: {
-                direction: 'none',
-                enable: true,
-                outModes: {
-                  default: 'bounce',
-                },
-                random: false,
-                speed: 1,
-                straight: false,
-              },
-              number: {
-                density: {
-                  enable: true,
-                  area: 800,
-                },
-                value: 75,
-              },
-              opacity: {
-                value: 0.5,
-              },
-              shape: {
-                type: 'circle',
-              },
-              size: {
-                value: { min: 1, max: 5 },
-              },
-            },
-            detectRetina: true,
-          }}
-        />
-      </>
+        </>
     );
     
     // Register component with particles background
