@@ -1,7 +1,6 @@
 import './App.css';
 import Navigation from './components/navigation/nav';
-import { Component, useCallback } from 'react';
-import { loadFull } from "tsparticles";
+import { Component } from 'react';
 import SignIn from './components/signIn/signIn.jsx';
 import Register from './components/register/register.jsx';
 import { Helmet } from 'react-helmet';
@@ -157,10 +156,6 @@ class App extends Component {
   render() {
     const {isSignedIn, isWalletConnected, walletAddress, walletType} = this.state
     
-    const particlesInit = async (main) => {
-      await loadFull(main);
-    };
-    
     // Login component with particles background
     const LoginComponent = () => (
       <>
@@ -193,51 +188,7 @@ class App extends Component {
             updateSignInStatus={this.updateSignInStatus}
           />
         </div>
-        <Particles
-          id="tsparticles-squares"
-          init={particlesInit}
-          options={{
-            background: {
-              color: {
-                value: '#0A0E17',
-              },
-            },
-            fpsLimit: 60,
-            particles: {
-              color: {
-                value: ['#05C3DD', '#6A33F8', '#F31BEF'],
-              },
-              move: {
-                direction: "top",
-                enable: true,
-                outModes: {
-                  default: "out",
-                },
-                random: true,
-                speed: 2,
-                straight: false,
-              },
-              number: {
-                density: {
-                  enable: true,
-                  area: 800,
-                },
-                value: 10,
-              },
-              opacity: {
-                value: 0.7,
-              },
-              shape: {
-                type: "square",
-              },
-              size: {
-                value: { min: 10, max: 20 },
-              },
-            },
-            detectRetina: true,
-          }}
-        />
-      </>
+        </>
     );
     
     // Navigation for all protected routes
@@ -253,12 +204,13 @@ class App extends Component {
       />
     );
     
-    return (
+    const MainContent = () => (
       <Router>
         <div className="App">
           <Helmet>
             <title>Care4Crisis - AI-Powered Crisis Management</title>
-            <meta name="description" content="AI-powered crisis detection and management platform" />
+            <meta name="description" content="Care4Crisis is an AI-driven platform for effective crisis management and donation tracking, ensuring transparency and efficiency in aid distribution." />
+            <meta name="keywords" content="crisis management, AI, donation tracking, blockchain, transparency, disaster relief" />
           </Helmet>
           
           {/* Grid Background */}
@@ -464,6 +416,19 @@ class App extends Component {
             {/* Catch-all route */}
             <Route path="*" element={<Navigate to={`${BASE_PATH}/signin`} />} />
           </Routes>
+        </div>
+      </Router>
+    );
+
+    return (
+      <Router>
+        <div className="App">
+          <Helmet>
+            <title>Care4Crisis - AI-Powered Crisis Management</title>
+            <meta name="description" content="Care4Crisis is an AI-driven platform for effective crisis management and donation tracking, ensuring transparency and efficiency in aid distribution." />
+            <meta name="keywords" content="crisis management, AI, donation tracking, blockchain, transparency, disaster relief" />
+          </Helmet>
+          <MainContent />
         </div>
       </Router>
     );
