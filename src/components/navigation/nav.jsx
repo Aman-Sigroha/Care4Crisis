@@ -2,14 +2,9 @@ import './nav.css';
 import { useNavigate } from 'react-router-dom';
 import WalletConnector from '../common/WalletConnector';
  
-const Navigation =({onroutechange, issignedin, currentRoute}) =>{
+const Navigation =({onroutechange, issignedin, currentRoute, isWalletConnected, walletAddress, walletType, onWalletUpdate}) =>{
     // eslint-disable-next-line no-unused-vars
     const navigate = useNavigate();
-    
-    const handleWalletConnect = (walletType, address) => {
-        console.log(`Connected to ${walletType} wallet: ${address}`);
-        // You could store this in state/context if needed
-    };
     
     if(issignedin){
         return(
@@ -23,7 +18,12 @@ const Navigation =({onroutechange, issignedin, currentRoute}) =>{
                 </div>
                 
                 <div className="nav-right">
-                    <WalletConnector onWalletConnect={handleWalletConnect} />
+                    <WalletConnector 
+                        isWalletConnected={isWalletConnected}
+                        walletAddress={walletAddress}
+                        walletType={walletType}
+                        onWalletConnect={onWalletUpdate}
+                    />
                     {currentRoute.includes('/profile') ? (
                         <button 
                             onClick={() => {onroutechange('home')}} 

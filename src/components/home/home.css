@@ -128,7 +128,7 @@
 }
 
 @keyframes glitch-before {
-    0% {
+  0% {
         clip-path: inset(85% 0 5% 0);
         transform: translate(-0.025em, -0.0125em);
     }
@@ -158,19 +158,19 @@
     25% {
         clip-path: inset(25% 0 55% 0);
         transform: translate(-0.025em, -0.025em);
-    }
-    50% {
+  }
+  50% {
         clip-path: inset(75% 0 15% 0);
         transform: translate(0.0125em, 0.0125em);
     }
     75% {
         clip-path: inset(2% 0 95% 0);
         transform: translate(-0.0125em, 0.025em);
-    }
-    100% {
+  }
+  100% {
         clip-path: inset(45% 0 35% 0);
         transform: translate(0.025em, -0.0125em);
-    }
+  }
 }
 
 .buttonContainer {

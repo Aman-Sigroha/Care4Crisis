@@ -30,10 +30,12 @@ const TransparencyPage = () => {
   };
   
   // Load real transaction data from blockchain
-  const fetchTransactions = useCallback(async () => {
+  const fetchTransactions = useCallback(async (isInitialLoad = false) => {
     try {
-      // Clear existing cache to ensure fresh data
-      setIsLoading(true);
+      // For background refreshes, only show the small spinner, not the full page loader
+      if (!isInitialLoad) {
+        setIsRefreshing(true);
+      }
       
       // Fetch all transactions from our service
       const txData = await getAllTransactions();
@@ -78,18 +80,21 @@ const TransparencyPage = () => {
     } catch (error) {
       console.error('Error fetching blockchain data:', error);
     } finally {
-      setIsLoading(false);
+      // On initial load, turn off the main loader
+      if (isInitialLoad) {
+        setIsLoading(false);
+      }
+      // Always turn off the refreshing spinner
       setIsRefreshing(false);
     }
   }, []);
   
-  // Initial load
+  // Initial load and 60-second auto-refresh
   useEffect(() => {
-    fetchTransactions();
+    fetchTransactions(true);
     
     // Set up auto-refresh every 60 seconds
     const refreshInterval = setInterval(() => {
-      setIsRefreshing(true);
       fetchTransactions();
     }, 60000); // 1 minute
     
@@ -115,32 +120,9 @@ const TransparencyPage = () => {
       window.removeEventListener('storage', handleStorageChange);
     };
   }, [fetchTransactions]);
-
-  // Add a custom refresh for single-tab updates (since storage events only fire in other tabs)
-  useEffect(() => {
-    // Check for transactions every 5 seconds (lighter than a full refresh)
-    const checkInterval = setInterval(() => {
-      const donationHistoryStr = localStorage.getItem('donationHistory');
-      if (donationHistoryStr) {
-        const count = JSON.parse(donationHistoryStr).length;
-        // Compare with current transaction count
-        const currentCount = Object.values(walletData).reduce(
-          (total, wallet) => total + wallet.transactions.length, 0
-        );
-        
-        if (count !== currentCount) {
-          console.log(`Transaction count mismatch: ${count} in storage vs ${currentCount} displayed`);
-          fetchTransactions();
-        }
-      }
-    }, 5000); // Check every 5 seconds
-    
-    return () => clearInterval(checkInterval);
-  }, [fetchTransactions, walletData]);
   
   // Handle manual refresh
   const handleRefresh = () => {
-    setIsRefreshing(true);
     fetchTransactions();
   };
   
@@ -237,7 +219,7 @@ const TransparencyPage = () => {
           </Container>
         </div>
         
-        <Container className="transparency-content">
+        <Container className="transparency-content mb-5">
           <Alert variant="info" className="mb-4">
             <Alert.Heading>Live Blockchain Data</Alert.Heading>
             <p>
@@ -251,11 +233,11 @@ const TransparencyPage = () => {
                 variant="outline-primary" 
                 size="sm" 
                 onClick={handleRefresh} 
-                disabled={isRefreshing}
+                disabled={isLoading || isRefreshing}
                 className="refresh-btn"
               >
-                <i className={`fas fa-sync-alt ${isRefreshing ? 'fa-spin' : ''}`}></i>
-                {isRefreshing ? ' Refreshing...' : ' Refresh Data'}
+                <i className={`fas fa-sync-alt ${(isLoading || isRefreshing) ? 'fa-spin' : ''}`}></i>
+                {(isLoading || isRefreshing) ? ' Refreshing...' : ' Refresh Data'}
               </Button>
             </div>
           </Alert>
@@ -338,7 +320,7 @@ const TransparencyPage = () => {
                         </Row>
                         
                         <div className="recent-transactions">
-                          <h3>Recent Transactions</h3>
+                          <h3>Recent Transactions (Last 7 Days)</h3>
                           <Table responsive>
                             <thead>
                               <tr>
@@ -351,28 +333,37 @@ const TransparencyPage = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {getAllTransactionsList().slice(0, 5).map((tx, index) => (
-                                <tr key={tx.id || index}>
-                                  <td>{formatDate(tx.date)}</td>
-                                  <td>{getTransactionTypeBadge(tx.type)}</td>
-                                  <td>{tx.amount}</td>
-                                  <td>{tx.currency}</td>
-                                  <td>{getTransactionStatusBadge(tx.status)}</td>
-                                  <td>
-                                    <a href={getTransactionLink(tx.currency, tx.id)} target="_blank" rel="noopener noreferrer">
-                                      {truncateAddress(tx.id)} <i className="fas fa-external-link-alt"></i>
-                                    </a>
-                                  </td>
-                                </tr>
-                              ))}
-                              
-                              {getAllTransactionsList().length === 0 && (
-                                <tr>
-                                  <td colSpan="6" className="text-center py-3">
-                                    No transactions found. Make a donation to see it here!
-                                  </td>
-                                </tr>
-                              )}
+                              {(() => {
+                                const oneWeekAgo = new Date();
+                                oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+                                const weeklyTransactions = getAllTransactionsList().filter(tx => new Date(tx.date) >= oneWeekAgo);
+
+                                if (weeklyTransactions.length === 0) {
+                                  return (
+                                    <tr>
+                                      <td colSpan="6" className="text-center py-3">
+                                        No transactions found in the last week.
+                                      </td>
+                                    </tr>
+                                  );
+                                }
+
+                                return weeklyTransactions.map((tx, index) => (
+                                  <tr key={tx.id || index}>
+                                    <td>{formatDate(tx.date)}</td>
+                                    <td>{getTransactionTypeBadge(tx.type)}</td>
+                                    <td>{tx.amount}</td>
+                                    <td>{tx.currency}</td>
+                                    <td>{getTransactionStatusBadge(tx.status)}</td>
+                                    <td>
+                                      <a href={getTransactionLink(tx.currency, tx.id)} target="_blank" rel="noopener noreferrer">
+                                        {truncateAddress(tx.id)} <i className="fas fa-external-link-alt"></i>
+                                      </a>
+                                    </td>
+                                  </tr>
+                                ));
+                              })()}
                             </tbody>
                           </Table>
                         </div>
@@ -497,7 +488,19 @@ const TransparencyPage = () => {
                                   <td>USDT</td>
                                   <td>
                                     <a href="#" target="_blank" rel="noopener noreferrer">
-                                      tx2usdt... <i className="fas fa-external-link-alt"></i>
+                                      tx3eth... <i className="fas fa-external-link-alt"></i>
+                                    </a>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>2023-11-29</td>
+                                  <td>Medical Aid International</td>
+                                  <td>Emergency Medical Supplies</td>
+                                  <td>0.150000</td>
+                                  <td>ETH</td>
+                                  <td>
+                                    <a href="#" target="_blank" rel="noopener noreferrer">
+                                      tx4eth... <i className="fas fa-external-link-alt"></i>
                                     </a>
                                   </td>
                                 </tr>
@@ -519,4 +522,4 @@ const TransparencyPage = () => {
   );
 };
 
-export default TransparencyPage; 
+export default TransparencyPage;

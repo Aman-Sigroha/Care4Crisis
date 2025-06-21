@@ -3,16 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // import DonationNav from './DonationNav'; // Removed to prevent double navbar
 import BlockchainConfirmation from './BlockchainConfirmation';
-import { addTransactionToHistory } from '../../services/blockchainExplorerService';
 import './DonationSuccess.css';
-
-// Default wallet addresses for donations (matching the ones in blockchainExplorerService)
-const ADDRESSES = {
-  bitcoin: "tb1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh",
-  ethereum: "0xFCe725102101817eC210FcE24F0ec91E277c7d29",
-  usdt: "0xFCe725102101817eC210FcE24F0ec91E277c7d29",
-  solana: "AWKV2E7xsQmnY1tz9tAfMygtrDDhzSsNUGKgc9RxPYcG"
-};
 
 const DonationSuccess = () => {
   const location = useLocation();
@@ -45,24 +36,6 @@ const DonationSuccess = () => {
       };
       
       setDonationData(combinedData);
-      
-      // Save to donation history in localStorage for transparency page
-      const transaction = {
-        id: txResult.txHash || ('tx-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9)),
-        date: new Date().toISOString(),
-        type: 'received',
-        amount: String(txResult.amount || '0'),
-        from: txResult.from || 'Anonymous Donor',
-        to: txResult.to || ADDRESSES[txResult.currency.toLowerCase()] || 'Care4Crisis',
-        status: 'confirmed',
-        currency: txResult.currency || 'ETH'
-      };
-      
-      // Log the transaction we're about to add
-      console.log('Adding transaction to history:', transaction);
-      
-      // Add the transaction to history service
-      addTransactionToHistory(transaction);
     } else {
       // Fallback to default demo data if no transaction data is available
       const demoData = {

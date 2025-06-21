@@ -6,16 +6,14 @@ const EventsNav = () => {
   return (
     <Navbar className='events-navbar' bg="dark" data-bs-theme="dark" expand="lg" sticky="top">
       <Container>
-        <Link to="/Care4Crisis/">
+        <Link to="/Care4Crisis/home">
           <Navbar.Brand href="#home">Care4Crisis</Navbar.Brand>
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/Care4Crisis/" className="nav-link">Home</Link>
+            <Link to="/Care4Crisis/home" className="nav-link">Home</Link>
             <Nav.Link href="#top" className="active">Causes</Nav.Link>
-            <Nav.Link href="#about">About Us</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
             <Link to="/Care4Crisis/transparency" className="nav-link">Transparency</Link>
           </Nav>
           <Nav className="ms-auto">

@@ -80,34 +80,34 @@ class SignIn extends Component {
                 )}
                 
                 <form onSubmit={e => { e.preventDefault(); this.onSubmitSignIn(); }}>
-                  <div className="form-group">
-                      <label htmlFor="email-address">Email ID</label>
-                      <input 
-                          onChange={this.onEmailChange} 
-                          className="neon-input" 
-                          type="email" 
-                          name="email-address" 
-                          id="email-address"
-                          placeholder="Enter your email"
-                      />
-                  </div>
-                  <div className="form-group">
-                      <label htmlFor="password">Security Key</label>
-                      <input 
-                          onChange={this.onPasswordChange} 
-                          className="neon-input" 
-                          type="password" 
-                          name="password" 
-                          id="password"
-                          placeholder="Enter your password"
-                      />
-                  </div>
-                  <button 
+                <div className="form-group">
+                    <label htmlFor="email-address">Email ID</label>
+                    <input 
+                        onChange={this.onEmailChange} 
+                        className="neon-input" 
+                        type="email" 
+                        name="email-address" 
+                        id="email-address"
+                        placeholder="Enter your email"
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Security Key</label>
+                    <input 
+                        onChange={this.onPasswordChange} 
+                        className="neon-input" 
+                        type="password" 
+                        name="password" 
+                        id="password"
+                        placeholder="Enter your password"
+                    />
+                </div>
+                <button 
                       type="submit"
-                      className="cyber-button signin-btn"
-                  >
-                      <span className="button-text">System Login</span>
-                  </button>
+                    className="cyber-button signin-btn"
+                >
+                    <span className="button-text">System Login</span>
+                </button>
                 </form>
                 <div className="alt-action">
                     <p>New user?</p>

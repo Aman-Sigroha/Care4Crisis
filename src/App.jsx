@@ -33,7 +33,12 @@ const initialState = {
     email: '',
     entries: 0,
     joined: ''
-}};
+  },
+  // Add wallet state
+  isWalletConnected: false,
+  walletAddress: '',
+  walletType: ''
+};
 
 // Default user for direct access
 const defaultUser = {
@@ -105,6 +110,24 @@ class App extends Component {
     this.state = initialState;
   }
 
+  // New wallet connection handler
+  handleWalletUpdate = (walletType, address) => {
+    if (walletType && address) {
+      this.setState({
+        isWalletConnected: true,
+        walletAddress: address,
+        walletType: walletType,
+      });
+    } else {
+      // Handle disconnection
+      this.setState({
+        isWalletConnected: false,
+        walletAddress: '',
+        walletType: '',
+      });
+    }
+  };
+
   loadUser = (data)=>{
     this.setState({user: {
       id: data.id,
@@ -133,7 +156,7 @@ class App extends Component {
   };
 
   render() {
-    const {isSignedIn} = this.state
+    const {isSignedIn, isWalletConnected, walletAddress, walletType} = this.state
     
     const particlesInit = async (main) => {
       await loadFull(main);
@@ -294,6 +317,11 @@ class App extends Component {
       <NavigationWithRouter
         issignedin={isSignedIn}
         updateSignInStatus={this.updateSignInStatus}
+        // Pass wallet state down
+        isWalletConnected={isWalletConnected}
+        walletAddress={walletAddress}
+        walletType={walletType}
+        onWalletUpdate={this.handleWalletUpdate}
       />
     );
     
@@ -321,7 +349,7 @@ class App extends Component {
             <Route path={`${BASE_PATH}/events`} element={
               isSignedIn ? (
                 <>
-                  <ProtectedNavigation />
+                  
                   <EventsPage />
                   <Chatbot />
                 </>
@@ -333,8 +361,12 @@ class App extends Component {
             <Route path={`${BASE_PATH}/donate/:causeId`} element={
               isSignedIn ? (
                 <>
-                  <ProtectedNavigation />
-                  <DonationPage />
+                  <DonationPage 
+                    isWalletConnected={isWalletConnected}
+                    walletAddress={walletAddress}
+                    walletType={walletType}
+                    onWalletUpdate={this.handleWalletUpdate}
+                  />
                   <Chatbot />
                 </>
               ) : (
@@ -345,8 +377,12 @@ class App extends Component {
             <Route path={`${BASE_PATH}/donate`} element={
               isSignedIn ? (
                 <>
-                  <ProtectedNavigation />
-                  <DonationPage />
+                  <DonationPage 
+                    isWalletConnected={isWalletConnected}
+                    walletAddress={walletAddress}
+                    walletType={walletType}
+                    onWalletUpdate={this.handleWalletUpdate}
+                  />
                   <Chatbot />
                 </>
               ) : (
@@ -368,7 +404,6 @@ class App extends Component {
             
             <Route path={`${BASE_PATH}/transparency`} element={
               <>
-                <ProtectedNavigation />
                 <TransparencyPage />
                 <Chatbot />
               </>

@@ -9,7 +9,7 @@ import { makeDonation } from '../../services/solanaService';
 // Import BASE_PATH constant from App.jsx or define it here
 const BASE_PATH = '/Care4Crisis';
 
-const DonationPage = () => {
+const DonationPage = ({ isWalletConnected, walletAddress, walletType, onWalletUpdate }) => {
   const [activeTab, setActiveTab] = useState('crypto');
   const [amount, setAmount] = useState('');
   const [cryptoCurrency, setCryptoCurrency] = useState('ETH');
@@ -91,6 +91,18 @@ const DonationPage = () => {
     const foundCause = causes[causeId] || causes[1];
     setCauseDetails(foundCause);
   }, [causeId]);
+
+  // Render the navigation bar
+  const renderDonationNav = () => {
+    return (
+      <DonationNav 
+        isWalletConnected={isWalletConnected}
+        walletAddress={walletAddress}
+        walletType={walletType}
+        onWalletUpdate={onWalletUpdate}
+      />
+    );
+  };
 
   // Get wallet address based on selected cryptocurrency
   const getWalletAddress = (cryptoCurrency) => {
@@ -413,7 +425,7 @@ const DonationPage = () => {
 
   return (
     <div className="donation-page">
-      <DonationNav />
+      {renderDonationNav()}
       
       <div className="donation-hero">
         <h1>SUPPORT THE <span className="highlight">CAUSE</span></h1>

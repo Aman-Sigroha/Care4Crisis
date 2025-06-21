@@ -1,76 +1,36 @@
 /* Donation Navigation styling */
 .donation-navbar {
-  background-color: rgba(10, 14, 23, 0.95) !important;
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(5, 195, 221, 0.2);
-  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+  background-color: #1a1a1a !important;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border-bottom: 1px solid #05c3dd;
 }
 
-.donation-navbar .navbar-brand {
-  font-family: 'Orbitron', sans-serif;
-  color: #fff !important;
-  font-weight: 700;
-  letter-spacing: 1px;
-  padding: 0.5rem 0;
-  position: relative;
-  text-shadow: 0 0 5px rgba(5, 195, 221, 0.5);
-}
-
-.donation-navbar .navbar-brand::after {
-  content: '';
-  position: absolute;
-  bottom: 0.3rem;
-  left: 0;
-  width: 100%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, #05c3dd, transparent);
-  transform: scaleX(0.7);
-  transform-origin: center;
-  transition: transform 0.3s ease;
-}
-
-.donation-navbar .navbar-brand:hover::after {
-  transform: scaleX(1);
-}
-
+.donation-navbar .navbar-brand,
 .donation-navbar .nav-link {
-  color: #b0b7c3 !important;
-  position: relative;
-  padding: 0.5rem 1rem !important;
-  transition: all 0.3s ease;
+  color: #e0e0e0 !important;
+  transition: color 0.3s;
 }
 
 .donation-navbar .nav-link:hover {
-  color: #fff !important;
+  color: #05c3dd !important;
 }
 
-.donation-navbar .nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 2px;
-  background: #05c3dd;
-  transform: translateX(-50%);
-  transition: width 0.3s ease;
-}
-
-.donation-navbar .nav-link:hover::after,
-.donation-navbar .nav-link.active::after {
-  width: 70%;
+/* Ensure the right-side nav items align correctly */
+.donation-navbar .ms-auto {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* Adds space between wallet button and badge */
 }
 
 .secure-badge {
   display: flex;
   align-items: center;
-  background: rgba(52, 199, 89, 0.2);
-  color: #34c759;
-  padding: 0.4rem 0.8rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
+  background-color: rgba(5, 195, 221, 0.1);
+  color: #05c3dd;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
   font-weight: 500;
-  margin-left: 1rem;
 }
 
 .secure-badge i {

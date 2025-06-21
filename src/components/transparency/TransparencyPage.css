@@ -1,6 +1,5 @@
 .transparency-page {
   background: #f4f7fa;
-  min-height: 100vh;
 }
 
 .transparency-hero {
@@ -70,14 +69,14 @@
   font-size: 1.5rem;
   font-weight: 600;
   margin-bottom: 1rem;
-  color: #1e40af;
+  color: white;
 }
 
 .currency-balance {
   font-size: 2rem;
   font-weight: 700;
   margin: 0.75rem 0;
-  color: #4f46e5;
+  color: white;
 }
 
 .real-time-indicator {
@@ -85,6 +84,7 @@
   margin-top: 0.25rem;
   display: flex;
   justify-content: center;
+  padding-right: 1rem;
 }
 
 .real-time-indicator i {
@@ -133,13 +133,22 @@
 }
 
 .nav-pills .nav-link {
-  color: #4b5563;
+  color: black !important;
+  background-color: #e9ecef;
   border-radius: 0.5rem;
   margin-bottom: 0.5rem;
+  font-weight: 500;
+  border: 1px solid #dee2e6;
+}
+
+.nav-pills .nav-link:not(.active):hover {
+  background-color: #dee2e6;
 }
 
 .nav-pills .nav-link.active {
   background-color: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
 }
 
 .wallet-info {

@@ -6,12 +6,7 @@ import WalletConnector from '../common/WalletConnector';
 // Import BASE_PATH constant from App.jsx or define it here
 const BASE_PATH = '/Care4Crisis';
 
-const DonationNav = () => {
-  const handleWalletConnect = (walletType, address) => {
-    console.log(`Connected to ${walletType} wallet: ${address}`);
-    // You could store this in app state or context if needed
-  };
-
+const DonationNav = ({ isWalletConnected, walletAddress, walletType, onWalletUpdate }) => {
   return (
     <Navbar className='donation-navbar' bg="dark" data-bs-theme="dark" expand="lg" sticky="top">
       <Container>
@@ -23,12 +18,15 @@ const DonationNav = () => {
           <Nav className="me-auto">
             <Link to={`${BASE_PATH}/`} className="nav-link">Home</Link>
             <Link to={`${BASE_PATH}/events`} className="nav-link">Causes</Link>
-            <Nav.Link href="#about">About Us</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
           </Nav>
-          <Nav className="ms-auto">
-            <WalletConnector onWalletConnect={handleWalletConnect} />
-            <div className="secure-badge ms-2">
+          <Nav className="ms-auto d-flex align-items-center">
+            <WalletConnector
+              isWalletConnected={isWalletConnected}
+              walletAddress={walletAddress}
+              walletType={walletType}
+              onWalletConnect={onWalletUpdate}
+            />
+            <div className="secure-badge ms-3">
               <i className="fas fa-lock"></i> Secure Donation
             </div>
           </Nav>

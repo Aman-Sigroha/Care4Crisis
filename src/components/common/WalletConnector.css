@@ -154,4 +154,75 @@
 
 .wallet-instructions li {
   margin-bottom: 5px;
+}
+
+.wallet-connector-container {
+    display: flex;
+    align-items: center;
+}
+
+.connected-wallet-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.wallet-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.disconnect-icon-container {
+    margin-left: auto;
+    padding-left: 0.5rem;
+}
+
+/* Modal Styling */
+.modal-content {
+    background-color: white;
+    color: black !important;
+    border: 1px solid #dee2e6;
+}
+
+.modal-header {
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-header .btn-close {
+    /* Revert to default for light background */
+    filter: none;
+}
+
+.nav-tabs .nav-link {
+    color: #000000 !important;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    margin-right: 0.5rem;
+}
+
+.nav-tabs .nav-link.active {
+    color: black;
+    background-color: white;
+    border-bottom-color: white;
+}
+
+.wallet-logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+}
+
+.connect-wallet-btn {
+    background: linear-gradient(90deg, #05c3dd, #6a33f8);
+    border: none;
+    transition: all 0.3s ease;
+    padding: 0.75rem 1.5rem;
+    font-weight: bold;
+    color: white; /* Keep button text white */
+}
+
+.connect-wallet-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(106, 51, 248, 0.4);
 } 
