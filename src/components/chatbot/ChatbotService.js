@@ -200,7 +200,19 @@ export const getAIResponse = async (userQuery, conversationHistory = []) => {
 
 // Function to check if AI service is available
 export const isAIAvailable = async () => {
-  return await checkAIService();
+  console.log('isAIAvailable called');
+  try {
+    if (!checkAIService) {
+      console.error('checkAIService is not a function');
+      return false;
+    }
+    // Simple test request
+    const response = await checkAIService();
+    return response && !response.includes("trouble") && !response.includes("difficulties");
+  } catch (error) {
+    console.error('AI service check failed:', error);
+    return false;
+  }
 };
 
 // Enhanced matching function to detect more specific queries
