@@ -2,6 +2,24 @@
 
 This project enhances the Care4Crisis donation platform with blockchain integration, providing transparency and automated fund distribution for donations.
 
+## 🤖 AI-Powered Chatbot
+
+The platform now features an intelligent chatbot powered by Google's Gemini AI:
+
+### Features
+- **Hybrid Response System**: Combines AI responses with predefined logic for navigation and specific features
+- **Context-Aware**: Understands conversation history and provides relevant responses
+- **Fallback System**: Gracefully handles AI service issues with predefined responses
+- **Smart Query Detection**: Automatically uses AI for complex questions while maintaining platform-specific functionality
+
+### Setup
+1. Get a free API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Add to your environment variables:
+   ```env
+   VITE_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+3. The chatbot will automatically use AI responses for complex queries
+
 ## Smart Contract Details
 
 The platform uses smart contracts to handle donations for NGO campaigns:

@@ -1,4 +1,5 @@
 // Chatbot knowledge base with detailed responses for common questions
+import { generateAIResponse, shouldUseAI, checkAIService } from '../../services/geminiService';
 
 // Payment process descriptions
 const paymentProcesses = {
@@ -141,7 +142,19 @@ export const navigationOptions = {
 };
 
 // Function to get detailed response for a specific topic
-export const getDetailedResponse = (topic) => {
+export const getDetailedResponse = async (topic, userQuery = '', conversationHistory = []) => {
+  // Check if we should use AI for this query
+  if (userQuery && shouldUseAI(userQuery)) {
+    try {
+      const aiResponse = await generateAIResponse(userQuery, conversationHistory);
+      return aiResponse;
+    } catch (error) {
+      console.error('AI response failed, falling back to predefined response:', error);
+      // Fall back to predefined response
+    }
+  }
+
+  // Use predefined responses for specific topics
   switch (topic) {
     case 'crypto_payment':
       return paymentProcesses.cryptocurrency;
@@ -172,6 +185,22 @@ export const getDetailedResponse = (topic) => {
     default:
       return null;
   }
+};
+
+// New function to get AI-powered response
+export const getAIResponse = async (userQuery, conversationHistory = []) => {
+  try {
+    const aiResponse = await generateAIResponse(userQuery, conversationHistory);
+    return aiResponse;
+  } catch (error) {
+    console.error('AI response generation failed:', error);
+    return null;
+  }
+};
+
+// Function to check if AI service is available
+export const isAIAvailable = async () => {
+  return await checkAIService();
 };
 
 // Enhanced matching function to detect more specific queries
@@ -420,5 +449,8 @@ export default {
   navigationOptions,
   getDonationIntent,
   getDonationResponse,
-  getCryptoInfo
+  getCryptoInfo,
+  getAIResponse,
+  shouldUseAI,
+  isAIAvailable
 }; 

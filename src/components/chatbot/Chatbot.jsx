@@ -9,8 +9,11 @@ import {
   getNavigationMessage,
   getDonationIntent,
   getDonationResponse,
-  getCryptoInfo
+  getCryptoInfo,
+  getAIResponse,
+  isAIAvailable
 } from './ChatbotService';
+import { shouldUseAI } from '../../services/geminiService';
 
 // Sample chatbot responses based on user queries
 const chatbotResponses = {
@@ -86,6 +89,7 @@ const Chatbot = () => {
   const [hasError, setHasError] = useState(false);
   const [pendingNavigation, setPendingNavigation] = useState(null);
   const [isInputDisabled, setIsInputDisabled] = useState(false);
+  const [isAIAvailable, setIsAIAvailable] = useState(false);
   const messagesEndRef = useRef(null);
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -103,6 +107,19 @@ const Chatbot = () => {
   useEffect(() => {
     try {
       setIsLoaded(true);
+      
+      // Check AI availability
+      const checkAI = async () => {
+        try {
+          const aiAvailable = await isAIAvailable();
+          setIsAIAvailable(aiAvailable);
+        } catch (error) {
+          console.error('Error checking AI availability:', error);
+          setIsAIAvailable(false);
+        }
+      };
+      
+      checkAI();
       
       // Only set welcome message if none exists
       if (messages.length === 0) {
@@ -331,26 +348,46 @@ const Chatbot = () => {
       const specificTopic = getTopicFromQuery(currentInput);
       
       // Simulate bot "typing"
-      setTimeout(() => {
+      setTimeout(async () => {
         try {
           let botResponse;
           
-          if (specificTopic) {
-            // Use detailed response if available
-            const detailedText = getDetailedResponse(specificTopic);
-            botResponse = {
-              text: detailedText,
-              sender: 'bot',
-              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
-          } else {
-            // Fall back to general response
-            const responseCategory = matchUserInput(currentInput);
-            botResponse = {
-              text: getRandomResponse(responseCategory),
-              sender: 'bot',
-              timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-            };
+          // Try AI response first if available and query is complex
+          if (isAIAvailable && shouldUseAI(currentInput)) {
+            try {
+              const aiResponse = await getAIResponse(currentInput, messages);
+              if (aiResponse) {
+                botResponse = {
+                  text: aiResponse,
+                  sender: 'bot',
+                  timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  isAIResponse: true
+                };
+              }
+            } catch (aiError) {
+              console.error('AI response failed, falling back to predefined response:', aiError);
+            }
+          }
+          
+          // If no AI response, use predefined responses
+          if (!botResponse) {
+            if (specificTopic) {
+              // Use detailed response if available
+              const detailedText = await getDetailedResponse(specificTopic, currentInput, messages);
+              botResponse = {
+                text: detailedText,
+                sender: 'bot',
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              };
+            } else {
+              // Fall back to general response
+              const responseCategory = matchUserInput(currentInput);
+              botResponse = {
+                text: getRandomResponse(responseCategory),
+                sender: 'bot',
+                timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              };
+            }
           }
           
           setMessages(prev => [...prev, botResponse]);
