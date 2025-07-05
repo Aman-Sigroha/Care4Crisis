@@ -439,18 +439,4 @@ export const getCryptoInfo = (query) => {
   }
   
   return null;
-};
-
-export default {
-  getDetailedResponse,
-  getTopicFromQuery,
-  isNavigationRequest,
-  getNavigationMessage,
-  navigationOptions,
-  getDonationIntent,
-  getDonationResponse,
-  getCryptoInfo,
-  getAIResponse,
-  shouldUseAI,
-  isAIAvailable
 }; 
