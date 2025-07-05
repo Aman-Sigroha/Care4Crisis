@@ -146,15 +146,15 @@ export const checkAIService = async () => {
 // Function to detect if a query should use AI
 export const shouldUseAI = (query) => {
   const lowerQuery = query.toLowerCase();
-  
-  // Use AI for complex or specific questions
   const aiTriggers = [
     'how does', 'what is', 'explain', 'tell me about', 'why', 'when', 'where',
     'can you help', 'i need help', 'i have a question', 'what are', 'how can',
-    'difference between', 'compare', 'advantages', 'disadvantages', 'benefits'
+    'difference between', 'compare', 'advantages', 'disadvantages', 'benefits',
+    'who is', 'who are', 'president', 'prime minister', 'ceo', 'founder', 'capital of', 'country', 'city', 'famous', 'history', 'fact', 'information', 'details'
   ];
-  
-  return aiTriggers.some(trigger => lowerQuery.includes(trigger));
+  const should = aiTriggers.some(trigger => lowerQuery.includes(trigger));
+  console.log('shouldUseAI called:', query, '=>', should);
+  return should;
 };
 
 export default {
