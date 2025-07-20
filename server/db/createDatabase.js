@@ -7,7 +7,12 @@ const client = new Client({
   host: process.env.PGHOST,
   database: 'postgres', // Connect to default postgres database
   password: process.env.PGPASSWORD,
-  port: process.env.PGPORT
+  port: process.env.PGPORT,
+  ssl: {
+    rejectUnauthorized: false,
+    sslmode: 'require',
+    channelbinding: 'require'
+  }
 });
 
 const createDatabase = async () => {
